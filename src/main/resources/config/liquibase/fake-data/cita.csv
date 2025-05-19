@@ -1,11 +1,11 @@
 id;fecha_creacion;estado_cita;observaciones
-1;2025-05-18;FINALIZADO;hateful
-2;2025-05-18;PENDIENTE;imaginative
-3;2025-05-18;FINALIZADO;imagineer pish
-4;2025-05-18;CANCELADO;regularly beside kindheartedly
-5;2025-05-18;FINALIZADO;weird
-6;2025-05-18;PENDIENTE;before across reclassify
-7;2025-05-19;PENDIENTE;wholly oddball yippee
-8;2025-05-18;FINALIZADO;incidentally ghost atomize
-9;2025-05-18;FINALIZADO;sneaky
-10;2025-05-19;FINALIZADO;triumphantly whenever
+1;2025-04-01;FINALIZADO;La paciente presenta dolor constante en la zona lumbar, con sensación de hormigueo en las piernas y dificultad para moverse al caminar. Comenta que el dolor aumenta al estar mucho tiempo de pie.
+2;2025-04-02;PENDIENTE;El paciente reporta dolor agudo en el pecho, acompañado de mareos y dificultad para respirar. Refirió haber sentido un "estrangulamiento" en la garganta durante la noche.
+3;2025-04-03;CANCELADO;La cita fue cancelada porque el paciente tuvo un episodio de fiebre alta, acompañado de temblores y dolor de cabeza. Mencionó que no se sentía capaz de asistir a la consulta.
+4;2025-04-04;FINALIZADO;El paciente se queja de dolor punzante en la rodilla izquierda, especialmente al intentar subir escaleras. Además, describe un adormecimiento en la pierna que a veces llega hasta el tobillo.
+5;2025-04-05;PENDIENTE;La paciente refiere un dolor constante en el abdomen bajo, similar a cólicos menstruales, acompañado de sensación de náuseas y cansancio generalizado. No ha tenido fiebre, pero siente malestar general.
+6;2025-04-06;CANCELADO;La cita fue cancelada debido a que el paciente sufrió un esguince en el tobillo mientras practicaba deporte. Reportó hinchazón y no puede caminar sin dificultad.
+7;2025-04-07;FINALIZADO;El paciente describe un dolor sordo en la espalda baja, con rigidez al despertar por las mañanas. También ha notado que el dolor se intensifica al agacharse o al levantarse después de estar mucho tiempo sentado.
+8;2025-04-08;PENDIENTE;La paciente presenta dolor de cabeza intermitente, con sensación de presión en los ojos y náuseas leves. Comenta que los síntomas aumentan con la exposición a la luz brillante.
+9;2025-04-09;CANCELADO;La cita fue cancelada porque el paciente experimentó un episodio de ansiedad, con palpitaciones y dificultad para respirar. Mencionó que no pudo calmarse lo suficiente para asistir a la consulta.
+10;2025-04-10;FINALIZADO;El paciente tiene un dolor punzante en el pecho izquierdo, que se irradia hacia el brazo. Experimenta dificultad para respirar en ciertos momentos del día y se siente fatigado incluso después de descansar.

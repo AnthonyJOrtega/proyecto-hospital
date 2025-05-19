@@ -1,11 +1,36 @@
 id;nombre;apellido;dni;seguro_medico;fecha_nacimiento;telefono
-1;sour stratify zowie;woot zowie enrage;unearth;mindless dual;2025-05-19;provided silent adumbrate
-2;fooey blissfully dazzling;yet;saw neck;interestingly round second-hand;2025-05-18;comfortable ramp motor
-3;boohoo;disapprove;behind phooey;other hexagon;2025-05-18;even
-4;boohoo;ouch oxidise joyfully;readjust for which;taxicab;2025-05-18;circa to
-5;substitution;while;metabolite;if ew typeface;2025-05-19;brr times whoa
-6;chow exotic unexpectedly;trim though pro;gah;ha gee carboxyl;2025-05-19;developing recede rally
-7;awareness;posh behind;daintily although restaurant;since;2025-05-19;heighten
-8;kinase;when while colorize;sheathe;onto hm adrenalin;2025-05-19;yahoo
-9;finally shy;sans sweetly ack;consequently;until deduction colour;2025-05-18;unnecessarily
-10;doodle border;loosely uncomfortable hovel;aching past yet;diligently homely;2025-05-18;dereference rightfully
+1;Juan;Ortega;49345678X;Sanitas;1985-05-12;612345678
+2;Ana;Gómez;23456789B;Adeslas;1990-08-23;623456789
+3;Luis;Martínez;34567890C;Asisa;1982-02-14;634567890
+4;María;Sánchez;45678901D;DKV;1995-11-30;645678901
+5;Carlos;Fernández;56789012E;Mapfre;1987-04-18;656789012
+6;Laura;López;67890123F;Bupa;1992-09-05;667890123
+7;Pedro;González;78901234G;SegurCaixa;1980-12-22;678901234
+8;Marta;Rodríguez;89012345H;Mutua Madrileña;1998-06-16;689012345
+9;José;Hernández;90123456I;Allianz;1983-03-03;690123456
+10;Elena;Moreno;01234567J;AXA;1993-07-10;601234567
+11;Ricardo;Torres;12398765K;Sanitas;1986-04-10;611234567
+12;Isabel;Ramírez;23487654L;Adeslas;1991-03-20;622345678
+13;Francisco;Díaz;34576543M;Asisa;1984-01-15;633456789
+14;Raquel;Álvarez;45665432N;DKV;1989-06-02;644567890
+15;David;Jiménez;56754321O;Mapfre;1981-09-25;655678901
+16;Verónica;Castro;67843210P;Bupa;1994-11-11;666789012
+17;Miguel;Vázquez;78932109Q;SegurCaixa;1983-05-14;677890123
+18;Sonia;Morales;89021098R;Mutua Madrileña;1987-08-30;688901234
+19;Tomás;Mendoza;90110987S;Allianz;1990-12-03;699012345
+20;Carmen;Serrano;01209876T;AXA;1982-07-08;600123456
+21;Javier;Gutiérrez;12345676U;Sanitas;1985-01-22;611223344
+22;Eva;Jiménez;23456765V;Adeslas;1992-05-18;622334455
+23;Antonio;Moreno;34567854W;Asisa;1981-03-10;633445566
+24;Pilar;Herrera;45678943X;DKV;1989-07-19;644556677
+25;Juan;Ruiz;56789032Y;Mapfre;1993-12-28;655667788
+26;Mónica;González;67890121Z;Bupa;1986-09-03;666778899
+27;Alberto;Sánchez;78901210A;SegurCaixa;1984-11-12;677889900
+28;Lucía;López;89012301B;Mutua Madrileña;1990-04-09;688990011
+29;José;Álvarez;90123412C;Allianz;1982-10-01;699001122
+30;María;Martín;01234523D;AXA;1995-06-25;600112233
+31;Sergio;Moreno;12398765E;Sanitas;1987-02-18;611334455
+32;Patricia;Córdoba;23487654F;Adeslas;1994-11-09;622445566
+33;Carlos;Romero;34576543G;Asisa;1983-07-15;633556677
+34;Beatriz;Serrano;45665432H;DKV;1991-09-30;644667788
+35;Eduardo;Vega;56754321I;Mapfre;1988-04-04;655778899

@@ -1,11 +1,21 @@
 id;nombre;descripcion;dosis
-1;zebra until loudly;notwithstanding among unnecessarily;forgo meanwhile
-2;massage bowed;machine;replacement manipulate
-3;yum supposing;a alongside violently;firm anenst helpless
-4;till astride;telescope;tangible behold
-5;round;jell;out after yearly
-6;truthfully drat;upright indeed cycle;brr
-7;sparse baa;pfft depute;carpool arid incidentally
-8;outside;gust surprised um;save independence torn
-9;lively apprehensive canter;giant hopelessly;gratefully
-10;violently suspension;outfit bulky;ack although phew
+1;paracetamol;analgésico y antipirético;500mg
+2;ibuprofeno;antiinflamatorio no esteroideo;400mg
+3;amoxicilina;antibiótico de amplio espectro;250mg
+4;loratadina;antihistamínico para alergias;10mg
+5;aspirina;analgésico y antiinflamatorio;500mg
+6;omeprazol;inhibidor de la bomba de protones;20mg
+7;prednisona;corticosteroide antiinflamatorio;5mg
+8;metformina;medicación para la diabetes tipo 2;850mg
+9;salbutamol;broncodilatador para el asma;100mcg
+10;enalapril;antihipertensivo;5mg
+11;dipirona;analgésico y antipirético;500mg
+12;clorhidrato de ranitidina;antiácido y antihistamínico;150mg
+13;losartán;antihipertensivo;50mg
+14;dexametasona;corticosteroide;4mg
+15;furosemida;diurético;40mg
+16;cetirizina;antihistamínico para alergias;10mg
+17;hidroxicloroquina;medicación para enfermedades autoinmunes;200mg
+18;fluconazol;antifúngico;150mg
+19;azitromicina;antibiótico de amplio espectro;500mg
+20;albuterol;broncodilatador para el asma;200mcg
