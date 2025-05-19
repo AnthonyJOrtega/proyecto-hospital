@@ -1,0 +1,29 @@
+{
+  "tfg2App": {
+    "cita": {
+      "home": {
+        "title": "Citas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Cita",
+        "createOrEditLabel": "Crear o editar Cita",
+        "notFound": "Ningún Citas encontrado"
+      },
+      "created": "Un nuevo Cita ha sido creado con el identificador {{ param }}",
+      "updated": "Un Cita ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Cita ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Cita {{ id }}?"
+      },
+      "detail": {
+        "title": "Cita"
+      },
+      "id": "ID",
+      "fechaCreacion": "Fecha Creacion",
+      "estadoCita": "Estado Cita",
+      "observaciones": "Observaciones",
+      "informe": "Informe",
+      "paciente": "Paciente",
+      "trabajador": "Trabajador"
+    }
+  }
+}

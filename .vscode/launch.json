@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-Tfg2App<tfg-2>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.mycompany.myapp.Tfg2App",
+      "projectName": "tfg-2",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

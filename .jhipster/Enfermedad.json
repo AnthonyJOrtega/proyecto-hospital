@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20250519115959"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Enfermedad",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "informe",
+      "otherEntityRelationshipName": "enfermedad",
+      "relationshipName": "informe",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

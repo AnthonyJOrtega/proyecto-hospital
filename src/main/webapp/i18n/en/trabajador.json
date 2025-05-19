@@ -1,0 +1,36 @@
+{
+  "tfg2App": {
+    "trabajador": {
+      "home": {
+        "title": "Trabajadors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Trabajador",
+        "createOrEditLabel": "Create or edit a Trabajador",
+        "notFound": "No Trabajadors found"
+      },
+      "created": "A new Trabajador is created with identifier {{ param }}",
+      "updated": "A Trabajador is updated with identifier {{ param }}",
+      "deleted": "A Trabajador is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Trabajador {{ id }}?"
+      },
+      "detail": {
+        "title": "Trabajador"
+      },
+      "id": "ID",
+      "idUsuario": "Id Usuario",
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "dni": "Dni",
+      "puesto": "Puesto",
+      "disponibilidad": "Disponibilidad",
+      "turno": "Turno",
+      "especialidad": "Especialidad",
+      "informe": "Informe",
+      "receta": "Receta",
+      "cita": "Cita",
+      "paciente": "Paciente",
+      "direccion": "Direccion"
+    }
+  }
+}

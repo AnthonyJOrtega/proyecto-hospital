@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (receta(); as recetaRef) {
+      <div>
+        <h2 data-cy="recetaDetailsHeading"><span jhiTranslate="tfg2App.receta.detail.title">Receta</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ recetaRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.fechaInicio">Fecha Inicio</span></dt>
+          <dd>
+            <span>{{ recetaRef.fechaInicio | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.fechaFin">Fecha Fin</span></dt>
+          <dd>
+            <span>{{ recetaRef.fechaFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.instrucciones">Instrucciones</span></dt>
+          <dd>
+            <span>{{ recetaRef.instrucciones }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.paciente">Paciente</span></dt>
+          <dd>
+            @if (receta()!.paciente) {
+              <div>
+                <a [routerLink]="['/paciente', receta()!.paciente?.id, 'view']">{{ recetaRef.paciente?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.trabajador">Trabajador</span></dt>
+          <dd>
+            @if (receta()!.trabajador) {
+              <div>
+                <a [routerLink]="['/trabajador', receta()!.trabajador?.id, 'view']">{{ recetaRef.trabajador?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.receta.medicamento">Medicamento</span></dt>
+          <dd>
+            @for (medicamento of recetaRef.medicamentos; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/medicamento', medicamento.id, 'view']">{{ medicamento?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/receta', recetaRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,191 @@
+<div>
+  <h2 id="page-heading" data-cy="TrabajadorHeading">
+    <span jhiTranslate="tfg2App.trabajador.home.title">Trabajadors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="tfg2App.trabajador.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-trabajador"
+        [routerLink]="['/trabajador/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="tfg2App.trabajador.home.createLabel">Crear nuevo Trabajador</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (trabajadors().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="tfg2App.trabajador.home.notFound">Ningún Trabajadors encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="idUsuario">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nombre">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.nombre">Nombre</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="apellido">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.apellido">Apellido</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dni">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.dni">Dni</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="puesto">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.puesto">Puesto</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="disponibilidad">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.disponibilidad">Disponibilidad</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="turno">
+              <div class="d-flex">
+                <span jhiTranslate="tfg2App.trabajador.turno">Turno</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (trabajador of trabajadors(); track trackId(trabajador)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador.id }}</a>
+              </td>
+              <td>{{ trabajador.idUsuario }}</td>
+              <td>{{ trabajador.nombre }}</td>
+              <td>{{ trabajador.apellido }}</td>
+              <td>{{ trabajador.dni }}</td>
+              <td [jhiTranslate]="'tfg2App.Puesto.' + (trabajador.puesto ?? 'null')">
+                {{
+                  { null: '', MEDICO: 'MEDICO', ENFERMERO: 'ENFERMERO', CELADOR: 'CELADOR', ADMINISTRATIVO: 'ADMINISTRATIVO' }[
+                    trabajador.puesto ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ trabajador.disponibilidad }}</td>
+              <td [jhiTranslate]="'tfg2App.Turno.' + (trabajador.turno ?? 'null')">
+                {{ { null: '', DIA: 'DIA', TARDE: 'TARDE', NOCHE: 'NOCHE', GUARDIA: 'GUARDIA' }[trabajador.turno ?? 'null'] }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/informe']"
+                    [queryParams]="{ 'filter[trabajadorId.in]': trabajador.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('tfg2App.trabajador.informe' | translate) }"
+                      >Show Informe</span
+                    >
+                  </button>
+                  <button
+                    type="submit"
+                    [routerLink]="['/receta']"
+                    [queryParams]="{ 'filter[trabajadorId.in]': trabajador.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      jhiTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('tfg2App.trabajador.receta' | translate) }"
+                      >Show Receta</span
+                    >
+                  </button>
+                  <a [routerLink]="['/trabajador', trabajador.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+                  </a>
+
+                  <a [routerLink]="['/trabajador', trabajador.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(trabajador)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (trabajadors().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page, totalItems, itemsPerPage }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

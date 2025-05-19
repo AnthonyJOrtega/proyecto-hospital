@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Receta.
+    -->
+    <changeSet id="20250519115957-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="paciente_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta__paciente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="trabajador_id"
+                                 baseTableName="receta"
+                                 constraintName="fk_receta__trabajador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="trabajador"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="receta_id"
+                                 baseTableName="rel_receta__medicamento"
+                                 constraintName="fk_rel_receta__medicamento__receta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="receta"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="medicamento_id"
+                                 baseTableName="rel_receta__medicamento"
+                                 constraintName="fk_rel_receta__medicamento__medicamento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medicamento"
+                                 />
+    </changeSet>
+</databaseChangeLog>

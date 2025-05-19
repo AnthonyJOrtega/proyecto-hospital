@@ -41,6 +41,34 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_LOGIN_CACHE);
             createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_EMAIL_CACHE);
             createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName() + ".trabajadors");
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName() + ".citas");
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName() + ".informes");
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName() + ".recetas");
+            createCache(cm, com.mycompany.myapp.domain.Paciente.class.getName() + ".direccions");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".especialidads");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".informes");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".recetas");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".citas");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".pacientes");
+            createCache(cm, com.mycompany.myapp.domain.Trabajador.class.getName() + ".direccions");
+            createCache(cm, com.mycompany.myapp.domain.Direccion.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Direccion.class.getName() + ".pacientes");
+            createCache(cm, com.mycompany.myapp.domain.Direccion.class.getName() + ".trabajadors");
+            createCache(cm, com.mycompany.myapp.domain.Cita.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Cita.class.getName() + ".trabajadors");
+            createCache(cm, com.mycompany.myapp.domain.Informe.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Informe.class.getName() + ".enfermedads");
+            createCache(cm, com.mycompany.myapp.domain.Receta.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Receta.class.getName() + ".medicamentos");
+            createCache(cm, com.mycompany.myapp.domain.Especialidad.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Especialidad.class.getName() + ".trabajadors");
+            createCache(cm, com.mycompany.myapp.domain.Enfermedad.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Enfermedad.class.getName() + ".informes");
+            createCache(cm, com.mycompany.myapp.domain.Medicamento.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Medicamento.class.getName() + ".recetas");
             // jhipster-needle-ehcache-add-entry
         };
     }

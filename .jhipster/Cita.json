@@ -1,0 +1,50 @@
+{
+  "annotations": {
+    "changelogDate": "20250519115955"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "fechaCreacion",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "estadoCita",
+      "fieldType": "EstadoCita",
+      "fieldValues": "FINALIZADO,PENDIENTE,CANCELADO"
+    },
+    {
+      "fieldName": "observaciones",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Cita",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "informe",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "informe",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "paciente",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "paciente",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "trabajador",
+      "otherEntityRelationshipName": "cita",
+      "relationshipName": "trabajador",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
