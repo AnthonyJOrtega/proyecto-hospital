@@ -2,10 +2,10 @@
   "tfg2App": {
     "Puesto": {
       "null": "",
-      "MEDICO": "MEDICO",
-      "ENFERMERO": "ENFERMERO",
-      "CELADOR": "CELADOR",
-      "ADMINISTRATIVO": "ADMINISTRATIVO"
+      "MEDICO": "DOCTOR",
+      "ENFERMERO": "NURSE",
+      "CELADOR": "ORDERLY",
+      "ADMINISTRATIVO": "ADMINISTRATIVE"
     }
   }
 }

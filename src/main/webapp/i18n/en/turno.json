@@ -2,10 +2,10 @@
   "tfg2App": {
     "Turno": {
       "null": "",
-      "DIA": "DIA",
-      "TARDE": "TARDE",
-      "NOCHE": "NOCHE",
-      "GUARDIA": "GUARDIA"
+      "DIA": "DAY",
+      "TARDE": "AFTERNOON",
+      "NOCHE": "NIGHT",
+      "GUARDIA": "ON-CALL"
     }
   }
 }

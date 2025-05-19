@@ -2,26 +2,26 @@
   "tfg2App": {
     "medicamento": {
       "home": {
-        "title": "Medicamentos",
+        "title": "Medications",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Medicamento",
-        "createOrEditLabel": "Create or edit a Medicamento",
-        "notFound": "No Medicamentos found"
+        "createLabel": "Create a new Medication",
+        "createOrEditLabel": "Create or edit a Medication",
+        "notFound": "No Medications found"
       },
-      "created": "A new Medicamento is created with identifier {{ param }}",
-      "updated": "A Medicamento is updated with identifier {{ param }}",
-      "deleted": "A Medicamento is deleted with identifier {{ param }}",
+      "created": "A new Medication is created with identifier {{ param }}",
+      "updated": "A Medication is updated with identifier {{ param }}",
+      "deleted": "A Medication is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Medicamento {{ id }}?"
+        "question": "Are you sure you want to delete Medication {{ id }}?"
       },
       "detail": {
-        "title": "Medicamento"
+        "title": "Medication"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "descripcion": "Descripcion",
-      "dosis": "Dosis",
-      "receta": "Receta"
+      "nombre": "Name",
+      "descripcion": "Description",
+      "dosis": "Dosage",
+      "receta": "Recipe"
     }
   }
 }

@@ -2,25 +2,25 @@
   "tfg2App": {
     "especialidad": {
       "home": {
-        "title": "Especialidads",
+        "title": "Specialities",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Especialidad",
-        "createOrEditLabel": "Create or edit a Especialidad",
-        "notFound": "No Especialidads found"
+        "createLabel": "Create a new Speciality",
+        "createOrEditLabel": "Create or edit a Speciality",
+        "notFound": "No Specialities found"
       },
-      "created": "A new Especialidad is created with identifier {{ param }}",
-      "updated": "A Especialidad is updated with identifier {{ param }}",
-      "deleted": "A Especialidad is deleted with identifier {{ param }}",
+      "created": "A new Speciality is created with identifier {{ param }}",
+      "updated": "A Speciality is updated with identifier {{ param }}",
+      "deleted": "A Speciality is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Especialidad {{ id }}?"
+        "question": "Are you sure you want to delete Speciality {{ id }}?"
       },
       "detail": {
-        "title": "Especialidad"
+        "title": "Speciality"
       },
       "id": "ID",
-      "nombre": "Nombre",
-      "descripcion": "Descripcion",
-      "trabajador": "Trabajador"
+      "nombre": "Name",
+      "descripcion": "Description",
+      "trabajador": "Worker"
     }
   }
 }

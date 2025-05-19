@@ -2,35 +2,35 @@
   "tfg2App": {
     "trabajador": {
       "home": {
-        "title": "Trabajadors",
+        "title": "Workers",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Trabajador",
-        "createOrEditLabel": "Create or edit a Trabajador",
-        "notFound": "No Trabajadors found"
+        "createLabel": "Create a new Worker",
+        "createOrEditLabel": "Create or edit a Worker",
+        "notFound": "No Workers found"
       },
-      "created": "A new Trabajador is created with identifier {{ param }}",
-      "updated": "A Trabajador is updated with identifier {{ param }}",
-      "deleted": "A Trabajador is deleted with identifier {{ param }}",
+      "created": "A new Worker is created with identifier {{ param }}",
+      "updated": "A Worker is updated with identifier {{ param }}",
+      "deleted": "A Worker is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Trabajador {{ id }}?"
+        "question": "Are you sure you want to delete Worker {{ id }}?"
       },
       "detail": {
-        "title": "Trabajador"
+        "title": "Worker"
       },
       "id": "ID",
-      "idUsuario": "Id Usuario",
-      "nombre": "Nombre",
-      "apellido": "Apellido",
+      "idUsuario": "User Id",
+      "nombre": "Name",
+      "apellido": "Last name",
       "dni": "Dni",
-      "puesto": "Puesto",
-      "disponibilidad": "Disponibilidad",
-      "turno": "Turno",
-      "especialidad": "Especialidad",
-      "informe": "Informe",
-      "receta": "Receta",
-      "cita": "Cita",
-      "paciente": "Paciente",
-      "direccion": "Direccion"
+      "puesto": "Position",
+      "disponibilidad": "Availability",
+      "turno": "Shift",
+      "especialidad": "Specialty",
+      "informe": "Report",
+      "receta": "Recipe",
+      "cita": "Appoinment",
+      "paciente": "Patient",
+      "direccion": "Address"
     }
   }
 }

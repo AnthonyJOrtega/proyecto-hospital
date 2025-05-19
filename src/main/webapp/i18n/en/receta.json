@@ -2,29 +2,29 @@
   "tfg2App": {
     "receta": {
       "home": {
-        "title": "Recetas",
+        "title": "Prescriptions",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Receta",
-        "createOrEditLabel": "Create or edit a Receta",
-        "notFound": "No Recetas found"
+        "createLabel": "Create a new Prescription",
+        "createOrEditLabel": "Create or edit a Prescription",
+        "notFound": "No Prescriptions found"
       },
-      "created": "A new Receta is created with identifier {{ param }}",
-      "updated": "A Receta is updated with identifier {{ param }}",
-      "deleted": "A Receta is deleted with identifier {{ param }}",
+      "created": "A new Prescription is created with identifier {{ param }}",
+      "updated": "A Prescription is updated with identifier {{ param }}",
+      "deleted": "A Prescription is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Receta {{ id }}?"
+        "question": "Are you sure you want to delete Prescription {{ id }}?"
       },
       "detail": {
-        "title": "Receta"
+        "title": "Prescription"
       },
       "id": "ID",
-      "fechaInicio": "Fecha Inicio",
-      "fechaFin": "Fecha Fin",
-      "instrucciones": "Instrucciones",
-      "paciente": "Paciente",
-      "trabajador": "Trabajador",
-      "medicamento": "Medicamento",
-      "informe": "Informe"
+      "fechaInicio": "Start Date",
+      "fechaFin": "End Date",
+      "instrucciones": "Instructions",
+      "paciente": "Patient",
+      "trabajador": "Worker",
+      "medicamento": "Medication",
+      "informe": "Report"
     }
   }
 }

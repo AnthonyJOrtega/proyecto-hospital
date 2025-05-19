@@ -2,30 +2,30 @@
   "tfg2App": {
     "direccion": {
       "home": {
-        "title": "Direccions",
+        "title": "Adresses",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Direccion",
-        "createOrEditLabel": "Create or edit a Direccion",
-        "notFound": "No Direccions found"
+        "createLabel": "Create a new Adress",
+        "createOrEditLabel": "Create or edit a Adress",
+        "notFound": "No Adresses found"
       },
-      "created": "A new Direccion is created with identifier {{ param }}",
-      "updated": "A Direccion is updated with identifier {{ param }}",
-      "deleted": "A Direccion is deleted with identifier {{ param }}",
+      "created": "A new Adress is created with identifier {{ param }}",
+      "updated": "A Adress is updated with identifier {{ param }}",
+      "deleted": "A Adress is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Direccion {{ id }}?"
+        "question": "Are you sure you want to delete Adress {{ id }}?"
       },
       "detail": {
-        "title": "Direccion"
+        "title": "Adress"
       },
       "id": "ID",
-      "pais": "Pais",
-      "ciudad": "Ciudad",
-      "localidad": "Localidad",
-      "codigoPostal": "Codigo Postal",
-      "calle": "Calle",
-      "numero": "Numero",
-      "paciente": "Paciente",
-      "trabajador": "Trabajador"
+      "pais": "Country",
+      "ciudad": "City",
+      "localidad": "Locality",
+      "codigoPostal": "Postal Code",
+      "calle": "Street",
+      "numero": "Number",
+      "paciente": "Patient",
+      "trabajador": "Worker"
     }
   }
 }

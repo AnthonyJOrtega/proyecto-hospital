@@ -8,15 +8,15 @@
       "entities": {
         "main": "Entities",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "paciente": "Paciente",
-        "trabajador": "Trabajador",
-        "direccion": "Direccion",
-        "cita": "Cita",
-        "informe": "Informe",
-        "receta": "Receta",
-        "especialidad": "Especialidad",
-        "enfermedad": "Enfermedad",
-        "medicamento": "Medicamento"
+        "paciente": "Patient",
+        "trabajador": "Worker",
+        "direccion": "Address",
+        "cita": "Appoinment",
+        "informe": "Report",
+        "receta": "Prescription",
+        "especialidad": "Specialty",
+        "enfermedad": "Disease",
+        "medicamento": "Medication"
       },
       "account": {
         "main": "Account",
