@@ -1,0 +1,59 @@
+{
+  "annotations": {
+    "changelogDate": "20250519115956"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "fecha",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "resumen",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Informe",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "receta",
+      "otherEntityRelationshipName": "informe",
+      "relationshipName": "receta",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "paciente",
+      "otherEntityRelationshipName": "informe",
+      "relationshipName": "paciente",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "trabajador",
+      "otherEntityRelationshipName": "informe",
+      "relationshipName": "trabajador",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "enfermedad",
+      "otherEntityRelationshipName": "informe",
+      "relationshipName": "enfermedad",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "cita",
+      "otherEntityRelationshipName": "informe",
+      "relationshipName": "cita",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

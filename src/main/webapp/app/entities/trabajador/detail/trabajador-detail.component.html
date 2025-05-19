@@ -1,0 +1,100 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (trabajador(); as trabajadorRef) {
+      <div>
+        <h2 data-cy="trabajadorDetailsHeading"><span jhiTranslate="tfg2App.trabajador.detail.title">Trabajador</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.idUsuario }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.apellido">Apellido</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.apellido }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.dni">Dni</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.dni }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.puesto">Puesto</span></dt>
+          <dd>
+            <span [jhiTranslate]="'tfg2App.Puesto.' + (trabajadorRef.puesto ?? 'null')">{{
+              { null: '', MEDICO: 'MEDICO', ENFERMERO: 'ENFERMERO', CELADOR: 'CELADOR', ADMINISTRATIVO: 'ADMINISTRATIVO' }[
+                trabajadorRef.puesto ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.disponibilidad">Disponibilidad</span></dt>
+          <dd>
+            <span>{{ trabajadorRef.disponibilidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.turno">Turno</span></dt>
+          <dd>
+            <span [jhiTranslate]="'tfg2App.Turno.' + (trabajadorRef.turno ?? 'null')">{{
+              { null: '', DIA: 'DIA', TARDE: 'TARDE', NOCHE: 'NOCHE', GUARDIA: 'GUARDIA' }[trabajadorRef.turno ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.especialidad">Especialidad</span></dt>
+          <dd>
+            @for (especialidad of trabajadorRef.especialidads; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/especialidad', especialidad.id, 'view']">{{ especialidad?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.cita">Cita</span></dt>
+          <dd>
+            @for (cita of trabajadorRef.citas; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/cita', cita.id, 'view']">{{ cita?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.paciente">Paciente</span></dt>
+          <dd>
+            @for (paciente of trabajadorRef.pacientes; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.trabajador.direccion">Direccion</span></dt>
+          <dd>
+            @for (direccion of trabajadorRef.direccions; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/direccion', direccion.id, 'view']">{{ direccion?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/trabajador', trabajadorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

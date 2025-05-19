@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-receta-heading" data-cy="RecetaCreateUpdateHeading" jhiTranslate="tfg2App.receta.home.createOrEditLabel">
+        Crear o editar Receta
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="tfg2App.receta.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaInicio" jhiTranslate="tfg2App.receta.fechaInicio">Fecha Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_fechaInicio"
+              data-cy="fechaInicio"
+              type="text"
+              class="form-control"
+              name="fechaInicio"
+              ngbDatepicker
+              #fechaInicioDp="ngbDatepicker"
+              formControlName="fechaInicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaFin" jhiTranslate="tfg2App.receta.fechaFin">Fecha Fin</label>
+          <div class="input-group">
+            <input
+              id="field_fechaFin"
+              data-cy="fechaFin"
+              type="text"
+              class="form-control"
+              name="fechaFin"
+              ngbDatepicker
+              #fechaFinDp="ngbDatepicker"
+              formControlName="fechaFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_instrucciones" jhiTranslate="tfg2App.receta.instrucciones">Instrucciones</label>
+          <input
+            type="text"
+            class="form-control"
+            name="instrucciones"
+            id="field_instrucciones"
+            data-cy="instrucciones"
+            formControlName="instrucciones"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.receta.paciente">Paciente</label>
+          <select
+            class="form-control"
+            id="field_paciente"
+            data-cy="paciente"
+            name="paciente"
+            formControlName="paciente"
+            [compareWith]="comparePaciente"
+          >
+            <option [ngValue]="null"></option>
+            @for (pacienteOption of pacientesSharedCollection; track $index) {
+              <option [ngValue]="pacienteOption">{{ pacienteOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_trabajador" jhiTranslate="tfg2App.receta.trabajador">Trabajador</label>
+          <select
+            class="form-control"
+            id="field_trabajador"
+            data-cy="trabajador"
+            name="trabajador"
+            formControlName="trabajador"
+            [compareWith]="compareTrabajador"
+          >
+            <option [ngValue]="null"></option>
+            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
+              <option [ngValue]="trabajadorOption">{{ trabajadorOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_medicamentos" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
+          <select
+            class="form-control"
+            id="field_medicamentos"
+            data-cy="medicamento"
+            multiple
+            name="medicamentos"
+            formControlName="medicamentos"
+            [compareWith]="compareMedicamento"
+          >
+            @for (medicamentoOption of medicamentosSharedCollection; track $index) {
+              <option [ngValue]="medicamentoOption">{{ medicamentoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

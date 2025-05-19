@@ -1,0 +1,88 @@
+{
+  "annotations": {
+    "changelogDate": "20250519115953"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "idUsuario",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellido",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dni",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "puesto",
+      "fieldType": "Puesto",
+      "fieldValues": "MEDICO,ENFERMERO,CELADOR,ADMINISTRATIVO"
+    },
+    {
+      "fieldName": "disponibilidad",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "turno",
+      "fieldType": "Turno",
+      "fieldValues": "DIA,TARDE,NOCHE,GUARDIA"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Trabajador",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "especialidad",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "especialidad",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "informe",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "informe",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "receta",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "receta",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "cita",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "cita",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "paciente",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "paciente",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "direccion",
+      "otherEntityRelationshipName": "trabajador",
+      "relationshipName": "direccion",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,30 @@
+{
+  "tfg2App": {
+    "informe": {
+      "home": {
+        "title": "Informes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Informe",
+        "createOrEditLabel": "Create or edit a Informe",
+        "notFound": "No Informes found"
+      },
+      "created": "A new Informe is created with identifier {{ param }}",
+      "updated": "A Informe is updated with identifier {{ param }}",
+      "deleted": "A Informe is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Informe {{ id }}?"
+      },
+      "detail": {
+        "title": "Informe"
+      },
+      "id": "ID",
+      "fecha": "Fecha",
+      "resumen": "Resumen",
+      "receta": "Receta",
+      "paciente": "Paciente",
+      "trabajador": "Trabajador",
+      "enfermedad": "Enfermedad",
+      "cita": "Cita"
+    }
+  }
+}

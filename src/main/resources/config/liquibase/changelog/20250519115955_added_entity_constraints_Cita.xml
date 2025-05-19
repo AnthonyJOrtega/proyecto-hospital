@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Cita.
+    -->
+    <changeSet id="20250519115955-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="informe_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita__informe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="informe"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="paciente_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita__paciente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="cita_id"
+                                 baseTableName="rel_cita__trabajador"
+                                 constraintName="fk_rel_cita__trabajador__cita_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cita"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="trabajador_id"
+                                 baseTableName="rel_cita__trabajador"
+                                 constraintName="fk_rel_cita__trabajador__trabajador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="trabajador"
+                                 />
+    </changeSet>
+</databaseChangeLog>

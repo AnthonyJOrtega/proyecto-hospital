@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Direccion.
+    -->
+    <changeSet id="20250519115954-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="direccion_id"
+                                 baseTableName="rel_direccion__paciente"
+                                 constraintName="fk_rel_direccion__paciente__direccion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="direccion"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="paciente_id"
+                                 baseTableName="rel_direccion__paciente"
+                                 constraintName="fk_rel_direccion__paciente__paciente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="direccion_id"
+                                 baseTableName="rel_direccion__trabajador"
+                                 constraintName="fk_rel_direccion__trabajador__direccion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="direccion"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="trabajador_id"
+                                 baseTableName="rel_direccion__trabajador"
+                                 constraintName="fk_rel_direccion__trabajador__trabajador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="trabajador"
+                                 />
+    </changeSet>
+</databaseChangeLog>

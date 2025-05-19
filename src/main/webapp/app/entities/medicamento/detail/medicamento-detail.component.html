@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (medicamento(); as medicamentoRef) {
+      <div>
+        <h2 data-cy="medicamentoDetailsHeading"><span jhiTranslate="tfg2App.medicamento.detail.title">Medicamento</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ medicamentoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.medicamento.nombre">Nombre</span></dt>
+          <dd>
+            <span>{{ medicamentoRef.nombre }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.medicamento.descripcion">Descripcion</span></dt>
+          <dd>
+            <span>{{ medicamentoRef.descripcion }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.medicamento.dosis">Dosis</span></dt>
+          <dd>
+            <span>{{ medicamentoRef.dosis }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.medicamento.receta">Receta</span></dt>
+          <dd>
+            @for (receta of medicamentoRef.recetas; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/receta', receta.id, 'view']">{{ receta?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/medicamento', medicamentoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

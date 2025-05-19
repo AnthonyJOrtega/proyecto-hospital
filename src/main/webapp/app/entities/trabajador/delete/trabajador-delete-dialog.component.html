@@ -1,0 +1,24 @@
+@if (trabajador) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(trabajador.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="trabajadorDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p id="jhi-delete-trabajador-heading" jhiTranslate="tfg2App.trabajador.delete.question" [translateValues]="{ id: trabajador.id }">
+        ¿Seguro que quiere eliminar Trabajador {{ trabajador.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-trabajador" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

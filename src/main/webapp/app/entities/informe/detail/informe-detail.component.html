@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (informe(); as informeRef) {
+      <div>
+        <h2 data-cy="informeDetailsHeading"><span jhiTranslate="tfg2App.informe.detail.title">Informe</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ informeRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.fecha">Fecha</span></dt>
+          <dd>
+            <span>{{ informeRef.fecha }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.resumen">Resumen</span></dt>
+          <dd>
+            <span>{{ informeRef.resumen }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.receta">Receta</span></dt>
+          <dd>
+            @if (informe()!.receta) {
+              <div>
+                <a [routerLink]="['/receta', informe()!.receta?.id, 'view']">{{ informeRef.receta?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.paciente">Paciente</span></dt>
+          <dd>
+            @if (informe()!.paciente) {
+              <div>
+                <a [routerLink]="['/paciente', informe()!.paciente?.id, 'view']">{{ informeRef.paciente?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.trabajador">Trabajador</span></dt>
+          <dd>
+            @if (informe()!.trabajador) {
+              <div>
+                <a [routerLink]="['/trabajador', informe()!.trabajador?.id, 'view']">{{ informeRef.trabajador?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</span></dt>
+          <dd>
+            @for (enfermedad of informeRef.enfermedads; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/enfermedad', enfermedad.id, 'view']">{{ enfermedad?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/informe', informeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,9 @@
+export enum Puesto {
+  MEDICO = 'MEDICO',
+
+  ENFERMERO = 'ENFERMERO',
+
+  CELADOR = 'CELADOR',
+
+  ADMINISTRATIVO = 'ADMINISTRATIVO',
+}

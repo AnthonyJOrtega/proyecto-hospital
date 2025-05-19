@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Informe.
+    -->
+    <changeSet id="20250519115956-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="receta_id"
+                                 baseTableName="informe"
+                                 constraintName="fk_informe__receta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="receta"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="paciente_id"
+                                 baseTableName="informe"
+                                 constraintName="fk_informe__paciente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="trabajador_id"
+                                 baseTableName="informe"
+                                 constraintName="fk_informe__trabajador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="trabajador"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="informe_id"
+                                 baseTableName="rel_informe__enfermedad"
+                                 constraintName="fk_rel_informe__enfermedad__informe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="informe"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="enfermedad_id"
+                                 baseTableName="rel_informe__enfermedad"
+                                 constraintName="fk_rel_informe__enfermedad__enfermedad_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="enfermedad"
+                                 />
+    </changeSet>
+</databaseChangeLog>

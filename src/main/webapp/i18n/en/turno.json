@@ -1,0 +1,11 @@
+{
+  "tfg2App": {
+    "Turno": {
+      "null": "",
+      "DIA": "DIA",
+      "TARDE": "TARDE",
+      "NOCHE": "NOCHE",
+      "GUARDIA": "GUARDIA"
+    }
+  }
+}

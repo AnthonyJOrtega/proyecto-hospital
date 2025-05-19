@@ -1,0 +1,10 @@
+{
+  "tfg2App": {
+    "EstadoCita": {
+      "null": "",
+      "FINALIZADO": "FINALIZADO",
+      "PENDIENTE": "PENDIENTE",
+      "CANCELADO": "CANCELADO"
+    }
+  }
+}

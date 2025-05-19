@@ -1,0 +1,26 @@
+{
+  "tfg2App": {
+    "enfermedad": {
+      "home": {
+        "title": "Enfermedads",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Enfermedad",
+        "createOrEditLabel": "Create or edit a Enfermedad",
+        "notFound": "No Enfermedads found"
+      },
+      "created": "A new Enfermedad is created with identifier {{ param }}",
+      "updated": "A Enfermedad is updated with identifier {{ param }}",
+      "deleted": "A Enfermedad is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Enfermedad {{ id }}?"
+      },
+      "detail": {
+        "title": "Enfermedad"
+      },
+      "id": "ID",
+      "nombre": "Nombre",
+      "descripcion": "Descripcion",
+      "informe": "Informe"
+    }
+  }
+}

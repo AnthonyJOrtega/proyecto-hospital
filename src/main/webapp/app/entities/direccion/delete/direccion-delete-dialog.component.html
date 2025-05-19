@@ -1,0 +1,24 @@
+@if (direccion) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(direccion.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="direccionDeleteDialogHeading" jhiTranslate="entity.delete.title">Confirmar operación de borrado</h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p id="jhi-delete-direccion-heading" jhiTranslate="tfg2App.direccion.delete.question" [translateValues]="{ id: direccion.id }">
+        ¿Seguro que quiere eliminar Direccion {{ direccion.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+      </button>
+
+      <button id="jhi-confirm-delete-direccion" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.delete">Eliminar</span>
+      </button>
+    </div>
+  </form>
+}

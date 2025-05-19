@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20250519120000"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dosis",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Medicamento",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "receta",
+      "otherEntityRelationshipName": "medicamento",
+      "relationshipName": "receta",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,156 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-trabajador-heading" data-cy="TrabajadorCreateUpdateHeading" jhiTranslate="tfg2App.trabajador.home.createOrEditLabel">
+        Crear o editar Trabajador
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="tfg2App.trabajador.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_idUsuario" jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</label>
+          <input type="number" class="form-control" name="idUsuario" id="field_idUsuario" data-cy="idUsuario" formControlName="idUsuario" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nombre" jhiTranslate="tfg2App.trabajador.nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_apellido" jhiTranslate="tfg2App.trabajador.apellido">Apellido</label>
+          <input type="text" class="form-control" name="apellido" id="field_apellido" data-cy="apellido" formControlName="apellido" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dni" jhiTranslate="tfg2App.trabajador.dni">Dni</label>
+          <input type="text" class="form-control" name="dni" id="field_dni" data-cy="dni" formControlName="dni" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_puesto" jhiTranslate="tfg2App.trabajador.puesto">Puesto</label>
+          <select class="form-control" name="puesto" formControlName="puesto" id="field_puesto" data-cy="puesto">
+            <option [ngValue]="null">{{ 'tfg2App.Puesto.null' | translate }}</option>
+            @for (puesto of puestoValues; track $index) {
+              <option [value]="puesto">{{ 'tfg2App.Puesto.' + puesto | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_disponibilidad" jhiTranslate="tfg2App.trabajador.disponibilidad">Disponibilidad</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="disponibilidad"
+            id="field_disponibilidad"
+            data-cy="disponibilidad"
+            formControlName="disponibilidad"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_turno" jhiTranslate="tfg2App.trabajador.turno">Turno</label>
+          <select class="form-control" name="turno" formControlName="turno" id="field_turno" data-cy="turno">
+            <option [ngValue]="null">{{ 'tfg2App.Turno.null' | translate }}</option>
+            @for (turno of turnoValues; track $index) {
+              <option [value]="turno">{{ 'tfg2App.Turno.' + turno | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_especialidads" jhiTranslate="tfg2App.trabajador.especialidad">Especialidad</label>
+          <select
+            class="form-control"
+            id="field_especialidads"
+            data-cy="especialidad"
+            multiple
+            name="especialidads"
+            formControlName="especialidads"
+            [compareWith]="compareEspecialidad"
+          >
+            @for (especialidadOption of especialidadsSharedCollection; track $index) {
+              <option [ngValue]="especialidadOption">{{ especialidadOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_citas" jhiTranslate="tfg2App.trabajador.cita">Cita</label>
+          <select
+            class="form-control"
+            id="field_citas"
+            data-cy="cita"
+            multiple
+            name="citas"
+            formControlName="citas"
+            [compareWith]="compareCita"
+          >
+            @for (citaOption of citasSharedCollection; track $index) {
+              <option [ngValue]="citaOption">{{ citaOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_pacientes" jhiTranslate="tfg2App.trabajador.paciente">Paciente</label>
+          <select
+            class="form-control"
+            id="field_pacientes"
+            data-cy="paciente"
+            multiple
+            name="pacientes"
+            formControlName="pacientes"
+            [compareWith]="comparePaciente"
+          >
+            @for (pacienteOption of pacientesSharedCollection; track $index) {
+              <option [ngValue]="pacienteOption">{{ pacienteOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_direccions" jhiTranslate="tfg2App.trabajador.direccion">Direccion</label>
+          <select
+            class="form-control"
+            id="field_direccions"
+            data-cy="direccion"
+            multiple
+            name="direccions"
+            formControlName="direccions"
+            [compareWith]="compareDireccion"
+          >
+            @for (direccionOption of direccionsSharedCollection; track $index) {
+              <option [ngValue]="direccionOption">{{ direccionOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

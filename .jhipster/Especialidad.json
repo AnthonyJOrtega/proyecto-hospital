@@ -1,0 +1,31 @@
+{
+  "annotations": {
+    "changelogDate": "20250519115958"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "nombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Especialidad",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "trabajador",
+      "otherEntityRelationshipName": "especialidad",
+      "relationshipName": "trabajador",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

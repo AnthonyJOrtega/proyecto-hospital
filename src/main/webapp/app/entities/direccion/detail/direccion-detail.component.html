@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (direccion(); as direccionRef) {
+      <div>
+        <h2 data-cy="direccionDetailsHeading"><span jhiTranslate="tfg2App.direccion.detail.title">Direccion</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ direccionRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.pais">Pais</span></dt>
+          <dd>
+            <span>{{ direccionRef.pais }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.ciudad">Ciudad</span></dt>
+          <dd>
+            <span>{{ direccionRef.ciudad }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.localidad">Localidad</span></dt>
+          <dd>
+            <span>{{ direccionRef.localidad }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.codigoPostal">Codigo Postal</span></dt>
+          <dd>
+            <span>{{ direccionRef.codigoPostal }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.calle">Calle</span></dt>
+          <dd>
+            <span>{{ direccionRef.calle }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.numero">Numero</span></dt>
+          <dd>
+            <span>{{ direccionRef.numero }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.paciente">Paciente</span></dt>
+          <dd>
+            @for (paciente of direccionRef.pacientes; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span jhiTranslate="tfg2App.direccion.trabajador">Trabajador</span></dt>
+          <dd>
+            @for (trabajador of direccionRef.trabajadors; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
+        </button>
+
+        <button type="button" [routerLink]="['/direccion', direccionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

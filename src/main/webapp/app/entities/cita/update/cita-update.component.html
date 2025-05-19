@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-cita-heading" data-cy="CitaCreateUpdateHeading" jhiTranslate="tfg2App.cita.home.createOrEditLabel">
+        Crear o editar Cita
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="tfg2App.cita.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fechaCreacion" jhiTranslate="tfg2App.cita.fechaCreacion">Fecha Creacion</label>
+          <div class="input-group">
+            <input
+              id="field_fechaCreacion"
+              data-cy="fechaCreacion"
+              type="text"
+              class="form-control"
+              name="fechaCreacion"
+              ngbDatepicker
+              #fechaCreacionDp="ngbDatepicker"
+              formControlName="fechaCreacion"
+            />
+            <button type="button" class="btn btn-secondary" (click)="fechaCreacionDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_estadoCita" jhiTranslate="tfg2App.cita.estadoCita">Estado Cita</label>
+          <select class="form-control" name="estadoCita" formControlName="estadoCita" id="field_estadoCita" data-cy="estadoCita">
+            <option [ngValue]="null">{{ 'tfg2App.EstadoCita.null' | translate }}</option>
+            @for (estadoCita of estadoCitaValues; track $index) {
+              <option [value]="estadoCita">{{ 'tfg2App.EstadoCita.' + estadoCita | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_observaciones" jhiTranslate="tfg2App.cita.observaciones">Observaciones</label>
+          <input
+            type="text"
+            class="form-control"
+            name="observaciones"
+            id="field_observaciones"
+            data-cy="observaciones"
+            formControlName="observaciones"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_informe" jhiTranslate="tfg2App.cita.informe">Informe</label>
+          <select
+            class="form-control"
+            id="field_informe"
+            data-cy="informe"
+            name="informe"
+            formControlName="informe"
+            [compareWith]="compareInforme"
+          >
+            <option [ngValue]="null"></option>
+            @for (informeOption of informesCollection; track $index) {
+              <option [ngValue]="informeOption">{{ informeOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.cita.paciente">Paciente</label>
+          <select
+            class="form-control"
+            id="field_paciente"
+            data-cy="paciente"
+            name="paciente"
+            formControlName="paciente"
+            [compareWith]="comparePaciente"
+          >
+            <option [ngValue]="null"></option>
+            @for (pacienteOption of pacientesSharedCollection; track $index) {
+              <option [ngValue]="pacienteOption">{{ pacienteOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_trabajadors" jhiTranslate="tfg2App.cita.trabajador">Trabajador</label>
+          <select
+            class="form-control"
+            id="field_trabajadors"
+            data-cy="trabajador"
+            multiple
+            name="trabajadors"
+            formControlName="trabajadors"
+            [compareWith]="compareTrabajador"
+          >
+            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
+              <option [ngValue]="trabajadorOption">{{ trabajadorOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
