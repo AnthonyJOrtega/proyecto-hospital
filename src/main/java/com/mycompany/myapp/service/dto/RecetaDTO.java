@@ -24,6 +24,8 @@ public class RecetaDTO implements Serializable {
 
     private TrabajadorDTO trabajador;
 
+    private InformeDTO informe;
+
     private Set<MedicamentoDTO> medicamentos = new HashSet<>();
 
     public Long getId() {
@@ -72,6 +74,14 @@ public class RecetaDTO implements Serializable {
 
     public void setTrabajador(TrabajadorDTO trabajador) {
         this.trabajador = trabajador;
+    }
+
+    public InformeDTO getInforme() {
+        return informe;
+    }
+
+    public void setInforme(InformeDTO informe) {
+        this.informe = informe;
     }
 
     public Set<MedicamentoDTO> getMedicamentos() {

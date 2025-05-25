@@ -31,7 +31,9 @@
           <dd>
             @if (receta()!.paciente) {
               <div>
-                <a [routerLink]="['/paciente', receta()!.paciente?.id, 'view']">{{ recetaRef.paciente?.id }}</a>
+                <a [routerLink]="['/paciente', receta()!.paciente?.id, 'view']"
+                  >{{ recetaRef.paciente?.nombre }} {{ recetaRef.paciente?.apellido }}</a
+                >
               </div>
             }
           </dd>
@@ -39,7 +41,9 @@
           <dd>
             @if (receta()!.trabajador) {
               <div>
-                <a [routerLink]="['/trabajador', receta()!.trabajador?.id, 'view']">{{ recetaRef.trabajador?.id }}</a>
+                <a [routerLink]="['/trabajador', receta()!.trabajador?.id, 'view']"
+                  >{{ recetaRef.trabajador?.nombre }} {{ recetaRef.trabajador?.apellido }}</a
+                >
               </div>
             }
           </dd>
@@ -47,7 +51,7 @@
           <dd>
             @for (medicamento of recetaRef.medicamentos; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/medicamento', medicamento.id, 'view']">{{ medicamento?.id }}</a
+                <a [routerLink]="['/medicamento', medicamento.id, 'view']">{{ medicamento?.nombre }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

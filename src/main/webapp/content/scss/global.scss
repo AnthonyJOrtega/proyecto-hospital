@@ -67,8 +67,8 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-  padding: 1.5%;
-  margin-top: 20px;
+  padding: 0%;
+  margin-top: 0px;
   border: none;
 }
 
@@ -217,12 +217,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 ========================================================================== */
 /* page-ribbon.component.scss */
 .ribbon {
-  left: -3.5em;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  display: none !important;
 }
 
 /* navbar.component.scss */
@@ -233,4 +228,17 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
     }
   }
 }
+.container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+/* Eliminar fondo blanco del contenedor que rodea el navbar */
+body,
+.container-fluid,
+.card,
+.jh-card {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

@@ -23,6 +23,8 @@ public class InformeDTO implements Serializable {
 
     private TrabajadorDTO trabajador;
 
+    private CitaDTO cita;
+
     private Set<EnfermedadDTO> enfermedads = new HashSet<>();
 
     public Long getId() {
@@ -71,6 +73,14 @@ public class InformeDTO implements Serializable {
 
     public void setTrabajador(TrabajadorDTO trabajador) {
         this.trabajador = trabajador;
+    }
+
+    public CitaDTO getCita() {
+        return cita;
+    }
+
+    public void setCita(CitaDTO cita) {
+        this.cita = cita;
     }
 
     public Set<EnfermedadDTO> getEnfermedads() {

@@ -35,7 +35,9 @@
           <dd>
             @if (informe()!.paciente) {
               <div>
-                <a [routerLink]="['/paciente', informe()!.paciente?.id, 'view']">{{ informeRef.paciente?.id }}</a>
+                <a [routerLink]="['/paciente', informe()!.paciente?.id, 'view']"
+                  >{{ informeRef.paciente?.nombre }} {{ informeRef.paciente?.apellido }}</a
+                >
               </div>
             }
           </dd>
@@ -43,7 +45,9 @@
           <dd>
             @if (informe()!.trabajador) {
               <div>
-                <a [routerLink]="['/trabajador', informe()!.trabajador?.id, 'view']">{{ informeRef.trabajador?.id }}</a>
+                <a [routerLink]="['/trabajador', informe()!.trabajador?.id, 'view']"
+                  >{{ informeRef.trabajador?.nombre }} {{ informeRef.trabajador?.apellido }}</a
+                >
               </div>
             }
           </dd>
@@ -51,7 +55,7 @@
           <dd>
             @for (enfermedad of informeRef.enfermedads; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/enfermedad', enfermedad.id, 'view']">{{ enfermedad?.id }}</a
+                <a [routerLink]="['/enfermedad', enfermedad.id, 'view']">{{ enfermedad?.nombre }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

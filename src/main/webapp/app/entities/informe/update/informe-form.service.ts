@@ -24,6 +24,7 @@ type InformeFormGroupContent = {
   paciente: FormControl<IInforme['paciente']>;
   trabajador: FormControl<IInforme['trabajador']>;
   enfermedads: FormControl<IInforme['enfermedads']>;
+  cita: FormControl<IInforme['cita']>;
 };
 
 export type InformeFormGroup = FormGroup<InformeFormGroupContent>;
@@ -49,6 +50,7 @@ export class InformeFormService {
       paciente: new FormControl(informeRawValue.paciente),
       trabajador: new FormControl(informeRawValue.trabajador),
       enfermedads: new FormControl(informeRawValue.enfermedads ?? []),
+      cita: new FormControl(informeRawValue.cita),
     });
   }
 

@@ -90,14 +90,18 @@
               <td>
                 @if (receta.paciente) {
                   <div>
-                    <a [routerLink]="['/paciente', receta.paciente.id, 'view']">{{ receta.paciente.id }}</a>
+                    <a [routerLink]="['/paciente', receta.paciente.id, 'view']"
+                      >{{ receta.paciente.nombre }} {{ receta.paciente.apellido }}</a
+                    >
                   </div>
                 }
               </td>
               <td>
                 @if (receta.trabajador) {
                   <div>
-                    <a [routerLink]="['/trabajador', receta.trabajador.id, 'view']">{{ receta.trabajador.id }}</a>
+                    <a [routerLink]="['/trabajador', receta.trabajador.id, 'view']"
+                      >{{ receta.trabajador.nombre }} {{ receta.trabajador.apellido }}</a
+                    >
                   </div>
                 }
               </td>

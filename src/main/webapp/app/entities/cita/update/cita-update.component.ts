@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ import { CitaFormGroup, CitaFormService } from './cita-form.service';
 @Component({
   selector: 'jhi-cita-update',
   templateUrl: './cita-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, RouterModule],
 })
 export class CitaUpdateComponent implements OnInit {
   isSaving = false;
@@ -38,6 +38,7 @@ export class CitaUpdateComponent implements OnInit {
   protected pacienteService = inject(PacienteService);
   protected trabajadorService = inject(TrabajadorService);
   protected activatedRoute = inject(ActivatedRoute);
+  protected router = inject(Router);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: CitaFormGroup = this.citaFormService.createCitaFormGroup();
@@ -53,6 +54,10 @@ export class CitaUpdateComponent implements OnInit {
       this.cita = cita;
       if (cita) {
         this.updateForm(cita);
+        // Si la cita tiene informe asociado, hacer patchValue del id
+        if (cita.informe) {
+          this.editForm.patchValue({ informe: { id: cita.informe.id } });
+        }
       }
 
       this.loadRelationshipsOptions();
@@ -131,5 +136,39 @@ export class CitaUpdateComponent implements OnInit {
         ),
       )
       .subscribe((trabajadors: ITrabajador[]) => (this.trabajadorsSharedCollection = trabajadors));
+  }
+  saveAndCreateInforme(): void {
+    this.isSaving = true;
+    const cita = this.citaFormService.getCita(this.editForm);
+    const pacienteId = cita.paciente?.id;
+    // Si tu modelo permite varios trabajadors, toma el primero (ajusta si es necesario)
+    const trabajadorId = Array.isArray(cita.trabajadors) && cita.trabajadors.length > 0 ? cita.trabajadors[0].id : undefined;
+
+    const onSuccess = (savedCita: ICita) => {
+      this.router.navigate(['/informe/new'], {
+        queryParams: {
+          citaId: savedCita.id,
+          pacienteId,
+          trabajadorId,
+        },
+      });
+    };
+    if (cita.id !== null) {
+      this.citaService
+        .update(cita)
+        .pipe(finalize(() => (this.isSaving = false)))
+        .subscribe({
+          next: res => onSuccess(res.body!),
+          error: () => this.onSaveError(),
+        });
+    } else {
+      this.citaService
+        .create(cita)
+        .pipe(finalize(() => (this.isSaving = false)))
+        .subscribe({
+          next: res => onSuccess(res.body!),
+          error: () => this.onSaveError(),
+        });
+    }
   }
 }

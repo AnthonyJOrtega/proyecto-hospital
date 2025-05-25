@@ -95,14 +95,18 @@
               <td>
                 @if (informe.paciente) {
                   <div>
-                    <a [routerLink]="['/paciente', informe.paciente.id, 'view']">{{ informe.paciente.id }}</a>
+                    <a [routerLink]="['/paciente', informe.paciente.id, 'view']"
+                      >{{ informe.paciente.nombre }} {{ informe.paciente.apellido }}</a
+                    >
                   </div>
                 }
               </td>
               <td>
                 @if (informe.trabajador) {
                   <div>
-                    <a [routerLink]="['/trabajador', informe.trabajador.id, 'view']">{{ informe.trabajador.id }}</a>
+                    <a [routerLink]="['/trabajador', informe.trabajador.id, 'view']"
+                      >{{ informe.trabajador.nombre }} {{ informe.trabajador.apellido }}</a
+                    >
                   </div>
                 }
               </td>

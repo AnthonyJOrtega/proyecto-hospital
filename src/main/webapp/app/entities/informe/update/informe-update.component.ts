@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -40,6 +40,7 @@ export class InformeUpdateComponent implements OnInit {
   protected trabajadorService = inject(TrabajadorService);
   protected enfermedadService = inject(EnfermedadService);
   protected activatedRoute = inject(ActivatedRoute);
+  protected router = inject(Router);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: InformeFormGroup = this.informeFormService.createInformeFormGroup();
@@ -58,6 +59,21 @@ export class InformeUpdateComponent implements OnInit {
       if (informe) {
         this.updateForm(informe);
       }
+      // Leer citaId, pacienteId y trabajadorId de los query params y asociarlos si existen
+      this.activatedRoute.queryParams.subscribe(params => {
+        const citaId = params['citaId'];
+        const pacienteId = params['pacienteId'];
+        const trabajadorId = params['trabajadorId'];
+        if (citaId) {
+          this.editForm.patchValue({ cita: { id: +citaId } });
+        }
+        if (pacienteId) {
+          this.editForm.patchValue({ paciente: { id: +pacienteId } });
+        }
+        if (trabajadorId) {
+          this.editForm.patchValue({ trabajador: { id: +trabajadorId } });
+        }
+      });
 
       this.loadRelationshipsOptions();
     });
@@ -85,7 +101,7 @@ export class InformeUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    this.router.navigate(['/informe']);
   }
 
   protected onSaveError(): void {
@@ -151,5 +167,40 @@ export class InformeUpdateComponent implements OnInit {
         ),
       )
       .subscribe((enfermedads: IEnfermedad[]) => (this.enfermedadsSharedCollection = enfermedads));
+  }
+  saveAndCreateReceta(): void {
+    this.isSaving = true;
+    const informe = this.informeFormService.getInforme(this.editForm);
+
+    const pacienteId = informe.paciente?.id;
+    const trabajadorId = informe.trabajador?.id;
+
+    const onSuccess = (savedInforme: IInforme) => {
+      this.router.navigate(['/receta/new'], {
+        queryParams: {
+          informeId: savedInforme.id,
+          pacienteId: pacienteId,
+          trabajadorId: trabajadorId,
+        },
+      });
+    };
+
+    if (informe.id !== null) {
+      this.informeService
+        .update(informe)
+        .pipe(finalize(() => (this.isSaving = false)))
+        .subscribe({
+          next: res => onSuccess(res.body!),
+          error: () => this.onSaveError(),
+        });
+    } else {
+      this.informeService
+        .create(informe)
+        .pipe(finalize(() => (this.isSaving = false)))
+        .subscribe({
+          next: res => onSuccess(res.body!),
+          error: () => this.onSaveError(),
+        });
+    }
   }
 }
