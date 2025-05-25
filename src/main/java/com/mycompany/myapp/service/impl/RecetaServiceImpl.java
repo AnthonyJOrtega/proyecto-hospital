@@ -1,6 +1,8 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.Informe;
 import com.mycompany.myapp.domain.Receta;
+import com.mycompany.myapp.repository.InformeRepository;
 import com.mycompany.myapp.repository.RecetaRepository;
 import com.mycompany.myapp.service.RecetaService;
 import com.mycompany.myapp.service.dto.RecetaDTO;
@@ -30,7 +32,10 @@ public class RecetaServiceImpl implements RecetaService {
 
     private final RecetaMapper recetaMapper;
 
-    public RecetaServiceImpl(RecetaRepository recetaRepository, RecetaMapper recetaMapper) {
+    private final InformeRepository informeRepository;
+
+    public RecetaServiceImpl(RecetaRepository recetaRepository, RecetaMapper recetaMapper, InformeRepository informeRepository) {
+        this.informeRepository = informeRepository;
         this.recetaRepository = recetaRepository;
         this.recetaMapper = recetaMapper;
     }
@@ -40,6 +45,14 @@ public class RecetaServiceImpl implements RecetaService {
         LOG.debug("Request to save Receta : {}", recetaDTO);
         Receta receta = recetaMapper.toEntity(recetaDTO);
         receta = recetaRepository.save(receta);
+        // Asociar la receta al informe si corresponde
+        if (recetaDTO.getInforme() != null && receta.getId() != null) {
+            Informe informe = informeRepository.findById(recetaDTO.getInforme().getId()).orElse(null);
+            if (informe != null) {
+                informe.setReceta(receta);
+                informeRepository.save(informe);
+            }
+        }
         return recetaMapper.toDto(receta);
     }
 
@@ -48,6 +61,14 @@ public class RecetaServiceImpl implements RecetaService {
         LOG.debug("Request to update Receta : {}", recetaDTO);
         Receta receta = recetaMapper.toEntity(recetaDTO);
         receta = recetaRepository.save(receta);
+        // Asociar la receta al informe si corresponde
+        if (recetaDTO.getInforme() != null && receta.getId() != null) {
+            Informe informe = informeRepository.findById(recetaDTO.getInforme().getId()).orElse(null);
+            if (informe != null) {
+                informe.setReceta(receta);
+                informeRepository.save(informe);
+            }
+        }
         return recetaMapper.toDto(receta);
     }
 

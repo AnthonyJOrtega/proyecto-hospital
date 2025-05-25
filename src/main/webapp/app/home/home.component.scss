@@ -1,23 +1,120 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap');
+.card {
+  border-radius: 1px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 
-.hipster {
-  display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
-  background-size: contain;
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+}
+body,
+html {
+  height: 100%;
+  overflow: hidden;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_1.svg') no-repeat center top;
-    background-size: contain;
+.home-container,
+.container-fluid.min-vh-100 {
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+.text-gradient {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.divider {
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #dee2e6;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  border: none;
+  transition: all 0.3s ease;
+  color: #fff;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(37, 117, 252, 0.5);
+    filter: brightness(1.1) saturate(1.2);
+  }
+}
+
+.btn-outline-primary {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: rgba(37, 117, 252, 0.05);
+    color: #2575fc;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .card {
+    max-width: 75% !important;
+  }
+
+  .col-lg-6 {
+    padding: 2rem !important;
+  }
+}
+.hospital-tech-title {
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin: 1.5rem 0;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.hospital-tech-main {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 10px 10px 15px rgb(0, 0, 0); /* Sombra suave */
+
+  letter-spacing: 1px;
+  display: block;
+  line-height: 1;
+}
+
+.hospital-tech-sub {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 30px 30px 25px rgb(0, 0, 0); /* Sombra suave */
+  letter-spacing: 1px;
+  display: block;
+  line-height: 1;
+  margin-top: 0.5rem;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+/* Efecto hover */
+.hospital-tech-title:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+
+  .hospital-tech-main,
+  .hospital-tech-sub {
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(0, 119, 182, 0.4);
   }
 }

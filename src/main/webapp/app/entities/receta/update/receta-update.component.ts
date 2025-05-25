@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -36,6 +36,7 @@ export class RecetaUpdateComponent implements OnInit {
   protected trabajadorService = inject(TrabajadorService);
   protected medicamentoService = inject(MedicamentoService);
   protected activatedRoute = inject(ActivatedRoute);
+  protected router = inject(Router);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: RecetaFormGroup = this.recetaFormService.createRecetaFormGroup();
@@ -52,7 +53,21 @@ export class RecetaUpdateComponent implements OnInit {
       if (receta) {
         this.updateForm(receta);
       }
-
+      // Asociar informe si viene por query param
+      this.activatedRoute.queryParams.subscribe(params => {
+        const informeId = params['informeId'];
+        const pacienteId = params['pacienteId'];
+        const trabajadorId = params['trabajadorId'];
+        if (informeId) {
+          this.editForm.patchValue({ informe: { id: +informeId } });
+        }
+        if (pacienteId) {
+          this.editForm.patchValue({ paciente: { id: +pacienteId } });
+        }
+        if (trabajadorId) {
+          this.editForm.patchValue({ trabajador: { id: +trabajadorId } });
+        }
+      });
       this.loadRelationshipsOptions();
     });
   }
@@ -79,7 +94,7 @@ export class RecetaUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
-    this.previousState();
+    this.router.navigate(['/receta']);
   }
 
   protected onSaveError(): void {

@@ -10,8 +10,8 @@ export interface ICita {
   estadoCita?: keyof typeof EstadoCita | null;
   observaciones?: string | null;
   informe?: Pick<IInforme, 'id'> | null;
-  paciente?: Pick<IPaciente, 'id'> | null;
-  trabajadors?: Pick<ITrabajador, 'id'>[] | null;
+  paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'> | null;
+  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'>[] | null;
 }
 
 export type NewCita = Omit<ICita, 'id'> & { id: null };

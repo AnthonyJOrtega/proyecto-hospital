@@ -1,6 +1,8 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.Cita;
 import com.mycompany.myapp.domain.Informe;
+import com.mycompany.myapp.repository.CitaRepository;
 import com.mycompany.myapp.repository.InformeRepository;
 import com.mycompany.myapp.service.InformeService;
 import com.mycompany.myapp.service.dto.InformeDTO;
@@ -25,14 +27,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class InformeServiceImpl implements InformeService {
 
     private static final Logger LOG = LoggerFactory.getLogger(InformeServiceImpl.class);
-
     private final InformeRepository informeRepository;
 
     private final InformeMapper informeMapper;
 
-    public InformeServiceImpl(InformeRepository informeRepository, InformeMapper informeMapper) {
+    private final CitaRepository citaRepository;
+
+    public InformeServiceImpl(InformeRepository informeRepository, InformeMapper informeMapper, CitaRepository citaRepository) {
         this.informeRepository = informeRepository;
         this.informeMapper = informeMapper;
+        this.citaRepository = citaRepository;
     }
 
     @Override
@@ -40,6 +44,13 @@ public class InformeServiceImpl implements InformeService {
         LOG.debug("Request to save Informe : {}", informeDTO);
         Informe informe = informeMapper.toEntity(informeDTO);
         informe = informeRepository.save(informe);
+        if (informeDTO.getCita() != null && informe.getId() != null) {
+            Cita cita = citaRepository.findById(informeDTO.getCita().getId()).orElse(null);
+            if (cita != null) {
+                cita.setInforme(informe); // Esto guarda solo el id en la FK de la tabla cita
+                citaRepository.save(cita);
+            }
+        }
         return informeMapper.toDto(informe);
     }
 

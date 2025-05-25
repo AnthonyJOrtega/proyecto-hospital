@@ -24,6 +24,7 @@ type RecetaFormGroupContent = {
   paciente: FormControl<IReceta['paciente']>;
   trabajador: FormControl<IReceta['trabajador']>;
   medicamentos: FormControl<IReceta['medicamentos']>;
+  informe: FormControl<IReceta['informe']>;
 };
 
 export type RecetaFormGroup = FormGroup<RecetaFormGroupContent>;
@@ -49,6 +50,7 @@ export class RecetaFormService {
       paciente: new FormControl(recetaRawValue.paciente),
       trabajador: new FormControl(recetaRawValue.trabajador),
       medicamentos: new FormControl(recetaRawValue.medicamentos ?? []),
+      informe: new FormControl(recetaRawValue.informe),
     });
   }
 
