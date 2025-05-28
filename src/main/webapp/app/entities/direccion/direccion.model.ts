@@ -9,8 +9,8 @@ export interface IDireccion {
   codigoPostal?: number | null;
   calle?: string | null;
   numero?: string | null;
-  pacientes?: Pick<IPaciente, 'id'>[] | null;
-  trabajadors?: Pick<ITrabajador, 'id'>[] | null;
+  pacientes?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'>[] | null;
+  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'>[] | null;
 }
 
 export type NewDireccion = Omit<IDireccion, 'id'> & { id: null };

@@ -79,11 +79,11 @@
             [compareWith]="compareEspecialidad"
           >
             @for (especialidadOption of especialidadsSharedCollection; track $index) {
-              <option [ngValue]="especialidadOption">{{ especialidadOption.id }}</option>
+              <option [ngValue]="especialidadOption">{{ especialidadOption.nombre }}</option>
             }
           </select>
         </div>
-
+        <!--
         <div class="mb-3">
           <label for="field_citas" jhiTranslate="tfg2App.trabajador.cita">Cita</label>
           <select
@@ -117,7 +117,7 @@
             }
           </select>
         </div>
-
+-->
         <div class="mb-3">
           <label for="field_direccions" jhiTranslate="tfg2App.trabajador.direccion">Direccion</label>
           <select
@@ -130,7 +130,12 @@
             [compareWith]="compareDireccion"
           >
             @for (direccionOption of direccionsSharedCollection; track $index) {
-              <option [ngValue]="direccionOption">{{ direccionOption.id }}</option>
+              <option [ngValue]="direccionOption">
+                {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
+                  direccionOption.ciudad
+                }}
+                {{ direccionOption.pais }})
+              </option>
             }
           </select>
         </div>

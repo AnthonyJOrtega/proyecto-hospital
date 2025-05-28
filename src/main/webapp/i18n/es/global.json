@@ -18,6 +18,28 @@
         "enfermedad": "Enfermedad",
         "medicamento": "Medicamento"
       },
+      "gestion": {
+        "main": "Gestión",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "direccion": "Direcciones",
+        "especialidad": "Especialidad",
+        "paciente": "Paciente",
+        "trabajador": "Trabajador"
+      },
+
+      "administracion": {
+        "main": "Administración",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "cita": "Cita",
+        "informe": "Informe",
+        "receta": "Receta"
+      },
+      "tratamiento": {
+        "main": "Tratamiento",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "enfermedad": "Enfermedad",
+        "medicamento": "Medicamento"
+      },
       "account": {
         "main": "Cuenta",
         "settings": "Ajustes",

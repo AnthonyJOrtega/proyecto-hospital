@@ -23,6 +23,7 @@ public interface EspecialidadMapper extends EntityMapper<EspecialidadDTO, Especi
     @Named("trabajadorId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "idUsuario", source = "idUsuario")
     TrabajadorDTO toDtoTrabajadorId(Trabajador trabajador);
 
     @Named("trabajadorIdSet")

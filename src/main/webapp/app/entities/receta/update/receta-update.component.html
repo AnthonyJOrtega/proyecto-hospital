@@ -62,7 +62,7 @@
             formControlName="instrucciones"
           />
         </div>
-
+        <!--    PACIENTE Y TRABAJADOR DESACTIVADOS PORQUE NO SE PUEDEN CREAR RECETAS SIN PACIENTE Y TRABAJADOR
         <div class="mb-3">
           <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.receta.paciente">Paciente</label>
           <select
@@ -96,7 +96,7 @@
             }
           </select>
         </div>
-
+-->
         <div class="mb-3">
           <label for="field_medicamentos" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
           <select
@@ -109,7 +109,7 @@
             [compareWith]="compareMedicamento"
           >
             @for (medicamentoOption of medicamentosSharedCollection; track $index) {
-              <option [ngValue]="medicamentoOption">{{ medicamentoOption.id }}</option>
+              <option [ngValue]="medicamentoOption">{{ medicamentoOption.nombre }}</option>
             }
           </select>
         </div>

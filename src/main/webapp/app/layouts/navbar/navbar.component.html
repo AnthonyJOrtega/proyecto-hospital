@@ -20,16 +20,23 @@
       </a>
       <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
         <ul class="navbar-nav ms-auto">
+          <!--  BOTON HOME
           <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
               <span>
                 <fa-icon icon="home"></fa-icon>
-                <span jhiTranslate="global.menu.home">Inicio</span>
+                <span jhiTranslate="global.menu.home">Home</span>
               </span>
             </a>
           </li>
-
-          <!-- MENÚ DE ENTIDADES -->
+-->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/calendario" routerLinkActive="active" (click)="collapseNavbar()">
+              <fa-icon icon="calendar-alt" [fixedWidth]="true"></fa-icon>
+              <span>Calendario</span>
+            </a>
+          </li>
+          <!-- GESTION-->
           <li
             ngbDropdown
             class="nav-item dropdown pointer"
@@ -37,41 +44,171 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="gestion-menu" data-cy="gestion">
               <span>
-                <fa-icon icon="th-list"></fa-icon>
-                <span jhiTranslate="global.menu.entities.main">Entidades</span>
+                <fa-icon icon="toolbox"></fa-icon>
+                <span jhiTranslate="global.menu.gestion.main">Gestion</span>
               </span>
             </a>
-            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-              <li
-                *ngFor="
-                  let item of [
-                    { link: '/paciente', label: 'paciente' },
-                    { link: '/trabajador', label: 'trabajador' },
-                    { link: '/direccion', label: 'direccion' },
-                    { link: '/cita', label: 'cita' },
-                    { link: '/informe', label: 'informe' },
-                    { link: '/receta', label: 'receta' },
-                    { link: '/especialidad', label: 'especialidad' },
-                    { link: '/enfermedad', label: 'enfermedad' },
-                    { link: '/medicamento', label: 'medicamento' },
-                  ]
-                "
-              >
+            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="gestion-menu">
+              <li>
                 <a
                   class="dropdown-item"
-                  [routerLink]="item.link"
+                  routerLink="/direccion"
                   routerLinkActive="active"
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="collapseNavbar()"
                 >
-                  <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
-                  <span jhiTranslate="global.menu.entities.{{ item.label }}">{{ item.label }}</span>
+                  <fa-icon icon="location-dot" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.gestion.direccion">Direccion</span>
                 </a>
               </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/especialidad"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="stethoscope" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.gestion.especialidad">Especialidad</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/paciente"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="bed-pulse" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.gestion.paciente">Paciente</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/trabajador"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="user-nurse" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.gestion.trabajador">Trabajador</span>
+                </a>
+              </li>
+              <!-- jhipster-needle-add-entity-to-menu - JHipster will add gestion to the menu here -->
             </ul>
           </li>
+
+          <!-- ADMINISTRACION-->
+          <li
+            ngbDropdown
+            class="nav-item dropdown pointer"
+            display="dynamic"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a
+              class="nav-link dropdown-toggle"
+              ngbDropdownToggle
+              href="javascript:void(0);"
+              id="administracion-menu"
+              data-cy="administracion"
+            >
+              <span>
+                <fa-icon icon="clipboard"></fa-icon>
+                <span jhiTranslate="global.menu.administracion.main">Administracion</span>
+              </span>
+            </a>
+            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="administracion-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/cita"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="calendar-check" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.administracion.cita">Cita</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/informe"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="file-contract" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.administracion.informe">Informe</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/receta"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="hospital-user" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.administracion.receta">Receta</span>
+                </a>
+              </li>
+              <!-- jhipster-needle-add-entity-to-menu - JHipster will add administracion to the menu here -->
+            </ul>
+          </li>
+
+          <!-- TRATAMIENTOS-->
+          <li
+            ngbDropdown
+            class="nav-item dropdown pointer"
+            display="dynamic"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="tratamiento-menu" data-cy="tratamiento">
+              <span>
+                <fa-icon icon="pills"></fa-icon>
+                <span jhiTranslate="global.menu.tratamiento.main">Tratamiento</span>
+              </span>
+            </a>
+            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="tratamiento-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/enfermedad"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="bacteria" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.tratamiento.enfermedad">Enfermedad</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  routerLink="/medicamento"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="collapseNavbar()"
+                >
+                  <fa-icon icon="tablets" [fixedWidth]="true"></fa-icon>
+                  <span jhiTranslate="global.menu.tratamiento.medicamento">Medicamento</span>
+                </a>
+              </li>
+              <!-- jhipster-needle-add-entity-to-menu - JHipster will add tratamiento to the menu here -->
+            </ul>
+          </li>
+
+          <!--FIN DE CAMBIOSSSSSSSSS-->
 
           <!-- ADMINISTRACIÓN (solo ADMIN) -->
           <li

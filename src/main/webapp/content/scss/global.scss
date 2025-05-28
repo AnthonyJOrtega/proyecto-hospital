@@ -240,5 +240,7 @@ body,
   background-color: transparent !important;
   box-shadow: none !important;
 }
-
+body.cita-update-view .navbar {
+  margin-bottom: 10px !important; /* Ajusta el valor según el espaciado que necesites */
+}
 /* jhipster-needle-scss-add-main JHipster will add new css style */

@@ -30,16 +30,13 @@
       <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center p-5" [class.col-lg-12]="isAuthenticated()">
         <div class="w-100">
           <ng-container *ngIf="account(); else loginBlock">
-            <!-- TÍTULO BIENVENIDA -->
-            <h1 class="display-5 fw-bold text-primary mb-4"><span jhiTranslate="home.title">¡Bienvenido, Java Hipster!</span> (Tfg 2)</h1>
-            <p class="lead text-muted mb-4" jhiTranslate="home.subtitle">Esta es su página de inicio</p>
-
+            <!-- TITULO SI ESTÁ LOGUEADO -->
+            <h1 class="hospital-tech-title">
+              <span class="hospital-tech-main">HOSPITAL TECH</span>
+              <hr class="mx-auto" style="opacity: 0.2; border: none; height: 1px; background-color: rgba(0, 0, 0, 0.1)" />
+              <span class="hospital-tech-sub">Bienvenido</span>
+            </h1>
             <!-- MENSAJE DE USUARIO -->
-            <div class="alert alert-success" *ngIf="account() as accountRef">
-              <span id="home-logged-message" jhiTranslate="home.logged.message" [translateValues]="{ username: accountRef.login }">
-                Está conectado como "{{ accountRef.login }}".
-              </span>
-            </div>
 
             <!-- BOTONES DE ACCIÓN -->
             <div class="d-flex flex-column gap-3 mb-4">
@@ -52,60 +49,38 @@
                 <span>Crear Nueva Cita</span>
                 <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
               </button>
+
+              <!-- Botón para crear nuevo paciente (amarillo) -->
+              <button
+                class="btn btn-warning btn-lg py-3 rounded-pill shadow-sm position-relative w-100 text-dark"
+                routerLink="/paciente/new"
+                style="padding-left: 3rem; padding-right: 3rem"
+              >
+                <i class="bi bi-person-plus fs-4 position-absolute" style="left: 1.5rem"></i>
+                <span>Crear Nuevo Paciente</span>
+                <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
+              </button>
+
+              <!-- Botón para crear o editar informe (verde oscuro) -->
+              <button
+                class="btn btn-success btn-lg py-3 rounded-pill shadow-sm position-relative w-100"
+                style="background-color: #145a32; border-color: #145a32; color: #fff; padding-left: 3rem; padding-right: 3rem"
+                routerLink="/informe/new"
+              >
+                <i class="bi bi-file-earmark-text fs-4 position-absolute" style="left: 1.5rem"></i>
+                <span>Crear o Editar Informe</span>
+                <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
+              </button>
             </div>
-
-            <!-- ENLACES JHIPSTER -->
-            <p jhiTranslate="home.question">Si tiene preguntas sobre JHipster:</p>
-            <ul>
-              <li>
-                <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.homepage">
-                  Página de inicio de JHipster
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://stackoverflow.com/tags/jhipster/info"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  jhiTranslate="home.link.stackoverflow"
-                  >JHipster en Stack Overflow</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://github.com/jhipster/generator-jhipster/issues?state=open"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  jhiTranslate="home.link.bugtracker"
-                  >Seguimiento de errores</a
-                >
-              </li>
-              <li>
-                <a
-                  href="https://gitter.im/jhipster/generator-jhipster"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  jhiTranslate="home.link.chat"
-                  >Sala de chat pública</a
-                >
-              </li>
-              <li>
-                <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.link.follow"
-                  >&#64;jhipster en Twitter</a
-                >
-              </li>
-            </ul>
-
-            <p>
-              <span jhiTranslate="home.like">Si te gusta JHipster, danos una estrella en</span>
-              <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer" jhiTranslate="home.github">
-                GitHub
-              </a>
-              !
-            </p>
           </ng-container>
         </div>
       </div>
+    </div>
+    <div class="custom-alert" role="alert" *ngIf="account() as accountRef">
+      <i class="bi bi-person-check-fill"></i>
+      <span id="home-logged-message" jhiTranslate="home.logged.message" [translateValues]="{ username: accountRef.login }">
+        Bienvenido <strong>"{{ accountRef.login }}"</strong>.
+      </span>
     </div>
   </div>
 
@@ -115,7 +90,7 @@
       <h1 class="mb-4 text-gradient">Bienvenido a <span class="fw-bold">HOSPITAL-TECH</span></h1>
       <p class="mb-4 text-muted">Accede a tu cuenta para gestionar pacientes, citas y recursos hospitalarios</p>
 
-      <button class="btn btn-primary btn-lg mb-3 w-100 py-3 rounded-pill shadow-sm" (click)="login()">
+      <button class="btn btn-primary btn-lg mb-3 px-5 py-3 rounded-pill shadow-sm" (click)="login()">
         <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar sesión
       </button>
 
@@ -123,7 +98,7 @@
         <p class="text-center fw-bold mx-3 mb-0 text-muted">O</p>
       </div>
 
-      <button class="btn btn-outline-primary btn-lg w-100 py-3 rounded-pill" (click)="register()">
+      <button class="btn btn-outline-primary btn-lg px-4 py-3 rounded-pill" (click)="register()">
         <i class="bi bi-person-plus me-2"></i> Crear nueva cuenta
       </button>
 

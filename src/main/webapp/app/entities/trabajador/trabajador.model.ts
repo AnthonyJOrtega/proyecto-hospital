@@ -14,10 +14,10 @@ export interface ITrabajador {
   puesto?: keyof typeof Puesto | null;
   disponibilidad?: boolean | null;
   turno?: keyof typeof Turno | null;
-  especialidads?: Pick<IEspecialidad, 'id'>[] | null;
-  citas?: Pick<ICita, 'id'>[] | null;
-  pacientes?: Pick<IPaciente, 'id'>[] | null;
-  direccions?: Pick<IDireccion, 'id'>[] | null;
+  especialidads?: Pick<IEspecialidad, 'id' | 'nombre'>[] | null;
+  citas?: Pick<ICita, 'id' | 'paciente'>[] | null;
+  pacientes?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'>[] | null;
+  direccions?: Pick<IDireccion, 'id' | 'calle' | 'codigoPostal' | 'numero' | 'ciudad' | 'pais'>[] | null;
 }
 
 export type NewTrabajador = Omit<ITrabajador, 'id'> & { id: null };
