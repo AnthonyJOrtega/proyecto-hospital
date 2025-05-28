@@ -37,6 +37,11 @@ public interface PacienteMapper extends EntityMapper<PacienteDTO, Paciente> {
     @Named("direccionId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "calle", source = "calle")
+    @Mapping(target = "numero", source = "numero")
+    @Mapping(target = "ciudad", source = "ciudad")
+    @Mapping(target = "codigoPostal", source = "codigoPostal")
+    @Mapping(target = "pais", source = "pais")
     DireccionDTO toDtoDireccionId(Direccion direccion);
 
     @Named("direccionIdSet")

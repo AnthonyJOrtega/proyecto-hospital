@@ -43,7 +43,7 @@
           <dd>
             @for (paciente of direccionRef.pacientes; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.id }}</a
+                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.nombre }} {{ paciente?.apellido }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }
@@ -52,7 +52,7 @@
           <dd>
             @for (trabajador of direccionRef.trabajadors; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.id }}</a
+                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.nombre }} {{ trabajador?.apellido }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

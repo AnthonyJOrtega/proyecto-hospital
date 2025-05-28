@@ -52,7 +52,30 @@ html {
     filter: brightness(1.1) saturate(1.2);
   }
 }
+.btn-warning {
+  background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+  border: none;
+  transition: all 0.3s ease;
+  color: #fff;
 
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(255, 210, 0, 0.5);
+    filter: brightness(1.1) saturate(1.2);
+  }
+}
+.btn-success {
+  background: linear-gradient(135deg, #368c4a 0%, #699f77 100%);
+  border: none;
+  transition: all 0.3s ease;
+  color: #fff;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5);
+    filter: brightness(1.1) saturate(1.2);
+  }
+}
 .btn-outline-primary {
   transition: all 0.3s ease;
 
@@ -116,5 +139,36 @@ html {
   .hospital-tech-sub {
     color: #ffffff;
     text-shadow: 0 0 30px rgba(0, 119, 182, 0.4);
+  }
+}
+// Usuario conectado estilo de alerta
+.custom-alert {
+  background: linear-gradient(135deg, #28a745, #28a745); // fondo suave verde
+  border-left: 5px solid #28a745; // verde Bootstrap
+  border-right: 5px solid #28a745; // verde Bootstrap
+  border-radius: 20px;
+  padding: 0.2rem 0.2rem;
+  box-shadow: 0 4px 14px rgba(40, 167, 69, 0.2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease-in-out;
+  max-width: 300px;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1050;
+
+  i {
+    font-size: 0.1rem;
+    color: #28a745;
+  }
+
+  strong {
+    color: #0c4128;
+    font-weight: 600;
   }
 }

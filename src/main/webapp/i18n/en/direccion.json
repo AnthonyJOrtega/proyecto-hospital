@@ -25,6 +25,12 @@
       "calle": "Street",
       "numero": "Number",
       "paciente": "Patient",
+      "trabajador": "Worker",
+      "nombre": "Name",
+      "tipo": "Type"
+    },
+    "tipo": {
+      "paciente": "Patient",
       "trabajador": "Worker"
     }
   }

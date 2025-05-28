@@ -78,7 +78,7 @@
             [compareWith]="compareTrabajador"
           >
             @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.id }}</option>
+              <option [ngValue]="trabajadorOption">{{ trabajadorOption.nombre }} {{ trabajadorOption.apellido }}</option>
             }
           </select>
         </div>
@@ -95,7 +95,12 @@
             [compareWith]="compareDireccion"
           >
             @for (direccionOption of direccionsSharedCollection; track $index) {
-              <option [ngValue]="direccionOption">{{ direccionOption.id }}</option>
+              <option [ngValue]="direccionOption">
+                {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
+                  direccionOption.ciudad
+                }}
+                {{ direccionOption.pais }})
+              </option>
             }
           </select>
         </div>

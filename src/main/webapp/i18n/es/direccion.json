@@ -25,7 +25,9 @@
       "calle": "Calle",
       "numero": "Numero",
       "paciente": "Paciente",
-      "trabajador": "Trabajador"
+      "trabajador": "Trabajador",
+      "nombre": "Nombre",
+      "tipo": "Tipo"
     }
   }
 }

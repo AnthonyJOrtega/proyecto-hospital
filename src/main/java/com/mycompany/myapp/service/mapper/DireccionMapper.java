@@ -15,8 +15,8 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface DireccionMapper extends EntityMapper<DireccionDTO, Direccion> {
-    @Mapping(target = "pacientes", source = "pacientes", qualifiedByName = "pacienteIdSet")
-    @Mapping(target = "trabajadors", source = "trabajadors", qualifiedByName = "trabajadorIdSet")
+    @Mapping(target = "pacientes", source = "pacientes", qualifiedByName = "NombrePacienteSet")
+    @Mapping(target = "trabajadors", source = "trabajadors", qualifiedByName = "NombreTrabajadorSet")
     DireccionDTO toDto(Direccion s);
 
     @Mapping(target = "removePaciente", ignore = true)
@@ -33,10 +33,35 @@ public interface DireccionMapper extends EntityMapper<DireccionDTO, Direccion> {
         return paciente.stream().map(this::toDtoPacienteId).collect(Collectors.toSet());
     }
 
+    // este método es para obtener el nombre y apellido del paciente, no el id
+    @Named("NombrePaciente")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "apellido", source = "apellido")
+    PacienteDTO toDtoNombrePaciente(Paciente paciente);
+
+    @Named("NombrePacienteSet")
+    default Set<PacienteDTO> toDtoNombrePacienteSet(Set<Paciente> paciente) {
+        return paciente.stream().map(this::toDtoNombrePaciente).collect(Collectors.toSet());
+    }
+
     @Named("trabajadorId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     TrabajadorDTO toDtoTrabajadorId(Trabajador trabajador);
+
+    @Named("NombreTrabajador")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "apellido", source = "apellido")
+    TrabajadorDTO toDtoNombreTrabajador(Trabajador trabajador);
+
+    @Named("NombreTrabajadorSet")
+    default Set<TrabajadorDTO> toDtoNombreTrabajadorSet(Set<Trabajador> trabajador) {
+        return trabajador.stream().map(this::toDtoNombreTrabajador).collect(Collectors.toSet());
+    }
 
     @Named("trabajadorIdSet")
     default Set<TrabajadorDTO> toDtoTrabajadorIdSet(Set<Trabajador> trabajador) {

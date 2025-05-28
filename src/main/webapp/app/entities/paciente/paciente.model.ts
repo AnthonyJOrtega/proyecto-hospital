@@ -11,7 +11,7 @@ export interface IPaciente {
   fechaNacimiento?: dayjs.Dayjs | null;
   telefono?: string | null;
   trabajadors?: Pick<ITrabajador, 'id'>[] | null;
-  direccions?: Pick<IDireccion, 'id'>[] | null;
+  direccions?: Pick<IDireccion, 'id' | 'calle' | 'codigoPostal' | 'numero' | 'ciudad' | 'pais'>[] | null;
 }
 
 export type NewPaciente = Omit<IPaciente, 'id'> & { id: null };

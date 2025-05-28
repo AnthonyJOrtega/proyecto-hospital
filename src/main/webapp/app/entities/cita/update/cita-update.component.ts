@@ -52,6 +52,8 @@ export class CitaUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ cita }) => {
       this.cita = cita;
+      this.editForm = this.citaFormService.createCitaFormGroup();
+      document.body.classList.add('cita-update-view');
       if (cita) {
         this.updateForm(cita);
         // Si la cita tiene informe asociado, hacer patchValue del id

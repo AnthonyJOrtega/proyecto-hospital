@@ -35,23 +35,6 @@
             formControlName="descripcion"
           />
         </div>
-
-        <div class="mb-3">
-          <label for="field_trabajadors" jhiTranslate="tfg2App.especialidad.trabajador">Trabajador</label>
-          <select
-            class="form-control"
-            id="field_trabajadors"
-            data-cy="trabajador"
-            multiple
-            name="trabajadors"
-            formControlName="trabajadors"
-            [compareWith]="compareTrabajador"
-          >
-            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.id }}</option>
-            }
-          </select>
-        </div>
       </div>
 
       <div>

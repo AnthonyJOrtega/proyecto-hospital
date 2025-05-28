@@ -24,7 +24,7 @@
           <label class="form-label" for="field_resumen" jhiTranslate="tfg2App.informe.resumen">Resumen</label>
           <input type="text" class="form-control" name="resumen" id="field_resumen" data-cy="resumen" formControlName="resumen" />
         </div>
-
+        <!--    INFORME DEJADO COMENTADO PARA FUTURAS MEJORAS
         <div class="mb-3">
           <label class="form-label" for="field_receta" jhiTranslate="tfg2App.informe.receta">Receta</label>
           <select
@@ -75,7 +75,7 @@
             }
           </select>
         </div>
-
+-->
         <div class="mb-3">
           <label for="field_enfermedads" jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</label>
           <select
@@ -88,7 +88,7 @@
             [compareWith]="compareEnfermedad"
           >
             @for (enfermedadOption of enfermedadsSharedCollection; track $index) {
-              <option [ngValue]="enfermedadOption">{{ enfermedadOption.id }}</option>
+              <option [ngValue]="enfermedadOption">{{ enfermedadOption.nombre }}</option>
             }
           </select>
         </div>

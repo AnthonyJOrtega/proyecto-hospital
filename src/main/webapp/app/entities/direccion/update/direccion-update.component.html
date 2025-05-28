@@ -64,7 +64,7 @@
             [compareWith]="comparePaciente"
           >
             @for (pacienteOption of pacientesSharedCollection; track $index) {
-              <option [ngValue]="pacienteOption">{{ pacienteOption.id }}</option>
+              <option [ngValue]="pacienteOption">{{ pacienteOption.nombre }} {{ pacienteOption.apellido }}</option>
             }
           </select>
         </div>
@@ -81,7 +81,7 @@
             [compareWith]="compareTrabajador"
           >
             @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.id }}</option>
+              <option [ngValue]="trabajadorOption">{{ trabajadorOption.nombre }} {{ trabajadorOption.apellido }}</option>
             }
           </select>
         </div>

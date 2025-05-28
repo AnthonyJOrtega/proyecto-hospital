@@ -52,7 +52,11 @@
           <dd>
             @for (direccion of pacienteRef.direccions; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/direccion', direccion.id, 'view']">{{ direccion?.id }}</a
+                <a [routerLink]="['/direccion', direccion.id, 'view']"
+                  >{{ direccion?.calle }} --- C.P: {{ direccion?.codigoPostal }} --- nº:{{ direccion?.numero }} --- ({{
+                    direccion?.ciudad
+                  }}
+                  {{ direccion?.pais }})</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

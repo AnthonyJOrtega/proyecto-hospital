@@ -53,7 +53,7 @@
           <dd>
             @for (especialidad of trabajadorRef.especialidads; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/especialidad', especialidad.id, 'view']">{{ especialidad?.id }}</a
+                <a [routerLink]="['/especialidad', especialidad.id, 'view']">{{ especialidad?.nombre }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }
@@ -67,11 +67,11 @@
               </span>
             }
           </dd>
-          <dt><span jhiTranslate="tfg2App.trabajador.paciente">Paciente</span></dt>
+          <dt><span jhiTranslate="tfg2App.trabajador.paciente">Paciente(s) de las Citas</span></dt>
           <dd>
-            @for (paciente of trabajadorRef.pacientes; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.id }}</a
+            @for (cita of trabajadorRef.citas; track $index; let last = $last) {
+              <span *ngIf="cita.paciente">
+                <a [routerLink]="['/paciente', cita.paciente.id, 'view']"> {{ cita.paciente.nombre }} {{ cita.paciente.apellido }} </a
                 >{{ last ? '' : ', ' }}
               </span>
             }
@@ -80,7 +80,11 @@
           <dd>
             @for (direccion of trabajadorRef.direccions; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/direccion', direccion.id, 'view']">{{ direccion?.id }}</a
+                <a [routerLink]="['/direccion', direccion.id, 'view']"
+                  >{{ direccion?.calle }} --- C.P: {{ direccion?.codigoPostal }} --- nº:{{ direccion?.numero }} --- ({{
+                    direccion?.ciudad
+                  }}
+                  {{ direccion?.pais }})</a
                 >{{ last ? '' : ', ' }}
               </span>
             }

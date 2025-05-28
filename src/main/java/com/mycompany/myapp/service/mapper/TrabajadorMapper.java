@@ -37,6 +37,7 @@ public interface TrabajadorMapper extends EntityMapper<TrabajadorDTO, Trabajador
     @Named("especialidadId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
     EspecialidadDTO toDtoEspecialidadId(Especialidad especialidad);
 
     @Named("especialidadIdSet")
@@ -47,6 +48,7 @@ public interface TrabajadorMapper extends EntityMapper<TrabajadorDTO, Trabajador
     @Named("citaId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "paciente", source = "paciente", qualifiedByName = "pacienteId")
     CitaDTO toDtoCitaId(Cita cita);
 
     @Named("citaIdSet")
@@ -57,6 +59,8 @@ public interface TrabajadorMapper extends EntityMapper<TrabajadorDTO, Trabajador
     @Named("pacienteId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "apellido", source = "apellido")
     PacienteDTO toDtoPacienteId(Paciente paciente);
 
     @Named("pacienteIdSet")
@@ -67,6 +71,11 @@ public interface TrabajadorMapper extends EntityMapper<TrabajadorDTO, Trabajador
     @Named("direccionId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "calle", source = "calle")
+    @Mapping(target = "numero", source = "numero")
+    @Mapping(target = "ciudad", source = "ciudad")
+    @Mapping(target = "codigoPostal", source = "codigoPostal")
+    @Mapping(target = "pais", source = "pais")
     DireccionDTO toDtoDireccionId(Direccion direccion);
 
     @Named("direccionIdSet")
