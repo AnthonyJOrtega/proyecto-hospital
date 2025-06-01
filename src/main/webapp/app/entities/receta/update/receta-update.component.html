@@ -98,20 +98,30 @@
         </div>
 -->
         <div class="mb-3">
-          <label for="field_medicamentos" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
-          <select
-            class="form-control"
-            id="field_medicamentos"
-            data-cy="medicamento"
-            multiple
-            name="medicamentos"
-            formControlName="medicamentos"
-            [compareWith]="compareMedicamento"
-          >
-            @for (medicamentoOption of medicamentosSharedCollection; track $index) {
-              <option [ngValue]="medicamentoOption">{{ medicamentoOption.nombre }}</option>
-            }
-          </select>
+          <label for="medicamentoInput" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
+          <div *ngIf="!medicamentoSeleccionado">
+            <input
+              type="text"
+              id="medicamentoInput"
+              class="form-control"
+              list="medicamentoOptions"
+              [(ngModel)]="medicamentoInputText"
+              (change)="addMedicamentoFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un medicamento"
+              autocomplete="off"
+            />
+            <datalist id="medicamentoOptions">
+              <option *ngFor="let m of medicamentosSharedCollection" [value]="m.nombre"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="chip-list mb-2" *ngIf="medicamentoSeleccionado">
+          <span class="badge rounded-pill bg-success me-3 fs-6">
+            {{ medicamentoSeleccionado.nombre }}
+            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarMedicamento()"></button>
+          </span>
         </div>
       </div>
 

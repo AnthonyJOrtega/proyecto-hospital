@@ -243,4 +243,45 @@ body,
 body.cita-update-view .navbar {
   margin-bottom: 10px !important; /* Ajusta el valor según el espaciado que necesites */
 }
+
+a.direccion-link {
+  transition:
+    color 0.2s,
+    text-decoration 0.2s;
+  &:hover {
+    color: #cbdef7 !important;
+    text-decoration: underline !important;
+  }
+}
+.modal-content {
+  border-radius: 10px;
+  padding: 0.1rem;
+  margin: 0.1rem;
+}
+
+.table-entities {
+  padding-left: 4rem !important;
+  padding-right: 4rem !important;
+  margin-top: 2rem;
+}
+/* ==========================================================================
+Ajustes de la tabla de especialidades
+========================================================================== */
+.columnaDescrip {
+  padding-left: 5rem !important;
+}
+.columnaIdUsuario {
+  min-width: 12rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.columnaIdUsuario span {
+  padding-left: 0rem !important;
+}
+
+#page-heading {
+  margin-top: 40px !important; /* Ajusta según lo que necesites */
+  margin-left: 70px !important; /* Ajusta según lo que necesites */
+}
 /* jhipster-needle-scss-add-main JHipster will add new css style */

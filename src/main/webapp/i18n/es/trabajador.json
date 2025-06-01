@@ -2,17 +2,19 @@
   "tfg2App": {
     "trabajador": {
       "home": {
-        "title": "Trabajadors",
+        "title": "Trabajadores",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Trabajador",
+        "createLabel": "Crear un nuevo Trabajador",
         "createOrEditLabel": "Crear o editar Trabajador",
-        "notFound": "Ningún Trabajadors encontrado"
+        "notFound": "Ningún Trabajador encontrado",
+        "modalInformeTitle": "Informes del Trabajador/a",
+        "modalRecetaTitle": "Recetas del Trabajador/a"
       },
-      "created": "Un nuevo Trabajador ha sido creado con el identificador {{ param }}",
-      "updated": "Un Trabajador ha sido actualizado con el identificador {{ param }}",
+      "created": "Un nuevo Trabajador ha sido creado",
+      "updated": "Un Trabajador ha sido actualizado",
       "deleted": "Un Trabajador ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Trabajador {{ id }}?"
+        "question": "¿Seguro que quiere eliminar este Trabajador?"
       },
       "detail": {
         "title": "Trabajador"
@@ -24,6 +26,8 @@
       "dni": "Dni",
       "puesto": "Puesto",
       "disponibilidad": "Disponibilidad",
+      "disponible": "Disponible",
+      "noDisponible": "No disponible",
       "turno": "Turno",
       "especialidad": "Especialidad",
       "informe": "Informe",

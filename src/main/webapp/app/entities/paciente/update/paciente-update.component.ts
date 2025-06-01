@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
@@ -9,16 +9,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
 import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
-import { IDireccion } from 'app/entities/direccion/direccion.model';
+import { IDireccion, NewDireccion } from 'app/entities/direccion/direccion.model';
 import { DireccionService } from 'app/entities/direccion/service/direccion.service';
 import { PacienteService } from '../service/paciente.service';
 import { IPaciente } from '../paciente.model';
 import { PacienteFormGroup, PacienteFormService } from './paciente-form.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'jhi-paciente-update',
   templateUrl: './paciente-update.component.html',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, CommonModule, RouterModule],
 })
 export class PacienteUpdateComponent implements OnInit {
   isSaving = false;
@@ -118,5 +119,25 @@ export class PacienteUpdateComponent implements OnInit {
         ),
       )
       .subscribe((direccions: IDireccion[]) => (this.direccionsSharedCollection = direccions));
+  }
+  // Metodos para manejar los trabajadores
+  trabajadorInputText = '';
+
+  addTrabajadorFromInput(): void {
+    if ((this.editForm.value.trabajadors ?? []).length >= 1) {
+      this.trabajadorInputText = '';
+      return;
+    }
+    const input = this.trabajadorInputText?.trim().toLowerCase();
+    if (!input) return;
+    const trabajador = this.trabajadorsSharedCollection.find(t => (t.nombre + ' ' + t.apellido).toLowerCase() === input);
+    if (trabajador) {
+      this.editForm.patchValue({ trabajadors: [trabajador] });
+      this.trabajadorInputText = '';
+    }
+  }
+
+  removeTrabajador(trabajador: any): void {
+    this.editForm.patchValue({ trabajadors: [] });
   }
 }

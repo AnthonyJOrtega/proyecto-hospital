@@ -203,4 +203,25 @@ export class InformeUpdateComponent implements OnInit {
         });
     }
   }
+
+  enfermedadInputText = '';
+  enfermedadSeleccionada: IEnfermedad | null = null;
+
+  addEnfermedadFromInput(): void {
+    const input = this.enfermedadInputText?.trim().toLowerCase();
+    if (!input) return;
+    const enfermedad = this.enfermedadsSharedCollection.find(e => e.nombre && e.nombre.toLowerCase() === input);
+    if (enfermedad) {
+      this.enfermedadSeleccionada = enfermedad;
+      this.editForm.get('enfermedads')?.setValue([enfermedad]);
+    } else {
+      this.editForm.get('enfermedads')?.setValue([]);
+    }
+    this.enfermedadInputText = '';
+  }
+
+  quitarEnfermedad(): void {
+    this.enfermedadSeleccionada = null;
+    this.editForm.get('enfermedads')?.setValue([]);
+  }
 }

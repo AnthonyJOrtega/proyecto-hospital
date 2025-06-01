@@ -24,10 +24,15 @@
       "seguroMedico": "Health Insurance",
       "fechaNacimiento": "Date of Birth",
       "telefono": "Phone",
-      "trabajador": "Worker",
-      "cita": "Appoinment",
+      "trabajador": "Worker assigned",
+      "trabajadorConCita": "Appointments with ",
+      "cita": "Appointment",
+      "citaDe": "Appointment/s of ",
+      "noCitas": "No appointments for this patient.",
       "informe": "Report",
+      "informesDe": "Report/s of",
       "receta": "Recipe",
+      "recetasDe": "Recipe/s of",
       "direccion": "Address"
     }
   }

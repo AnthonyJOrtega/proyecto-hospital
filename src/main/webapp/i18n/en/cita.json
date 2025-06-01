@@ -19,7 +19,7 @@
       },
       "id": "ID",
       "fechaCreacion": "Creation Date",
-      "estadoAppointment": "Appoinment Status",
+      "estadoCita": "Appointment Status",
       "observaciones": "Observations",
       "informe": "Report",
       "paciente": "Patient",

@@ -35,9 +35,9 @@
           <dd>
             @if (informe()!.paciente) {
               <div>
-                <a [routerLink]="['/paciente', informe()!.paciente?.id, 'view']"
-                  >{{ informeRef.paciente?.nombre }} {{ informeRef.paciente?.apellido }}</a
-                >
+                <a href="#" (click)="openPacienteDetailModal(informeRef.paciente!); $event.preventDefault()">
+                  {{ informeRef.paciente?.nombre }} {{ informeRef.paciente?.apellido }}
+                </a>
               </div>
             }
           </dd>
@@ -45,9 +45,9 @@
           <dd>
             @if (informe()!.trabajador) {
               <div>
-                <a [routerLink]="['/trabajador', informe()!.trabajador?.id, 'view']"
-                  >{{ informeRef.trabajador?.nombre }} {{ informeRef.trabajador?.apellido }}</a
-                >
+                <a href="#" (click)="openTrabajadorDetailModal(informeRef.trabajador!); $event.preventDefault()">
+                  {{ informeRef.trabajador?.nombre }} {{ informeRef.trabajador?.apellido }}
+                </a>
               </div>
             }
           </dd>

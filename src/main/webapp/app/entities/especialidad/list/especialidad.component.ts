@@ -15,6 +15,9 @@ import { IEspecialidad } from '../especialidad.model';
 
 import { EntityArrayResponseType, EspecialidadService } from '../service/especialidad.service';
 import { EspecialidadDeleteDialogComponent } from '../delete/especialidad-delete-dialog.component';
+import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
+import { TrabajadorDetailComponent } from 'app/entities/trabajador/detail/trabajador-detail.component';
+import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
 
 @Component({
   selector: 'jhi-especialidad',
@@ -39,6 +42,7 @@ export class EspecialidadComponent implements OnInit {
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
+  protected readonly trabajadorService = inject(TrabajadorService);
 
   trackId = (item: IEspecialidad): number => this.especialidadService.getEspecialidadIdentifier(item);
 
@@ -134,6 +138,14 @@ export class EspecialidadComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+
+  //Metodo para abrir el modal del trabjaador segun id de usuario
+  openTrabajadorDetailModal(trabajador: ITrabajador): void {
+    this.trabajadorService.find(trabajador.id).subscribe(response => {
+      const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.trabajador = response.body;
     });
   }
 }

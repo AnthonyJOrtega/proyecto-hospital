@@ -35,13 +35,14 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <!-- OCULTAR ID DE PACIENTE
             <th scope="col" jhiSortBy="id">
               <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
-            </th>
+            </th>-->
             <th scope="col" jhiSortBy="nombre">
               <div class="d-flex">
                 <span jhiTranslate="tfg2App.paciente.nombre">Nombre</span>
@@ -90,9 +91,10 @@
         <tbody>
           @for (paciente of pacientes(); track trackId(paciente)) {
             <tr data-cy="entityTable">
+              <!--OCULTAR ID DE PACIENTE
               <td>
                 <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente.id }}</a>
-              </td>
+              </td>-->
               <td>{{ paciente.nombre }}</td>
               <td>{{ paciente.apellido }}</td>
               <td>{{ paciente.dni }}</td>
@@ -101,13 +103,7 @@
               <td>{{ paciente.telefono }}</td>
               <td class="text-end">
                 <div class="btn-group">
-                  <button
-                    type="submit"
-                    [routerLink]="['/cita']"
-                    [queryParams]="{ 'filter[pacienteId.in]': paciente.id }"
-                    class="btn btn-info btn-sm"
-                    data-cy="filterOtherEntityButton"
-                  >
+                  <button type="button" class="btn btn-info btn-sm" (click)="openCitasModal(paciente)" data-cy="filterOtherEntityButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span
                       class="d-none d-md-inline"
@@ -116,13 +112,7 @@
                       >Show Cita</span
                     >
                   </button>
-                  <button
-                    type="submit"
-                    [routerLink]="['/informe']"
-                    [queryParams]="{ 'filter[pacienteId.in]': paciente.id }"
-                    class="btn btn-info btn-sm"
-                    data-cy="filterOtherEntityButton"
-                  >
+                  <button type="button" class="btn btn-info btn-sm" (click)="openInformesModal(paciente)" data-cy="filterOtherEntityButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span
                       class="d-none d-md-inline"
@@ -131,13 +121,7 @@
                       >Show Informe</span
                     >
                   </button>
-                  <button
-                    type="submit"
-                    [routerLink]="['/receta']"
-                    [queryParams]="{ 'filter[pacienteId.in]': paciente.id }"
-                    class="btn btn-info btn-sm"
-                    data-cy="filterOtherEntityButton"
-                  >
+                  <button type="button" class="btn btn-info btn-sm" (click)="openRecetasModal(paciente)" data-cy="filterOtherEntityButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span
                       class="d-none d-md-inline"
@@ -146,10 +130,11 @@
                       >Show Receta</span
                     >
                   </button>
-                  <a [routerLink]="['/paciente', paciente.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                  <!--Modal para paciente-detail -->
+                  <button type="button" class="btn btn-info btn-sm" (click)="openDetailModal(paciente)" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
-                  </a>
+                  </button>
 
                   <a [routerLink]="['/paciente', paciente.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>

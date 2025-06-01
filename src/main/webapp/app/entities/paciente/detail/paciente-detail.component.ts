@@ -1,9 +1,13 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import SharedModule from 'app/shared/shared.module';
 import { FormatMediumDatePipe } from 'app/shared/date';
 import { IPaciente } from '../paciente.model';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
+import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
+import { TrabajadorDetailComponent } from 'app/entities/trabajador/detail/trabajador-detail.component';
 
 @Component({
   selector: 'jhi-paciente-detail',
@@ -11,9 +15,21 @@ import { IPaciente } from '../paciente.model';
   imports: [SharedModule, RouterModule, FormatMediumDatePipe],
 })
 export class PacienteDetailComponent {
-  paciente = input<IPaciente | null>(null);
+  @Input() paciente: IPaciente | null = null;
+  constructor(
+    public activeModal: NgbActiveModal,
+    private trabajadorService: TrabajadorService,
+    public modalService: NgbModal,
+  ) {}
 
-  previousState(): void {
-    window.history.back();
+  close(): void {
+    this.activeModal.dismiss(); // Cierra el modal
+  }
+
+  openTrabajadorDetailModal(trabajador: ITrabajador): void {
+    this.trabajadorService.find(trabajador.id).subscribe(response => {
+      const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.trabajador = response.body;
+    });
   }
 }

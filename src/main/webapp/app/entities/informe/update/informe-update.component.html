@@ -77,20 +77,30 @@
         </div>
 -->
         <div class="mb-3">
-          <label for="field_enfermedads" jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</label>
-          <select
-            class="form-control"
-            id="field_enfermedads"
-            data-cy="enfermedad"
-            multiple
-            name="enfermedads"
-            formControlName="enfermedads"
-            [compareWith]="compareEnfermedad"
-          >
-            @for (enfermedadOption of enfermedadsSharedCollection; track $index) {
-              <option [ngValue]="enfermedadOption">{{ enfermedadOption.nombre }}</option>
-            }
-          </select>
+          <label for="enfermedadInput" jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</label>
+          <div *ngIf="!enfermedadSeleccionada">
+            <input
+              type="text"
+              id="enfermedadInput"
+              class="form-control"
+              list="enfermedadOptions"
+              [(ngModel)]="enfermedadInputText"
+              (change)="addEnfermedadFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona una enfermedad"
+              autocomplete="off"
+            />
+            <datalist id="enfermedadOptions">
+              <option *ngFor="let e of enfermedadsSharedCollection" [value]="e.nombre"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="chip-list mb-2" *ngIf="enfermedadSeleccionada">
+          <span class="badge bg-primary me-1">
+            {{ enfermedadSeleccionada.nombre }}
+            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarEnfermedad()"></button>
+          </span>
         </div>
       </div>
 

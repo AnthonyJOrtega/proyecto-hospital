@@ -66,27 +66,45 @@
           <input type="text" class="form-control" name="telefono" id="field_telefono" data-cy="telefono" formControlName="telefono" />
         </div>
 
+        <!-- Trabajadores -->
         <div class="mb-3">
-          <label for="field_trabajadors" jhiTranslate="tfg2App.paciente.trabajador">Trabajador</label>
-          <select
-            class="form-control"
-            id="field_trabajadors"
-            data-cy="trabajador"
-            multiple
-            name="trabajadors"
-            formControlName="trabajadors"
-            [compareWith]="compareTrabajador"
-          >
-            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.nombre }} {{ trabajadorOption.apellido }}</option>
-            }
-          </select>
+          <label class="form-label" for="trabajadorInput" jhiTranslate="tfg2App.paciente.trabajador">Trabajador</label>
+          <div class="input-group mb-2" *ngIf="!editForm.value.trabajadors?.length">
+            <input
+              type="text"
+              id="trabajadorInput"
+              class="form-control"
+              list="trabajadorOptions"
+              [(ngModel)]="trabajadorInputText"
+              (change)="addTrabajadorFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un trabajador"
+              autocomplete="off"
+            />
+            <datalist id="trabajadorOptions">
+              <option *ngFor="let t of trabajadorsSharedCollection" [value]="t.nombre + ' ' + t.apellido"></option>
+            </datalist>
+          </div>
+          <div class="mt-2" *ngIf="editForm.value.trabajadors?.length">
+            <span class="badge rounded-pill bg-primary me-1" *ngFor="let trabajador of editForm.value.trabajadors" style="font-size: 1rem">
+              {{ trabajador.nombre }} {{ trabajador.apellido }}
+              <button
+                type="button"
+                class="btn btn-sm btn-link text-white ms-1 p-0"
+                (click)="removeTrabajador(trabajador)"
+                style="vertical-align: middle"
+                aria-label="Quitar"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </span>
+          </div>
         </div>
-
+        <!-- Direcciones  (Que lo he quitado porque voy asociar una direccion para cada paciente desde direcciones)
         <div class="mb-3">
           <label for="field_direccions" jhiTranslate="tfg2App.paciente.direccion">Direccion</label>
           <select
-            class="form-control"
+      class="form-control"
             id="field_direccions"
             data-cy="direccion"
             multiple
@@ -98,12 +116,12 @@
               <option [ngValue]="direccionOption">
                 {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
                   direccionOption.ciudad
-                }}
+                }} 
                 {{ direccionOption.pais }})
               </option>
             }
           </select>
-        </div>
+</div>-->
       </div>
 
       <div>

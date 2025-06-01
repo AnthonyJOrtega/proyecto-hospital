@@ -52,38 +52,74 @@
           <input type="text" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
         </div>
 
+        <!-- Reemplaza el select múltiple de pacientes por este bloque -->
         <div class="mb-3">
-          <label for="field_pacientes" jhiTranslate="tfg2App.direccion.paciente">Paciente</label>
-          <select
-            class="form-control"
-            id="field_pacientes"
-            data-cy="paciente"
-            multiple
-            name="pacientes"
-            formControlName="pacientes"
-            [compareWith]="comparePaciente"
-          >
-            @for (pacienteOption of pacientesSharedCollection; track $index) {
-              <option [ngValue]="pacienteOption">{{ pacienteOption.nombre }} {{ pacienteOption.apellido }}</option>
-            }
-          </select>
+          <label class="form-label" for="pacienteInput" jhiTranslate="tfg2App.direccion.paciente">Paciente</label>
+          <div class="input-group mb-2" *ngIf="!editForm.value.pacientes?.length">
+            <input
+              type="text"
+              id="pacienteInput"
+              class="form-control"
+              list="pacienteOptions"
+              [(ngModel)]="pacienteInputText"
+              (change)="addPacienteFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un paciente"
+              autocomplete="off"
+            />
+            <datalist id="pacienteOptions">
+              <option *ngFor="let p of pacientesSharedCollection" [value]="p.nombre + ' ' + p.apellido"></option>
+            </datalist>
+          </div>
+          <div class="mt-2" *ngIf="editForm.value.pacientes?.length">
+            <span class="badge rounded-pill bg-success me-1" *ngFor="let paciente of editForm.value.pacientes" style="font-size: 1rem">
+              {{ paciente.nombre }} {{ paciente.apellido }}
+              <button
+                type="button"
+                class="btn btn-sm btn-link text-white ms-1 p-0"
+                (click)="removePaciente(paciente)"
+                style="vertical-align: middle"
+                aria-label="Quitar"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </span>
+          </div>
         </div>
 
+        <!-- Reemplaza el select múltiple de trabajadores por este bloque -->
         <div class="mb-3">
-          <label for="field_trabajadors" jhiTranslate="tfg2App.direccion.trabajador">Trabajador</label>
-          <select
-            class="form-control"
-            id="field_trabajadors"
-            data-cy="trabajador"
-            multiple
-            name="trabajadors"
-            formControlName="trabajadors"
-            [compareWith]="compareTrabajador"
-          >
-            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.nombre }} {{ trabajadorOption.apellido }}</option>
-            }
-          </select>
+          <label class="form-label" for="trabajadorInput" jhiTranslate="tfg2App.direccion.trabajador">Trabajador</label>
+          <div class="input-group mb-2" *ngIf="!editForm.value.trabajadors?.length">
+            <input
+              type="text"
+              id="trabajadorInput"
+              class="form-control"
+              list="trabajadorOptions"
+              [(ngModel)]="trabajadorInputText"
+              (change)="addTrabajadorFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un trabajador"
+              autocomplete="off"
+            />
+            <datalist id="trabajadorOptions">
+              <option *ngFor="let t of trabajadorsSharedCollection" [value]="t.nombre + ' ' + t.apellido"></option>
+            </datalist>
+          </div>
+          <div class="mt-2" *ngIf="editForm.value.trabajadors?.length">
+            <span class="badge rounded-pill bg-primary me-1" *ngFor="let trabajador of editForm.value.trabajadors" style="font-size: 1rem">
+              {{ trabajador.nombre }} {{ trabajador.apellido }}
+              <button
+                type="button"
+                class="btn btn-sm btn-link text-white ms-1 p-0"
+                (click)="removeTrabajador(trabajador)"
+                style="vertical-align: middle"
+                aria-label="Quitar"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </span>
+          </div>
         </div>
       </div>
 

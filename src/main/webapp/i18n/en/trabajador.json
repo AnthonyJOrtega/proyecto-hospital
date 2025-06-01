@@ -6,7 +6,9 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Worker",
         "createOrEditLabel": "Create or edit a Worker",
-        "notFound": "No Workers found"
+        "notFound": "No Workers found",
+        "modalInformeTitle": "Worker's Reports",
+        "modalInformeDescription": "List of reports for the selected worker"
       },
       "created": "A new Worker is created with identifier {{ param }}",
       "updated": "A Worker is updated with identifier {{ param }}",
@@ -24,6 +26,8 @@
       "dni": "Dni",
       "puesto": "Position",
       "disponibilidad": "Availability",
+      "disponible": "Available",
+      "noDisponible": "Not available",
       "turno": "Shift",
       "especialidad": "Specialty",
       "informe": "Report",

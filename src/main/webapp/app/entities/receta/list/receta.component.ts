@@ -16,6 +16,12 @@ import { IReceta } from '../receta.model';
 
 import { EntityArrayResponseType, RecetaService } from '../service/receta.service';
 import { RecetaDeleteDialogComponent } from '../delete/receta-delete-dialog.component';
+import { IPaciente } from 'app/entities/paciente/paciente.model';
+import { PacienteService } from 'app/entities/paciente/service/paciente.service';
+import { PacienteDetailComponent } from 'app/entities/paciente/detail/paciente-detail.component';
+import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
+import { TrabajadorDetailComponent } from 'app/entities/trabajador/detail/trabajador-detail.component';
+import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
 
 @Component({
   selector: 'jhi-receta',
@@ -49,6 +55,12 @@ export class RecetaComponent implements OnInit {
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
+
+  constructor(
+    // ...
+    private pacienteService: PacienteService,
+    private trabajadorService: TrabajadorService,
+  ) {}
 
   trackId = (item: IReceta): number => this.recetaService.getRecetaIdentifier(item);
 
@@ -145,6 +157,20 @@ export class RecetaComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+  //MODALES PARA PACIENTES
+  openPacienteDetailModal(paciente: IPaciente): void {
+    this.pacienteService.find(paciente.id).subscribe(response => {
+      const modalRef = this.modalService.open(PacienteDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.paciente = response.body;
+    });
+  }
+  //Metodo para abrir el modal detalle del trabajador
+  openTrabajadorDetailModal(trabajador: ITrabajador): void {
+    this.trabajadorService.find(trabajador.id).subscribe(response => {
+      const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.trabajador = response.body;
     });
   }
 }

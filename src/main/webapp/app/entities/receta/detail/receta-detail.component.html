@@ -31,9 +31,9 @@
           <dd>
             @if (receta()!.paciente) {
               <div>
-                <a [routerLink]="['/paciente', receta()!.paciente?.id, 'view']"
-                  >{{ recetaRef.paciente?.nombre }} {{ recetaRef.paciente?.apellido }}</a
-                >
+                <a href="#" (click)="openPacienteDetailModal(recetaRef.paciente!); $event.preventDefault()">
+                  {{ recetaRef.paciente!.nombre }} {{ recetaRef.paciente!.apellido }}
+                </a>
               </div>
             }
           </dd>
@@ -41,9 +41,9 @@
           <dd>
             @if (receta()!.trabajador) {
               <div>
-                <a [routerLink]="['/trabajador', receta()!.trabajador?.id, 'view']"
-                  >{{ recetaRef.trabajador?.nombre }} {{ recetaRef.trabajador?.apellido }}</a
-                >
+                <a href="#" (click)="openTrabajadorDetailModal(recetaRef.trabajador!); $event.preventDefault()">
+                  {{ recetaRef.trabajador!.nombre }} {{ recetaRef.trabajador!.apellido }}
+                </a>
               </div>
             }
           </dd>

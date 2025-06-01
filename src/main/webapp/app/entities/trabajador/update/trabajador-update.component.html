@@ -7,13 +7,13 @@
 
       <div>
         <jhi-alert-error />
-
+        <!--
         @if (editForm.controls.id.value !== null) {
           <div class="mb-3">
             <label class="form-label" for="field_id" jhiTranslate="tfg2App.trabajador.id">ID</label>
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
-        }
+        }-->
 
         <div class="mb-3">
           <label class="form-label" for="field_idUsuario" jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</label>
@@ -38,9 +38,27 @@
         <div class="mb-3">
           <label class="form-label" for="field_puesto" jhiTranslate="tfg2App.trabajador.puesto">Puesto</label>
           <select class="form-control" name="puesto" formControlName="puesto" id="field_puesto" data-cy="puesto">
-            <option [ngValue]="null">{{ 'tfg2App.Puesto.null' | translate }}</option>
+            <option value="" disabled selected>-- Selecciona un puesto --</option>
             @for (puesto of puestoValues; track $index) {
               <option [value]="puesto">{{ 'tfg2App.Puesto.' + puesto | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Solo muestra la especialidad si el puesto es MEDICO -->
+        <div class="mb-3" *ngIf="editForm.get('puesto')?.value === 'MEDICO'">
+          <label for="field_especialidad" jhiTranslate="tfg2App.trabajador.especialidad">Especialidad</label>
+          <select
+            class="form-control"
+            id="field_especialidad"
+            data-cy="especialidad"
+            name="especialidad"
+            formControlName="especialidad"
+            [compareWith]="compareEspecialidad"
+          >
+            <option value="" disabled selected>-- Selecciona una especialidad --</option>
+            @for (especialidadOption of especialidadsSharedCollection; track $index) {
+              <option [ngValue]="especialidadOption">{{ especialidadOption.nombre }}</option>
             }
           </select>
         </div>
@@ -60,26 +78,9 @@
         <div class="mb-3">
           <label class="form-label" for="field_turno" jhiTranslate="tfg2App.trabajador.turno">Turno</label>
           <select class="form-control" name="turno" formControlName="turno" id="field_turno" data-cy="turno">
-            <option [ngValue]="null">{{ 'tfg2App.Turno.null' | translate }}</option>
+            <option value="" disabled selected>-- Selecciona un turno --</option>
             @for (turno of turnoValues; track $index) {
               <option [value]="turno">{{ 'tfg2App.Turno.' + turno | translate }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label for="field_especialidads" jhiTranslate="tfg2App.trabajador.especialidad">Especialidad</label>
-          <select
-            class="form-control"
-            id="field_especialidads"
-            data-cy="especialidad"
-            multiple
-            name="especialidads"
-            formControlName="especialidads"
-            [compareWith]="compareEspecialidad"
-          >
-            @for (especialidadOption of especialidadsSharedCollection; track $index) {
-              <option [ngValue]="especialidadOption">{{ especialidadOption.nombre }}</option>
             }
           </select>
         </div>
@@ -117,7 +118,7 @@
             }
           </select>
         </div>
--->
+
         <div class="mb-3">
           <label for="field_direccions" jhiTranslate="tfg2App.trabajador.direccion">Direccion</label>
           <select
@@ -138,7 +139,7 @@
               </option>
             }
           </select>
-        </div>
+        </div>-->
       </div>
 
       <div>

@@ -88,20 +88,21 @@
               <td>{{ receta.fechaFin | formatMediumDate }}</td>
               <td>{{ receta.instrucciones }}</td>
               <td>
+                <!--Mostrar modal de paciente-->
                 @if (receta.paciente) {
                   <div>
-                    <a [routerLink]="['/paciente', receta.paciente.id, 'view']"
-                      >{{ receta.paciente.nombre }} {{ receta.paciente.apellido }}</a
-                    >
+                    <a href="#" (click)="openPacienteDetailModal(receta.paciente); $event.preventDefault()">
+                      {{ receta.paciente.nombre }} {{ receta.paciente.apellido }}
+                    </a>
                   </div>
                 }
               </td>
               <td>
                 @if (receta.trabajador) {
                   <div>
-                    <a [routerLink]="['/trabajador', receta.trabajador.id, 'view']"
-                      >{{ receta.trabajador.nombre }} {{ receta.trabajador.apellido }}</a
-                    >
+                    <a href="#" (click)="openTrabajadorDetailModal(receta.trabajador); $event.preventDefault()">
+                      {{ receta.trabajador.nombre }} {{ receta.trabajador.apellido }}
+                    </a>
                   </div>
                 }
               </td>

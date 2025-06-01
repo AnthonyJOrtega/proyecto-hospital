@@ -12,7 +12,7 @@
       "updated": "A Adress is updated with identifier {{ param }}",
       "deleted": "A Adress is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Adress {{ id }}?"
+        "question": "Are you sure you want to delete this Adress?"
       },
       "detail": {
         "title": "Adress"
