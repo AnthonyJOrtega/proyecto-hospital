@@ -2,11 +2,11 @@
   "tfg2App": {
     "enfermedad": {
       "home": {
-        "title": "Enfermedads",
+        "title": "Enfermedades",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Enfermedad",
         "createOrEditLabel": "Crear o editar Enfermedad",
-        "notFound": "Ningún Enfermedads encontrado"
+        "notFound": "Ningún Enfermedad encontrado"
       },
       "created": "Un nuevo Enfermedad ha sido creado con el identificador {{ param }}",
       "updated": "Un Enfermedad ha sido actualizado con el identificador {{ param }}",

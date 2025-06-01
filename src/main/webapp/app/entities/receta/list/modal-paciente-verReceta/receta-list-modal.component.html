@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span jhiTranslate="tfg2App.paciente.recetasDe">Receta/s de</span>:
+    <strong *ngIf="recetas.length > 0"> {{ recetas[0].paciente?.nombre }} {{ recetas[0].paciente?.apellido }} </strong>
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <div *ngIf="!isLoading && recetas.length === 0" class="alert alert-warning text-center my-4">
+    <fa-icon icon="prescription-bottle-alt" class="me-2"></fa-icon>
+    No hay recetas para este paciente.
+  </div>
+
+  <div *ngIf="!isLoading && recetas.length > 0">
+    <div *ngFor="let receta of recetas" class="card mb-3 shadow-sm border-primary">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="badge bg-success fs-6">
+            {{ 'tfg2App.receta.fechaInicio' | translate }} {{ receta.fechaInicio ? (receta.fechaInicio.toDate() | date: 'short') : '' }}
+          </span>
+
+          <span class="badge bg-info text-dark fs-6">
+            {{ 'tfg2App.receta.fechaFin' | translate }} {{ receta.fechaFin ? (receta.fechaFin.toDate() | date: 'short') : '' }}
+          </span>
+
+          <span class="badge bg-secondary"> ID {{ receta.id }}</span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.receta.instrucciones">Instrucciones:</strong>:
+          <span>{{ receta.instrucciones }}</span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.receta.medicamento">Medicamentos:</strong>:
+          <span *ngIf="receta.medicamentos">{{ receta.medicamentos[0].nombre }}</span>
+          <span *ngIf="!receta.medicamentos" class="text-muted" jhiTranslate="tfg2App.receta.sinMedicamento">Sin medicamento</span>:
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.receta.trabajador">Trabajador:</strong>:
+          <span *ngIf="receta.trabajador"> {{ receta.trabajador.nombre }} {{ receta.trabajador.apellido }} </span>
+          <span *ngIf="!receta.trabajador" class="text-muted" jhiTranslate="tfg2App.receta.sinTrabajador">Sin trabajador</span>:
+        </div>
+        <a [routerLink]="['/receta', receta.id, 'view']" (click)="close()" class="btn btn-outline-primary btn-sm">
+          <fa-icon icon="eye"></fa-icon> <span jhiTranslate="entity.action.viewDetail">Ver detalle</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn bg-danger text-white" (click)="close()" jhiTranslate="entity.action.cancel">Cancelar</button>
+</div>

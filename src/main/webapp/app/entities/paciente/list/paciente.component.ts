@@ -16,6 +16,10 @@ import { IPaciente } from '../paciente.model';
 
 import { EntityArrayResponseType, PacienteService } from '../service/paciente.service';
 import { PacienteDeleteDialogComponent } from '../delete/paciente-delete-dialog.component';
+import { PacienteDetailComponent } from '../detail/paciente-detail.component';
+import { CitaListModalComponent } from 'app/entities/cita/list/cita-list-modal.component';
+import { InformeListModalComponent } from 'app/entities/informe/list/modal-paciente-mostrarInforme/informe-list-modal.component'; // Ajusta la ruta si es necesario
+import { RecetaListModalComponent } from 'app/entities/receta/list/modal-paciente-verReceta/receta-list-modal.component';
 
 @Component({
   selector: 'jhi-paciente',
@@ -146,5 +150,23 @@ export class PacienteComponent implements OnInit {
         queryParams: queryParamsObj,
       });
     });
+  }
+  openDetailModal(paciente: IPaciente): void {
+    const modalRef = this.modalService.open(PacienteDetailComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.paciente = paciente;
+  }
+
+  openCitasModal(paciente: IPaciente): void {
+    const modalRef = this.modalService.open(CitaListModalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.pacienteId = paciente.id;
+  }
+
+  openInformesModal(paciente: IPaciente): void {
+    const modalRef = this.modalService.open(InformeListModalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.pacienteId = paciente.id;
+  }
+  openRecetasModal(paciente: IPaciente): void {
+    const modalRef = this.modalService.open(RecetaListModalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.pacienteId = paciente.id;
   }
 }

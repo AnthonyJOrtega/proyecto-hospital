@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h4 class="modal-title">
+    <span jhiTranslate="tfg2App.trabajador.home.modalInformeTitle">Informes del trabajador/a</span>:
+    <strong *ngIf="informes.length > 0"> {{ informes[0].trabajador?.nombre }} {{ informes[0].trabajador?.apellido }} </strong>
+  </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+</div>
+
+<div class="modal-body">
+  <div *ngIf="!isLoading && informes.length === 0" class="alert alert-warning text-center my-4">
+    <fa-icon icon="file-alt" class="me-2"></fa-icon>
+    <span jhiTranslate="tfg2App.informe.noInformes">No hay informes para este trabajador.</span>
+  </div>
+  <div *ngIf="!isLoading && informes.length > 0">
+    <div *ngFor="let informe of informes" class="card mb-3 shadow-sm border-primary">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="badge bg-info text-dark fs-6">
+            {{ informe.fecha ? (informe.fecha | date: 'short') : '' }}
+          </span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.informe.resumen">Resumen:</strong>:
+          <span>{{ informe.resumen || '-' }}</span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.informe.receta">Receta:</strong>:
+          <span *ngIf="informe.receta">
+            <a [routerLink]="['/receta', informe.receta.id, 'view']" (click)="close()">
+              {{ informe.receta.id }}
+            </a>
+          </span>
+          <span *ngIf="!informe.receta" class="text-muted">Sin receta</span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.informe.paciente">Paciente</strong>:
+          <span *ngIf="informe.paciente"> {{ informe.paciente.nombre }} {{ informe.paciente.apellido }} </span>
+          <span *ngIf="!informe.paciente" class="text-muted">Sin paciente</span>
+        </div>
+        <div class="mb-2">
+          <strong jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</strong>:
+          <ng-container *ngIf="informe.enfermedads && informe.enfermedads.length > 0; else noEnfermedad">
+            <span *ngFor="let enfermedad of informe.enfermedads">
+              {{ enfermedad.nombre }}
+            </span>
+          </ng-container>
+          <ng-template #noEnfermedad>
+            <span class="text-muted">Sin enfermedad</span>
+          </ng-template>
+        </div>
+        <a [routerLink]="['/informe', informe.id, 'view']" (click)="close()" class="btn btn-outline-primary btn-sm">
+          <fa-icon icon="eye"></fa-icon> <span jhiTranslate="entity.action.viewDetail">Ver detalle</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn bg-danger text-white" (click)="close()" jhiTranslate="entity.action.cancel">Cancelar</button>
+  </div>
+</div>

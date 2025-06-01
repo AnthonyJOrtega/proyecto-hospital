@@ -35,13 +35,14 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <!-- Id comentadas porque no se suelen mostrar en la vista de las tablas
             <th scope="col" jhiSortBy="id">
               <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
-            </th>
+            </th>-->
             <th scope="col" jhiSortBy="pais">
               <div class="d-flex">
                 <span jhiTranslate="tfg2App.direccion.pais">Pais</span>
@@ -102,9 +103,9 @@
         <tbody>
           @for (direccion of direccions(); track trackId(direccion)) {
             <tr data-cy="entityTable">
-              <td>
+              <!--<td>
                 <a [routerLink]="['/direccion', direccion.id, 'view']">{{ direccion.id }}</a>
-              </td>
+              </td>-->
               <td>{{ direccion.pais }}</td>
               <td>{{ direccion.ciudad }}</td>
               <td>{{ direccion.localidad }}</td>
@@ -115,10 +116,14 @@
               <!-- Direcciones segus su tipo paciente o trabajador-->
               <td class="align-middle text-start">
                 <div *ngFor="let paciente of direccion.pacientes">
-                  <a [routerLink]="['/paciente', paciente.id, 'view']"> {{ paciente.nombre }} {{ paciente.apellido }} </a>
+                  <a href="#" (click)="openPacienteDetailModal(paciente); $event.preventDefault()">
+                    {{ paciente.nombre }} {{ paciente.apellido }}
+                  </a>
                 </div>
                 <div *ngFor="let trabajador of direccion.trabajadors">
-                  <a [routerLink]="['/trabajador', trabajador.id, 'view']"> {{ trabajador.nombre }} {{ trabajador.apellido }} </a>
+                  <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
+                    {{ trabajador.nombre }} {{ trabajador.apellido }}
+                  </a>
                 </div>
               </td>
 
@@ -137,10 +142,11 @@
 
               <td class="text-end">
                 <div class="btn-group">
+                  <!-- Quitar el boton de ver porque es innecesario con el de editar
                   <a [routerLink]="['/direccion', direccion.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
-                  </a>
+                  </a>-->
 
                   <a [routerLink]="['/direccion', direccion.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>

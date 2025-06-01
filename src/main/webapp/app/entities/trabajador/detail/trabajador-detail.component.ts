@@ -1,8 +1,13 @@
-import { Component, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { NavigationStart, RouterModule } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import SharedModule from 'app/shared/shared.module';
 import { ITrabajador } from '../trabajador.model';
+import { IPaciente } from 'app/entities/paciente/paciente.model';
+import { PacienteDetailComponent } from 'app/entities/paciente/detail/paciente-detail.component';
+import { PacienteService } from 'app/entities/paciente/service/paciente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-trabajador-detail',
@@ -10,9 +15,37 @@ import { ITrabajador } from '../trabajador.model';
   imports: [SharedModule, RouterModule],
 })
 export class TrabajadorDetailComponent {
-  trabajador = input<ITrabajador | null>(null);
+  @Input() trabajador: ITrabajador | null = null;
+  navigationSubscription: any;
 
-  previousState(): void {
-    window.history.back();
+  // Constructor para TrabajadorDetailComponent
+  // Inyectamos NgbActiveModal para manejar el modal
+  // Inyectamos NgbModal para abrir otros modales
+  // Inyectamos PacienteService para manejar pacientes
+  // Inyectamos Router para manejar la navegación
+  // navigationSubscription se usa para cerrar el modal al navegar a otra ruta
+  // Esto nos permitira cerrar el modal cuando el usuario navegue a otra ruta, evitando que se quede abierto en la nueva vista.
+  constructor(
+    public activeModal: NgbActiveModal,
+    private modalService: NgbModal,
+    private pacienteService: PacienteService,
+    private router: Router,
+  ) {
+    // Cierra todos los modales al navegar
+    this.navigationSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.activeModal.dismiss();
+      }
+    });
+  }
+
+  close(): void {
+    this.activeModal.dismiss();
+  }
+  openPacienteDetailModal(paciente: IPaciente): void {
+    this.pacienteService.find(paciente.id).subscribe(response => {
+      const modalRef = this.modalService.open(PacienteDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.paciente = response.body;
+    });
   }
 }

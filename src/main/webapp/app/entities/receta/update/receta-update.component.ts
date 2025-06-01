@@ -152,4 +152,25 @@ export class RecetaUpdateComponent implements OnInit {
       )
       .subscribe((medicamentos: IMedicamento[]) => (this.medicamentosSharedCollection = medicamentos));
   }
+
+  medicamentoInputText = '';
+  medicamentoSeleccionado: IMedicamento | null = null;
+
+  addMedicamentoFromInput(): void {
+    const input = this.medicamentoInputText?.trim().toLowerCase();
+    if (!input) return;
+    const medicamento = this.medicamentosSharedCollection.find(m => m.nombre?.toLowerCase() === input);
+    if (medicamento) {
+      this.medicamentoSeleccionado = medicamento;
+      this.editForm.get('medicamentos')?.setValue([medicamento]);
+    } else {
+      this.editForm.get('medicamentos')?.setValue([]);
+    }
+    this.medicamentoInputText = '';
+  }
+
+  quitarMedicamento(): void {
+    this.medicamentoSeleccionado = null;
+    this.editForm.get('medicamentos')?.setValue([]);
+  }
 }

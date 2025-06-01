@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Tfg2",
+    "title": "Hospital Tech",
     "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=es\">actualice su navegador</a> para mejorar su experiencia.",
     "menu": {
       "home": "Inicio",
@@ -129,6 +129,7 @@
       "open": "Abrir",
       "save": "Guardar",
       "view": "Vista",
+      "viewDetail": "Ver detalle",
       "show": "Mostrar {{otherEntity}}"
     },
     "detail": {

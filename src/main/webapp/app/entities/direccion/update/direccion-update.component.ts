@@ -119,4 +119,41 @@ export class DireccionUpdateComponent implements OnInit {
       )
       .subscribe((trabajadors: ITrabajador[]) => (this.trabajadorsSharedCollection = trabajadors));
   }
+  trabajadorInputText = '';
+
+  addTrabajadorFromInput(): void {
+    const input = this.trabajadorInputText?.trim().toLowerCase();
+    if (!input) return;
+    const trabajador = this.trabajadorsSharedCollection.find(t => (t.nombre + ' ' + t.apellido).toLowerCase() === input);
+    if (trabajador) {
+      const current = this.editForm.value.trabajadors ?? [];
+      if (!current.some((t: any) => t.id === trabajador.id)) {
+        this.editForm.patchValue({ trabajadors: [...current, trabajador] });
+      }
+      this.trabajadorInputText = '';
+    }
+  }
+
+  removeTrabajador(trabajador: any): void {
+    const current = this.editForm.value.trabajadors ?? [];
+    this.editForm.patchValue({ trabajadors: current.filter((t: any) => t.id !== trabajador.id) });
+  }
+
+  pacienteInputText = '';
+
+  addPacienteFromInput(): void {
+    const input = this.pacienteInputText?.trim().toLowerCase();
+    if (!input) return;
+    const paciente = this.pacientesSharedCollection.find(p => (p.nombre + ' ' + p.apellido).toLowerCase() === input);
+    if (paciente) {
+      const current = this.editForm.value.pacientes ?? [];
+      if (!current.some((p: any) => p.id === paciente.id)) {
+        this.editForm.patchValue({ pacientes: [...current, paciente] });
+      }
+      this.pacienteInputText = '';
+    }
+  }
+  removePaciente(paciente: any): void {
+    this.editForm.patchValue({ pacientes: [] });
+  }
 }

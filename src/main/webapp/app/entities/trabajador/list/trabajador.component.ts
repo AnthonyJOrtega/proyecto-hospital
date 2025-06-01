@@ -15,6 +15,9 @@ import { ITrabajador } from '../trabajador.model';
 
 import { EntityArrayResponseType, TrabajadorService } from '../service/trabajador.service';
 import { TrabajadorDeleteDialogComponent } from '../delete/trabajador-delete-dialog.component';
+import { InformeListModalTrabajadorComponent } from 'app/entities/informe/list/modal-trabajador-mostrarInforme/informe-list-modal-trabajador.component';
+import { RecetaListModalTrabajadorComponent } from 'app/entities/receta/list/modal-trabajador-mostrarReceta/receta-list-modal-trabajador.component';
+import { TrabajadorDetailComponent } from '../detail/trabajador-detail.component';
 
 @Component({
   selector: 'jhi-trabajador',
@@ -136,5 +139,21 @@ export class TrabajadorComponent implements OnInit {
         queryParams: queryParamsObj,
       });
     });
+  }
+  // Modales para mostrar detalles de un trabajador
+  openDetailModal(trabajador: ITrabajador): void {
+    this.trabajadorService.find(trabajador.id).subscribe(response => {
+      const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.trabajador = response.body;
+    });
+  }
+  //Modales para mostrar informes y recetas de un trabajador
+  openInformesModal(trabajador: ITrabajador): void {
+    const modalRef = this.modalService.open(InformeListModalTrabajadorComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.trabajadorId = trabajador.id;
+  }
+  openRecetasModal(trabajador: ITrabajador): void {
+    const modalRef = this.modalService.open(RecetaListModalTrabajadorComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.trabajadorId = trabajador.id;
   }
 }

@@ -22,9 +22,14 @@
       "fechaFin": "Fecha Fin",
       "instrucciones": "Instrucciones",
       "paciente": "Paciente",
+      "sinPaciente": "Sin paciente",
       "trabajador": "Trabajador",
+      "sinTrabajador": "Sin trabajador",
       "medicamento": "Medicamento",
-      "informe": "Informe"
+      "sinMedicamento": "Sin medicamento",
+      "informe": "Informe",
+      "sinReceta": "Sin receta",
+      "modalTitulo": "Recetas del Trabajador/a"
     }
   }
 }

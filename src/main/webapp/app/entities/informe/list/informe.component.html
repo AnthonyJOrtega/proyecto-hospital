@@ -95,18 +95,18 @@
               <td>
                 @if (informe.paciente) {
                   <div>
-                    <a [routerLink]="['/paciente', informe.paciente.id, 'view']"
-                      >{{ informe.paciente.nombre }} {{ informe.paciente.apellido }}</a
-                    >
+                    <a href="#" (click)="openPacienteDetailModal(informe.paciente); $event.preventDefault()">
+                      {{ informe.paciente.nombre }} {{ informe.paciente.apellido }}
+                    </a>
                   </div>
                 }
               </td>
               <td>
                 @if (informe.trabajador) {
                   <div>
-                    <a [routerLink]="['/trabajador', informe.trabajador.id, 'view']"
-                      >{{ informe.trabajador.nombre }} {{ informe.trabajador.apellido }}</a
-                    >
+                    <a href="#" (click)="openTrabajadorDetailModal(informe.trabajador); $event.preventDefault()">
+                      {{ informe.trabajador.nombre }} {{ informe.trabajador.apellido }}
+                    </a>
                   </div>
                 }
               </td>

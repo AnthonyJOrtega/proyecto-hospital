@@ -27,7 +27,8 @@
           <dd>
             @for (trabajador of especialidadRef.trabajadors; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.idUsuario }}</a
+                <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
+                  {{ trabajador?.idUsuario }} </a
                 >{{ last ? '' : ', ' }}
               </span>
             }

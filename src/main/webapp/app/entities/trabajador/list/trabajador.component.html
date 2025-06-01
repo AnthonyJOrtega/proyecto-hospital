@@ -35,13 +35,14 @@
       <table class="table table-striped" aria-describedby="page-heading">
         <thead>
           <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <!-- Ocultar ID del trabajador 
             <th scope="col" jhiSortBy="id">
               <div class="d-flex">
                 <span jhiTranslate="global.field.id">ID</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
-            </th>
+            </th>-->
             <th scope="col" jhiSortBy="idUsuario">
               <div class="d-flex">
                 <span jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</span>
@@ -97,9 +98,10 @@
         <tbody>
           @for (trabajador of trabajadors(); track trackId(trabajador)) {
             <tr data-cy="entityTable">
+              <!-- Ocultar ID del trabajador 
               <td>
                 <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador.id }}</a>
-              </td>
+              </td>-->
               <td>{{ trabajador.idUsuario }}</td>
               <td>{{ trabajador.nombre }}</td>
               <td>{{ trabajador.apellido }}</td>
@@ -111,17 +113,21 @@
                   ]
                 }}
               </td>
-              <td>{{ trabajador.disponibilidad }}</td>
+              <td>
+                <span
+                  [jhiTranslate]="trabajador.disponibilidad ? 'tfg2App.trabajador.disponible' : 'tfg2App.trabajador.noDisponible'"
+                ></span>
+              </td>
               <td [jhiTranslate]="'tfg2App.Turno.' + (trabajador.turno ?? 'null')">
                 {{ { null: '', DIA: 'DIA', TARDE: 'TARDE', NOCHE: 'NOCHE', GUARDIA: 'GUARDIA' }[trabajador.turno ?? 'null'] }}
               </td>
               <td class="text-end">
+                <!--Botones modales para informes, recetas y detalles-->
                 <div class="btn-group">
                   <button
-                    type="submit"
-                    [routerLink]="['/informe']"
-                    [queryParams]="{ 'filter[trabajadorId.in]': trabajador.id }"
+                    type="button"
                     class="btn btn-info btn-sm"
+                    (click)="openInformesModal(trabajador)"
                     data-cy="filterOtherEntityButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
@@ -133,10 +139,9 @@
                     >
                   </button>
                   <button
-                    type="submit"
-                    [routerLink]="['/receta']"
-                    [queryParams]="{ 'filter[trabajadorId.in]': trabajador.id }"
+                    type="button"
                     class="btn btn-info btn-sm"
+                    (click)="openRecetasModal(trabajador)"
                     data-cy="filterOtherEntityButton"
                   >
                     <fa-icon icon="eye"></fa-icon>
@@ -147,10 +152,10 @@
                       >Show Receta</span
                     >
                   </button>
-                  <a [routerLink]="['/trabajador', trabajador.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                  <button type="button" class="btn btn-info btn-sm" (click)="openDetailModal(trabajador)" data-cy="entityDetailsButton">
                     <fa-icon icon="eye"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
-                  </a>
+                  </button>
 
                   <a [routerLink]="['/trabajador', trabajador.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                     <fa-icon icon="pencil-alt"></fa-icon>

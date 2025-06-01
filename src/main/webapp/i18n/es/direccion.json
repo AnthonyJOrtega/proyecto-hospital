@@ -2,20 +2,20 @@
   "tfg2App": {
     "direccion": {
       "home": {
-        "title": "Direccions",
+        "title": "Direcciones",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Direccion",
-        "createOrEditLabel": "Crear o editar Direccion",
-        "notFound": "Ningún Direccions encontrado"
+        "createLabel": "Crear nueva Dirección",
+        "createOrEditLabel": "Crear o editar Dirección",
+        "notFound": "Ninguna Dirección encontrada"
       },
-      "created": "Un nuevo Direccion ha sido creado con el identificador {{ param }}",
-      "updated": "Un Direccion ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Direccion ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nueva Dirección ha sido creado con el identificador {{ param }}",
+      "updated": "Una Dirección ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Dirección ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Direccion {{ id }}?"
+        "question": "¿Seguro que quieres eliminar esta Dirección?"
       },
       "detail": {
-        "title": "Direccion"
+        "title": "Dirección"
       },
       "id": "ID",
       "pais": "Pais",

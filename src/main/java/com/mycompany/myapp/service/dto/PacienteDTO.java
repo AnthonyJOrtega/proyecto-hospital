@@ -28,6 +28,8 @@ public class PacienteDTO implements Serializable {
 
     private Set<TrabajadorDTO> trabajadors = new HashSet<>();
 
+    private Set<CitaDTO> citas = new HashSet<>();
+
     private Set<DireccionDTO> direccions = new HashSet<>();
 
     public Long getId() {
@@ -94,6 +96,14 @@ public class PacienteDTO implements Serializable {
         this.trabajadors = trabajadors;
     }
 
+    public Set<CitaDTO> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(Set<CitaDTO> citas) {
+        this.citas = citas;
+    }
+
     public Set<DireccionDTO> getDireccions() {
         return direccions;
     }
@@ -135,6 +145,7 @@ public class PacienteDTO implements Serializable {
             ", fechaNacimiento='" + getFechaNacimiento() + "'" +
             ", telefono='" + getTelefono() + "'" +
             ", trabajadors=" + getTrabajadors() +
+            ", citas=" + getCitas() +
             ", direccions=" + getDireccions() +
             "}";
     }

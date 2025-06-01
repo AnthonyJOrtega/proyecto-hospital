@@ -15,6 +15,12 @@ import { IInforme } from '../informe.model';
 
 import { EntityArrayResponseType, InformeService } from '../service/informe.service';
 import { InformeDeleteDialogComponent } from '../delete/informe-delete-dialog.component';
+import { PacienteService } from 'app/entities/paciente/service/paciente.service';
+import { PacienteDetailComponent } from 'app/entities/paciente/detail/paciente-detail.component';
+import { IPaciente } from 'app/entities/paciente/paciente.model';
+import { TrabajadorDetailComponent } from 'app/entities/trabajador/detail/trabajador-detail.component';
+import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
+import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
 
 @Component({
   selector: 'jhi-informe',
@@ -39,6 +45,11 @@ export class InformeComponent implements OnInit {
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
+
+  constructor(
+    private pacienteService: PacienteService,
+    private trabajadorService: TrabajadorService,
+  ) {}
 
   trackId = (item: IInforme): number => this.informeService.getInformeIdentifier(item);
 
@@ -135,6 +146,20 @@ export class InformeComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+  //Metodo para abrir el modal de detalle del paciente
+  openPacienteDetailModal(paciente: IPaciente): void {
+    this.pacienteService.find(paciente.id).subscribe(response => {
+      const modalRef = this.modalService.open(PacienteDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.paciente = response.body;
+    });
+  }
+  //Metodo para abrir el modal detalle del trabajador
+  openTrabajadorDetailModal(trabajador: ITrabajador): void {
+    this.trabajadorService.find(trabajador.id).subscribe(response => {
+      const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.trabajador = response.body;
     });
   }
 }

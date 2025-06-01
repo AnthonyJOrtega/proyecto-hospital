@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    @if (trabajador(); as trabajadorRef) {
+    <ng-container *ngIf="trabajador as trabajadorRef">
       <div>
         <h2 data-cy="trabajadorDetailsHeading"><span jhiTranslate="tfg2App.trabajador.detail.title">Trabajador</span></h2>
 
@@ -11,10 +11,11 @@
         <jhi-alert />
 
         <dl class="row-md jh-entity-details">
+          <!-- OCULTAR ID DEL TRABAJADOR 
           <dt><span jhiTranslate="global.field.id">ID</span></dt>
           <dd>
             <span>{{ trabajadorRef.id }}</span>
-          </dd>
+          </dd>-->
           <dt><span jhiTranslate="tfg2App.trabajador.idUsuario">Id Usuario</span></dt>
           <dd>
             <span>{{ trabajadorRef.idUsuario }}</span>
@@ -41,7 +42,9 @@
           </dd>
           <dt><span jhiTranslate="tfg2App.trabajador.disponibilidad">Disponibilidad</span></dt>
           <dd>
-            <span>{{ trabajadorRef.disponibilidad }}</span>
+            <span
+              [jhiTranslate]="trabajadorRef.disponibilidad ? 'tfg2App.trabajador.disponible' : 'tfg2App.trabajador.noDisponible'"
+            ></span>
           </dd>
           <dt><span jhiTranslate="tfg2App.trabajador.turno">Turno</span></dt>
           <dd>
@@ -53,7 +56,7 @@
           <dd>
             @for (especialidad of trabajadorRef.especialidads; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/especialidad', especialidad.id, 'view']">{{ especialidad?.nombre }}</a
+                <a [routerLink]="['/especialidad', especialidad.id, 'view']" (click)="close()">{{ especialidad?.nombre }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }
@@ -62,7 +65,7 @@
           <dd>
             @for (cita of trabajadorRef.citas; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/cita', cita.id, 'view']">{{ cita?.id }}</a
+                <a [routerLink]="['/cita', cita.id, 'view']" (click)="close()">{{ cita?.id }}</a
                 >{{ last ? '' : ', ' }}
               </span>
             }
@@ -70,17 +73,18 @@
           <dt><span jhiTranslate="tfg2App.trabajador.paciente">Paciente(s) de las Citas</span></dt>
           <dd>
             @for (cita of trabajadorRef.citas; track $index; let last = $last) {
-              <span *ngIf="cita.paciente">
-                <a [routerLink]="['/paciente', cita.paciente.id, 'view']"> {{ cita.paciente.nombre }} {{ cita.paciente.apellido }} </a
-                >{{ last ? '' : ', ' }}
-              </span>
+              <div *ngIf="cita.paciente">
+                <a href="#" (click)="openPacienteDetailModal(cita.paciente); $event.preventDefault()">
+                  {{ cita.paciente.nombre }} {{ cita.paciente.apellido }}
+                </a>
+              </div>
             }
           </dd>
           <dt><span jhiTranslate="tfg2App.trabajador.direccion">Direccion</span></dt>
           <dd>
             @for (direccion of trabajadorRef.direccions; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/direccion', direccion.id, 'view']"
+                <a [routerLink]="['/direccion', direccion.id, 'view']" (click)="close()"
                   >{{ direccion?.calle }} --- C.P: {{ direccion?.codigoPostal }} --- nº:{{ direccion?.numero }} --- ({{
                     direccion?.ciudad
                   }}
@@ -91,14 +95,14 @@
           </dd>
         </dl>
 
-        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <button type="submit" (click)="close()" class="btn btn-info" data-cy="entityDetailsBackButton">
           <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Volver</span>
         </button>
 
-        <button type="button" [routerLink]="['/trabajador', trabajadorRef.id, 'edit']" class="btn btn-primary">
+        <button type="button" [routerLink]="['/trabajador', trabajadorRef.id, 'edit']" class="btn btn-primary" (click)="close()">
           <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
         </button>
       </div>
-    }
+    </ng-container>
   </div>
 </div>

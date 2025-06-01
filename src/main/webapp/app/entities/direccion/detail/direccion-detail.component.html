@@ -11,10 +11,11 @@
         <jhi-alert />
 
         <dl class="row-md jh-entity-details">
+          <!-- ID de la direccion 
           <dt><span jhiTranslate="global.field.id">ID</span></dt>
           <dd>
             <span>{{ direccionRef.id }}</span>
-          </dd>
+          </dd>-->
           <dt><span jhiTranslate="tfg2App.direccion.pais">Pais</span></dt>
           <dd>
             <span>{{ direccionRef.pais }}</span>
@@ -52,8 +53,9 @@
           <dd>
             @for (trabajador of direccionRef.trabajadors; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.nombre }} {{ trabajador?.apellido }}</a
-                >{{ last ? '' : ', ' }}
+                <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
+                  {{ trabajador.nombre }} {{ trabajador.apellido }}
+                </a>
               </span>
             }
           </dd>

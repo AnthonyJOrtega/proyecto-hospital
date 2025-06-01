@@ -20,7 +20,9 @@
       "id": "ID",
       "nombre": "Name",
       "descripcion": "Description",
-      "trabajador": "Worker"
+      "trabajador": "Worker",
+      "idTrabajador": "Worker ID",
+      "noEspecialidades": "No specialities for this worker."
     }
   }
 }

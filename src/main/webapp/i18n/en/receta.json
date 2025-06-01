@@ -22,9 +22,14 @@
       "fechaFin": "End Date",
       "instrucciones": "Instructions",
       "paciente": "Patient",
+      "sinPaciente": "No patient",
       "trabajador": "Worker",
+      "sinTrabajador": "No worker",
       "medicamento": "Medication",
-      "informe": "Report"
+      "sinMedicamento": "No medication",
+      "informe": "Report",
+      "sinReceta": "No prescription",
+      "modalTitulo": "Worker's Recipes"
     }
   }
 }

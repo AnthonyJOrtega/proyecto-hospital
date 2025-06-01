@@ -24,10 +24,15 @@
       "seguroMedico": "Seguro Medico",
       "fechaNacimiento": "Fecha Nacimiento",
       "telefono": "Telefono",
-      "trabajador": "Trabajador",
+      "trabajador": "Trabajador asignado",
+      "trabajadorConCita": "Cita/s con ",
       "cita": "Cita",
+      "citaDe": "Cita/s de ",
+      "noCitas": "No hay citas para este paciente.",
       "informe": "Informe",
+      "informesDe": "Informe/s de",
       "receta": "Receta",
+      "recetasDe": "Receta/s de",
       "direccion": "Direccion"
     }
   }

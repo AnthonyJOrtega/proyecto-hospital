@@ -21,10 +21,14 @@
       "fecha": "Date",
       "resumen": "Summary",
       "receta": "Prescription",
+      "sinReceta": "No prescription",
       "paciente": "Patient",
       "trabajador": "Worker",
+      "sinTrabajador": "No worker",
       "enfermedad": "Disease",
-      "cita": "Appoinment"
+      "sinEnfermedad": "No disease",
+      "cita": "Appointment",
+      "noInformes": "No reports for this worker."
     }
   }
 }

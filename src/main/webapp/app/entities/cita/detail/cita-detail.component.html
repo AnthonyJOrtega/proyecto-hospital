@@ -41,9 +41,9 @@
           <dd>
             @if (cita()!.paciente) {
               <div>
-                <a [routerLink]="['/paciente', cita()!.paciente?.id, 'view']"
-                  >{{ citaRef.paciente?.nombre }} {{ citaRef.paciente?.apellido }}</a
-                >
+                <a href="#" (click)="openPacienteDetailModal(citaRef.paciente!); $event.preventDefault()">
+                  {{ citaRef.paciente?.nombre }} {{ citaRef.paciente?.apellido }}
+                </a>
               </div>
             }
           </dd>
@@ -51,7 +51,8 @@
           <dd>
             @for (trabajador of citaRef.trabajadors; track $index; let last = $last) {
               <span>
-                <a [routerLink]="['/trabajador', trabajador.id, 'view']">{{ trabajador?.nombre }} {{ trabajador?.apellido }}</a
+                <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
+                  {{ trabajador?.nombre }} {{ trabajador?.apellido }} </a
                 >{{ last ? '' : ', ' }}
               </span>
             }

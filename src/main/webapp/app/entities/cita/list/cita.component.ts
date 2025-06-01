@@ -16,6 +16,10 @@ import { ICita } from '../cita.model';
 
 import { CitaService, EntityArrayResponseType } from '../service/cita.service';
 import { CitaDeleteDialogComponent } from '../delete/cita-delete-dialog.component';
+import { CitaListModalComponent } from './cita-list-modal.component';
+import { PacienteDetailComponent } from 'app/entities/paciente/detail/paciente-detail.component';
+import { IPaciente } from 'app/entities/paciente/paciente.model';
+import { PacienteService } from 'app/entities/paciente/service/paciente.service';
 
 @Component({
   selector: 'jhi-cita',
@@ -49,6 +53,11 @@ export class CitaComponent implements OnInit {
   protected readonly sortService = inject(SortService);
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
+
+  constructor(
+    // ...otros servicios...
+    private pacienteService: PacienteService,
+  ) {}
 
   trackId = (item: ICita): number => this.citaService.getCitaIdentifier(item);
 
@@ -145,6 +154,12 @@ export class CitaComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+  openPacienteDetailModal(paciente: IPaciente): void {
+    this.pacienteService.find(paciente.id).subscribe(response => {
+      const modalRef = this.modalService.open(PacienteDetailComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.paciente = response.body;
     });
   }
 }

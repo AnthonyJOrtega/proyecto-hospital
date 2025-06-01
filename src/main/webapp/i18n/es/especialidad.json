@@ -2,7 +2,7 @@
   "tfg2App": {
     "especialidad": {
       "home": {
-        "title": "Especialidads",
+        "title": "Especialidades",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Especialidad",
         "createOrEditLabel": "Crear o editar Especialidad",
@@ -20,7 +20,9 @@
       "id": "ID",
       "nombre": "Nombre",
       "descripcion": "Descripcion",
-      "trabajador": "Trabajador"
+      "trabajador": "Trabajador",
+      "idTrabajador": "Id Trabajador",
+      "noEspecialidades": "No hay especialidades para este trabajador."
     }
   }
 }

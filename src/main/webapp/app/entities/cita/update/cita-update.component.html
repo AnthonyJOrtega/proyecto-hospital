@@ -75,39 +75,58 @@
 -->
         <div class="mb-3">
           <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.cita.paciente">Paciente</label>
-          <select
-            class="form-control"
-            id="field_paciente"
-            data-cy="paciente"
-            name="paciente"
-            formControlName="paciente"
-            [compareWith]="comparePaciente"
-          >
-            <option [ngValue]="null"></option>
-            @for (pacienteOption of pacientesSharedCollection; track $index) {
-              <option [ngValue]="pacienteOption">{{ pacienteOption.nombre }} {{ pacienteOption.apellido }}</option>
-            }
-          </select>
+          <div class="input-group">
+            <input
+              class="form-control"
+              id="field_paciente"
+              name="paciente"
+              formControlName="pacienteString"
+              list="pacienteOptions"
+              (change)="validatePacienteSelection()"
+              autocomplete="off"
+              placeholder="Escribe o selecciona un paciente"
+            />
+            <datalist id="pacienteOptions">
+              <option
+                *ngFor="let pacienteOption of pacientesSharedCollection"
+                [value]="pacienteOption.nombre + ' ' + pacienteOption.apellido"
+              ></option>
+            </datalist>
+          </div>
         </div>
 
+        <!-- Trabajador (solo uno) -->
         <div class="mb-3">
-          <label for="field_trabajadors" jhiTranslate="tfg2App.cita.trabajador">Trabajador</label>
-          <select
-            class="form-control"
-            id="field_trabajadors"
-            data-cy="trabajador"
-            multiple
-            name="trabajadors"
-            formControlName="trabajadors"
-            [compareWith]="compareTrabajador"
-          >
-            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">
-                {{ trabajadorOption.nombre?.toUpperCase() }} {{ trabajadorOption.apellido?.toUpperCase() }} --- ID usuario:
-                {{ trabajadorOption.idUsuario }}
-              </option>
-            }
-          </select>
+          <label for="trabajadorInput" jhiTranslate="tfg2App.cita.trabajador">Trabajador</label>
+          <div class="input-group mb-2" *ngIf="!trabajadorSeleccionado">
+            <input
+              type="text"
+              id="trabajadorInput"
+              class="form-control"
+              list="trabajadorOptions"
+              [(ngModel)]="trabajadorInputText"
+              (change)="addTrabajadorFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un trabajador"
+              autocomplete="off"
+            />
+            <datalist id="trabajadorOptions">
+              <option
+                *ngFor="let t of medicosSharedCollection"
+                [value]="t.nombre + ' ' + t.apellido + ' --- ID usuario: ' + t.idUsuario"
+              ></option>
+            </datalist>
+          </div>
+
+          <div class="chip-list mb-2" *ngIf="trabajadorSeleccionado">
+            <span class="badge bg-primary me-1">
+              {{ trabajadorSeleccionado.nombre }} {{ trabajadorSeleccionado.apellido }} --- ID usuario:
+              {{ trabajadorSeleccionado.idUsuario }}
+              <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarTrabajador()"></button>
+            </span>
+          </div>
+
+          <div *ngIf="trabajadorNoValido" class="alert alert-danger mt-2">Trabajador no registrado. Selecciona uno de la lista.</div>
         </div>
       </div>
 

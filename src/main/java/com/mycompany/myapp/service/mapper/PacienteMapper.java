@@ -1,11 +1,14 @@
 package com.mycompany.myapp.service.mapper;
 
+import com.mycompany.myapp.domain.Cita;
 import com.mycompany.myapp.domain.Direccion;
 import com.mycompany.myapp.domain.Paciente;
 import com.mycompany.myapp.domain.Trabajador;
+import com.mycompany.myapp.service.dto.CitaDTO;
 import com.mycompany.myapp.service.dto.DireccionDTO;
 import com.mycompany.myapp.service.dto.PacienteDTO;
 import com.mycompany.myapp.service.dto.TrabajadorDTO;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.*;
@@ -17,6 +20,7 @@ import org.mapstruct.*;
 public interface PacienteMapper extends EntityMapper<PacienteDTO, Paciente> {
     @Mapping(target = "trabajadors", source = "trabajadors", qualifiedByName = "trabajadorIdSet")
     @Mapping(target = "direccions", source = "direccions", qualifiedByName = "direccionIdSet")
+    @Mapping(target = "citas", source = "citas", qualifiedByName = "citaIdSet")
     PacienteDTO toDto(Paciente s);
 
     @Mapping(target = "removeTrabajador", ignore = true)
@@ -27,6 +31,8 @@ public interface PacienteMapper extends EntityMapper<PacienteDTO, Paciente> {
     @Named("trabajadorId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "apellido", source = "apellido")
     TrabajadorDTO toDtoTrabajadorId(Trabajador trabajador);
 
     @Named("trabajadorIdSet")
@@ -47,5 +53,16 @@ public interface PacienteMapper extends EntityMapper<PacienteDTO, Paciente> {
     @Named("direccionIdSet")
     default Set<DireccionDTO> toDtoDireccionIdSet(Set<Direccion> direccion) {
         return direccion.stream().map(this::toDtoDireccionId).collect(Collectors.toSet());
+    }
+
+    @Named("citaId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "trabajadors", source = "trabajadors", qualifiedByName = "trabajadorIdSet")
+    CitaDTO toDtoCitaId(Cita cita);
+
+    @Named("citaIdSet")
+    default Set<CitaDTO> toDtoCitaIdSet(Set<Cita> citas) {
+        return citas.stream().map(this::toDtoCitaId).collect(Collectors.toSet());
     }
 }

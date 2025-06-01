@@ -3,7 +3,7 @@
     "title": "Welcome, Java Hipster!",
     "subtitle": "This is your homepage",
     "logged": {
-      "message": "Welcome, you are logged in as \"{{username}}\""
+      "message": "logged in as \"{{username}}\""
     },
     "question": "If you have any question on JHipster:",
     "link": {

@@ -21,10 +21,14 @@
       "fecha": "Fecha",
       "resumen": "Resumen",
       "receta": "Receta",
+      "sinReceta": "Sin receta",
       "paciente": "Paciente",
       "trabajador": "Trabajador",
+      "sinTrabajador": "Sin trabajador",
       "enfermedad": "Enfermedad",
-      "cita": "Cita"
+      "sinEnfermedad": "Sin enfermedad",
+      "cita": "Cita",
+      "noInformes": "No hay informes para este trabajador."
     }
   }
 }

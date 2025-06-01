@@ -99,7 +99,9 @@
               <td>
                 @if (cita.paciente) {
                   <div>
-                    <a [routerLink]="['/paciente', cita.paciente.id, 'view']">{{ cita.paciente.nombre }} {{ cita.paciente.apellido }}</a>
+                    <a href="#" (click)="openPacienteDetailModal(cita.paciente); $event.preventDefault()">
+                      {{ cita.paciente.nombre }} {{ cita.paciente.apellido }}
+                    </a>
                   </div>
                 }
               </td>
