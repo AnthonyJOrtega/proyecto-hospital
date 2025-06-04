@@ -241,7 +241,7 @@ body,
   box-shadow: none !important;
 }
 body.cita-update-view .navbar {
-  margin-bottom: 10px !important; /* Ajusta el valor según el espaciado que necesites */
+  margin-bottom: 0px !important; /* Ajusta el valor según el espaciado que necesites */
 }
 
 a.direccion-link {
@@ -260,8 +260,8 @@ a.direccion-link {
 }
 
 .table-entities {
-  padding-left: 4rem !important;
-  padding-right: 4rem !important;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
   margin-top: 2rem;
 }
 /* ==========================================================================
@@ -284,4 +284,257 @@ Ajustes de la tabla de especialidades
   margin-top: 40px !important; /* Ajusta según lo que necesites */
   margin-left: 70px !important; /* Ajusta según lo que necesites */
 }
+/* ========================================================================== */
+/* Estilos comunes para formularios update (cita, receta, informe, etc.) */
+/* ========================================================================== */
+.d-flex.justify-content-center {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.col-8 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+[id^='jhi-'][id$='-heading'] {
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: rgba(98, 172, 228, 0.92);
+  color: white;
+  padding: 1.25rem 2rem;
+  border-radius: 8px;
+  margin: -2.2rem -2.2rem 2rem;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+}
+
+.input-group .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.chip-list .badge {
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1.25rem;
+  background-color: #007bff;
+}
+
+.btn-close {
+  filter: brightness(2.5);
+  opacity: 1;
+  margin-left: 0.5rem;
+}
+
+button.btn {
+  font-weight: 500;
+  border-radius: 25px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  margin-right: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+.btn-success:hover {
+  background-color: #1e7e34;
+}
+
+.alert-danger {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .col-8 {
+    padding: 1.25rem;
+  }
+
+  [id^='jhi-'][id$='-heading'] {
+    font-size: 1.75rem;
+    padding: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-success {
+    margin-left: 0 !important;
+  }
+}
+
+/* ==========================================================================
+Estilos globales para páginas DETAIL (como cita, informe, receta, etc.)
+========================================================================== */
+.d-flex.justify-content-center {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.col-8 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Cabecera de detalle */
+[data-cy$='DetailsHeading'] {
+  font-size: 2rem;
+  font-weight: 600;
+  background: linear-gradient(to right, #4299e1, #3182ce);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin: -2.2rem -2.2rem 1.5rem;
+  text-align: center;
+}
+
+/* Divider horizontal */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  margin: 1.5rem 0;
+}
+
+/* Detalles de entidad */
+.jh-entity-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 20px;
+  row-gap: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.jh-entity-details dt {
+  font-weight: 600;
+  color: #444;
+  text-align: right;
+}
+
+.jh-entity-details dd {
+  margin-bottom: 0.5rem;
+}
+
+/* Enlaces a entidades relacionadas */
+.jh-entity-details a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #2b6cb0;
+}
+.jh-entity-details a:hover {
+  text-decoration: underline;
+  color: #2c5282;
+}
+
+/* Botones */
+button.btn {
+  font-weight: 500;
+  border-radius: 25px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  margin-right: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-info {
+  background-color: #63b3ed;
+  color: white;
+}
+.btn-info:hover {
+  background-color: #4299e1;
+}
+
+.btn-primary {
+  background-color: #3182ce;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #2b6cb0;
+}
+
+//modal paciente
+.modal-header-custom {
+  font-size: 1.5rem;
+  background: #5cb3ff, #3895e8;
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  margin-left: -34px !important;
+  margin: -2.2rem -2.2rem 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .col-8 {
+    padding: 1.25rem;
+  }
+
+  [data-cy$='DetailsHeading'] {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  .jh-entity-details {
+    grid-template-columns: 1fr;
+    dt {
+      text-align: left;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

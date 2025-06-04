@@ -1,12 +1,12 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2
-        id="jhi-especialidad-heading"
-        data-cy="EspecialidadCreateUpdateHeading"
-        jhiTranslate="tfg2App.especialidad.home.createOrEditLabel"
-      >
-        Crear o editar Especialidad
+      <h2 id="jhi-especialidad-heading" data-cy="EspecialidadCreateUpdateHeading">
+        {{
+          editForm.get('id')?.value
+            ? ('tfg2App.especialidad.home.editLabel' | translate)
+            : ('tfg2App.especialidad.home.createLabel' | translate)
+        }}
       </h2>
 
       <div>

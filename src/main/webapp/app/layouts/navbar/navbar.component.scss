@@ -32,13 +32,13 @@ Navbar Flotante Moderno - Hospital
     /* Ajusta si el navbar tiene un collapse en pantallas pequeñas */
     background: rgba(0, 68, 119, 0.98);
     backdrop-filter: blur(10px);
-    margin-top: 10px;
+    margin: 0px !important;
     padding: 1rem;
     border-radius: 25px;
   }
 
   &.bg-dark {
-    background: rgba(0, 68, 119, 0.92) !important;
+    background: rgba(15, 122, 203, 0.92) !important;
   }
 
   .navbar-brand {
@@ -80,7 +80,7 @@ Navbar Flotante Moderno - Hospital
 
   .navbar-nav {
     .nav-item {
-      margin: 0 3px;
+      margin: 0rem !important;
 
       .nav-link {
         font-weight: 500;
@@ -215,7 +215,7 @@ Navbar Flotante Moderno - Hospital
     .navbar-collapse {
       background: rgba(0, 68, 119, 0.98);
       backdrop-filter: blur(10px);
-      margin-top: 10px;
+      margin-top: 0px;
       padding: 1rem;
       border-radius: 0 0 15px 15px;
     }

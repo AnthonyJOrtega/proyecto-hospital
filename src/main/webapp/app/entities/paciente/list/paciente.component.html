@@ -1,4 +1,4 @@
-<div>
+<div class="paciente-container">
   <h2 id="page-heading" data-cy="PacienteHeading">
     <span jhiTranslate="tfg2App.paciente.home.title">Pacientes</span>
 
@@ -98,7 +98,26 @@
               <td>{{ paciente.nombre }}</td>
               <td>{{ paciente.apellido }}</td>
               <td>{{ paciente.dni }}</td>
-              <td>{{ paciente.seguroMedico }}</td>
+              <td class="hospital-seguro">
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'seguro-mapfre': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'mapfre',
+                    'seguro-sanitas': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'sanitas',
+                    'seguro-adeslas': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'adeslas',
+                    'seguro-asisa': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'asisa',
+                    'seguro-dkv': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'dkv',
+                    'seguro-bupa': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'bupa',
+                    'seguro-segurcaixa': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'segurcaixa',
+                    'seguro-mutua': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'mutua madrileña',
+                    'seguro-allianz': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'allianz',
+                    'seguro-axa': (paciente.seguroMedico ?? '').trim().toLowerCase() === 'axa',
+                  }"
+                >
+                  {{ paciente.seguroMedico }}
+                </span>
+              </td>
+
               <td>{{ paciente.fechaNacimiento | formatMediumDate }}</td>
               <td>{{ paciente.telefono }}</td>
               <td class="text-end">

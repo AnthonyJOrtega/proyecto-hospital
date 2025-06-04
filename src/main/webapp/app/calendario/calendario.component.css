@@ -1,0 +1,462 @@
+/* Estilos generales del contenedor */
+.hospital-calendar-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  min-height: calc(100vh - 4rem);
+  padding: 0rem 2rem 0rem;
+  background-image: url('/content/images/calnd.jpg');
+  background-size: contain;
+  border-radius: 8px;
+  margin-bottom: 0rem !important;
+  padding-bottom: 0rem !important;
+  background-position: center 80%; /* Mueve la imagen un 20% hacia abajo */
+}
+
+/* Estilo de la tarjeta del calendario */
+.hospital-calendar-card {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos para el título */
+.hospital-title {
+  margin-top: 2rem !important;
+
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.733); /* Sombra suave */
+}
+
+.hospital-title i {
+  color: #4a6baf;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 3px rgba(74, 107, 175, 0.3);
+}
+
+/* Estilos para botones */
+.btn-hospital-primary {
+  background-color: #6c5ce7;
+  border-color: #6c5ce7;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+}
+
+.btn-hospital-primary:hover {
+  background-color: #5a4bd6;
+  border-color: #5a4bd6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(108, 92, 231, 0.4);
+}
+
+/* Personalización del FullCalendar */
+:host ::ng-deep .fc {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:host ::ng-deep .fc-header-toolbar {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #6c5ce7 0%, #4a6baf 100%);
+  border-radius: 12px;
+  color: white;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+:host ::ng-deep .fc-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  text-transform: capitalize;
+  transition: all 0.2s;
+  border-radius: 8px !important;
+  font-weight: 500;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .fc-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+:host ::ng-deep .fc-button-primary:not(:disabled).fc-button-active,
+:host ::ng-deep .fc-button-primary:not(:disabled):active {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+:host ::ng-deep .fc-col-header-cell {
+  background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+  border: 1px solid #dee2e6;
+}
+
+:host ::ng-deep .fc-col-header-cell-cushion {
+  color: #4a6baf;
+  font-weight: 600;
+  padding: 8px 4px;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 8px;
+}
+
+:host ::ng-deep .fc-daygrid-day {
+  transition: background-color 0.2s;
+}
+
+:host ::ng-deep .fc-daygrid-day:hover {
+  background-color: rgba(108, 92, 231, 0.05);
+}
+
+:host ::ng-deep .fc-event {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  border-left: 4px solid transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .fc-event:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+:host ::ng-deep .fc-event-title {
+  font-weight: 500;
+  white-space: normal;
+}
+
+:host ::ng-deep .fc-day-today {
+  background-color: rgba(108, 92, 231, 0.1) !important;
+}
+
+:host ::ng-deep .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+  font-weight: bold;
+  color: #6c5ce7;
+  background-color: rgba(108, 92, 231, 0.2);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para diferentes estados de citas */
+:host ::ng-deep .fc-event.fc-event-pendiente {
+  background-color: #fff3cd;
+  border-left-color: #ffc107;
+  color: #856404;
+}
+
+:host ::ng-deep .fc-event.fc-event-finalizado {
+  background-color: #d4edda;
+  border-left-color: #28a745;
+  color: #155724;
+}
+
+:host ::ng-deep .fc-event.fc-event-cancelado {
+  background-color: #f8d7da;
+  border-left-color: #dc3545;
+  color: #721c24;
+}
+
+:host ::ng-deep .fc-event.fc-event-sin-estado {
+  background-color: #e2e3e5;
+  border-left-color: #6c757d;
+  color: #383d41;
+}
+
+/* Leyenda de estados */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 1rem;
+  background-color: transparent !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-color.finalizado {
+  background-color: #28a745;
+}
+
+.legend-color.pendiente {
+  background-color: #ffc107;
+}
+
+.legend-color.cancelado {
+  background-color: #dc3545;
+}
+
+.legend-color.sin-estado {
+  background-color: #6c757d;
+}
+
+.legend-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Estilos generales para los filtros */
+.filter-input {
+  background-color: #ffffff;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: #495057;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+  outline: none;
+}
+
+.filter-input::placeholder {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+/* Etiquetas de los filtros */
+label {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #5e28cb !important;
+  margin-bottom: 0.5rem;
+  display: block;
+  text-shadow: 2px 2px 4px rgb(255, 255, 255) !important; /* Sombra suave */
+}
+
+/* Contenedor de filtros */
+.filters-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Input con ícono */
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #adb5bd;
+  font-size: 1rem;
+}
+
+.filter-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #ced4da;
+  border-radius: 12px;
+  padding: 0.75rem 1rem 0.75rem 3rem; /* Espacio para el ícono */
+  font-size: 0.9rem;
+  color: #495057;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.filter-input:focus {
+  border-color: #6c5ce7;
+  box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+  outline: none;
+}
+
+.filter-input::placeholder {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+/* Etiquetas de los filtros */
+label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Leyenda de estados */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.legend-color:hover {
+  transform: scale(1.2);
+}
+
+.legend-color.finalizado {
+  background-color: #28a745;
+}
+
+.legend-color.pendiente {
+  background-color: #ffc107;
+}
+
+.legend-color.cancelado {
+  background-color: #dc3545;
+}
+
+.legend-color.sin-estado {
+  background-color: #6c757d;
+}
+
+.legend-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Estilo para el datalist */
+datalist {
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.5rem;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+datalist option {
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+datalist option:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hospital-calendar-container {
+    padding: 1rem;
+  }
+
+  .hospital-title {
+    font-size: 1.5rem;
+  }
+
+  .hospital-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-hospital-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  :host ::ng-deep .fc-toolbar-title {
+    font-size: 1.2rem;
+  }
+
+  :host ::ng-deep .fc-header-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  :host ::ng-deep .fc-toolbar-chunk {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  :host ::ng-deep .fc-toolbar-chunk .fc-button-group {
+    width: 100%;
+    display: flex;
+  }
+
+  :host ::ng-deep .fc-toolbar-chunk .fc-button {
+    flex: 1;
+    text-align: center;
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .calendar-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .filters-container {
+    flex-direction: column;
+  }
+
+  .filter-group {
+    min-width: 100%;
+  }
+}

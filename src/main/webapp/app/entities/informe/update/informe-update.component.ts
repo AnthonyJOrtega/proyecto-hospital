@@ -18,10 +18,11 @@ import { EnfermedadService } from 'app/entities/enfermedad/service/enfermedad.se
 import { InformeService } from '../service/informe.service';
 import { IInforme } from '../informe.model';
 import { InformeFormGroup, InformeFormService } from './informe-form.service';
-
+import dayjs from 'dayjs/esm';
 @Component({
   selector: 'jhi-informe-update',
   templateUrl: './informe-update.component.html',
+  styleUrls: ['./informe-update.component.scss'],
   imports: [SharedModule, FormsModule, ReactiveFormsModule],
 })
 export class InformeUpdateComponent implements OnInit {
@@ -64,6 +65,7 @@ export class InformeUpdateComponent implements OnInit {
         const citaId = params['citaId'];
         const pacienteId = params['pacienteId'];
         const trabajadorId = params['trabajadorId'];
+        const fecha = params['fecha'];
         if (citaId) {
           this.editForm.patchValue({ cita: { id: +citaId } });
         }
@@ -72,6 +74,9 @@ export class InformeUpdateComponent implements OnInit {
         }
         if (trabajadorId) {
           this.editForm.patchValue({ trabajador: { id: +trabajadorId } });
+        }
+        if (fecha) {
+          this.editForm.patchValue({ fecha: dayjs(fecha).format('YYYY-MM-DD') });
         }
       });
 
@@ -181,6 +186,7 @@ export class InformeUpdateComponent implements OnInit {
           informeId: savedInforme.id,
           pacienteId: pacienteId,
           trabajadorId: trabajadorId,
+          fechaInicio: savedInforme.fecha ? dayjs(savedInforme.fecha).format('YYYY-MM-DD') : dayjs().format('YYYY-MM-DD'),
         },
       });
     };

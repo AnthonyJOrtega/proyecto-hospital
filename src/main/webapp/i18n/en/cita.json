@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Appointment",
         "createOrEditLabel": "Create or edit a Appointment",
-        "notFound": "No Appointments found"
+        "notFound": "No Appointments found",
+        "editLabel": "Edit Appointment"
       },
       "created": "A new Appointment is created with identifier {{ param }}",
       "updated": "A Appointment is updated with identifier {{ param }}",
@@ -23,7 +24,8 @@
       "observaciones": "Observations",
       "informe": "Report",
       "paciente": "Patient",
-      "trabajador": "Worker"
+      "trabajador": "Doctor",
+      "fechaPasada": " The selected date is in the past. Please choose a future date."
     }
   }
 }

@@ -71,8 +71,13 @@ public class Trabajador implements Serializable {
     @JsonIgnoreProperties(value = { "trabajadors", "citas", "informes", "recetas", "direccions" }, allowSetters = true)
     private Set<Paciente> pacientes = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "trabajadors")
-    @JsonIgnoreProperties(value = { "pacientes", "trabajadors" }, allowSetters = true)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_trabajador__direccion",
+        joinColumns = @JoinColumn(name = "trabajador_id"),
+        inverseJoinColumns = @JoinColumn(name = "direccion_id")
+    )
+    @JsonIgnoreProperties(value = { "trabajadors", "pacientes" }, allowSetters = true)
     private Set<Direccion> direccions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

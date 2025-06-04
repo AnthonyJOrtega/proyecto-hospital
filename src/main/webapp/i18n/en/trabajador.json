@@ -8,7 +8,8 @@
         "createOrEditLabel": "Create or edit a Worker",
         "notFound": "No Workers found",
         "modalInformeTitle": "Worker's Reports",
-        "modalInformeDescription": "List of reports for the selected worker"
+        "modalInformeDescription": "List of reports for the selected worker",
+        "editLabel": "Edit Worker"
       },
       "created": "A new Worker is created with identifier {{ param }}",
       "updated": "A Worker is updated with identifier {{ param }}",

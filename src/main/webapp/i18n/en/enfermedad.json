@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Disease",
         "createOrEditLabel": "Create or edit a Disease",
-        "notFound": "No Diseases found"
+        "notFound": "No Diseases found",
+        "editLabel": "Edit Disease"
       },
       "created": "A new Disease is created with identifier {{ param }}",
       "updated": "A Disease is updated with identifier {{ param }}",

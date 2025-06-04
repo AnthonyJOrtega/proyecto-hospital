@@ -1,0 +1,232 @@
+.trabajador-container {
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(to left, #6eb0d3, #cad9e0);
+  padding: 2rem;
+  border-radius: 8px;
+  border: transparent;
+}
+
+#page-heading {
+  background-image: url('/content/images/paci3.png'); /* Imagen inicial */
+  background-size: 120% 110%; /* Asegura que la imagen ocupe todo el ancho pero mantenga su proporción */
+  background-position: center center; /* Centra la imagen en el contenedor */
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin: 0rem !important;
+  color: white;
+  background-blend-mode: overlay; /* Combina las imágenes con el fondo */
+  padding: 10.5rem 0 2rem; /* Ajuste del padding para dar espacio */
+  box-sizing: content-box; /* Sobrescribimos el comportamiento de box-sizing */
+  animation: changeBackground 40s infinite; /* El ciclo completo ahora dura 40 segundos */
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 4.75rem;
+  margin-bottom: 2rem;
+  text-shadow:
+    2px 2px 5px rgba(0, 0, 0, 0.6),
+    -2px -2px 5px rgba(255, 255, 255, 0.6),
+    2px -2px 5px rgba(0, 0, 0, 0.6),
+    -2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+/* Animación para alternar las imágenes */
+@keyframes changeBackground {
+  0%,
+  25% {
+    background-image: url('/content/images/paci6.jpg'); /* Imagen inicial */
+  }
+  25%,
+  50% {
+    background-image: url('/content/images/paci6.jpg'); /* Segunda imagen */
+  }
+  50%,
+  75% {
+    background-image: url('/content/images/paci3.jpg'); /* Tercera imagen */
+  }
+  75%,
+  100% {
+    background-image: url('/content/images/paci1.jpg'); /* Cuarta imagen */
+  }
+}
+/* === Puesto === */
+.bg-medico {
+  border-radius: 10rem !important;
+  background-color: #3596e5 !important;
+}
+.bg-enfermero {
+  border-radius: 10rem !important;
+  background-color: #43a047 !important;
+}
+.bg-celador {
+  border-radius: 10rem !important;
+  background-color: #ac9d00 !important;
+}
+.bg-administrativo {
+  border-radius: 10rem !important;
+  background-color: #716f6f !important;
+}
+
+/* === Turno === */
+.bg-turno-dia {
+  border-radius: 10rem !important;
+  background-color: #fdd835 !important;
+}
+.bg-turno-tarde {
+  border-radius: 10rem !important;
+  background-color: #8f7257 !important;
+}
+.bg-turno-noche {
+  border-radius: 10rem !important;
+  background-color: #000000 !important;
+}
+.bg-turno-guardia {
+  border-radius: 10rem !important;
+  background-color: #4c60e4 !important;
+}
+
+.d-flex.justify-content-end {
+  gap: 1rem;
+
+  .btn-info {
+    font-size: 1.1rem;
+    border-radius: 19px;
+    background-color: #3ba7ff;
+    border-color: #3ba7ff;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+
+    &:hover {
+      background-color: #138496;
+      border-color: #138496;
+    }
+  }
+
+  .btn-primary {
+    font-size: 1.1rem;
+    border-radius: 19px;
+    background-color: #f7a400;
+    border-color: #f7a400;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+
+    &:hover {
+      background-color: #b0a943;
+      border-color: #b0a943;
+    }
+  }
+}
+
+.table-entities {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+
+  table {
+    margin-bottom: 0;
+
+    thead th {
+      background-color: #4c93af;
+      color: white;
+      font-weight: 600;
+      border: 1px solid #366f91;
+      padding: 1rem;
+      cursor: pointer;
+    }
+
+    tbody td {
+      padding: 1rem;
+      vertical-align: middle;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #5dabd8;
+
+      &:hover {
+        background-color: #00bfff;
+      }
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+
+      &:hover {
+        background-color: #d8d8d8;
+      }
+    }
+  }
+
+  .btn-group .btn {
+    font-weight: 500;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+
+    &.btn-info {
+      background-color: #e3f2fd;
+      color: #1976d2;
+      border: none;
+
+      &:hover {
+        background-color: #bbdefb;
+      }
+    }
+
+    &.btn-primary {
+      background-color: #e8f5e9;
+      color: #388e3c;
+      border: none;
+
+      &:hover {
+        background-color: #c8e6c9;
+      }
+    }
+
+    &.btn-danger {
+      background-color: #ffebee;
+      color: #d32f2f;
+      border: none;
+
+      &:hover {
+        background-color: #ffcdd2;
+      }
+    }
+  }
+}
+
+.alert-warning {
+  background-color: #fff8e1;
+  border-color: #ffe0b2;
+  color: #5d4037;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+ngb-pagination {
+  background-color: transparent;
+  margin-top: 1rem;
+
+  ::ng-deep .page-item.active .page-link {
+    background-color: rgb(0, 66, 113) !important;
+    border-color: rgb(0, 66, 113) !important;
+  }
+
+  ::ng-deep .page-link {
+    color: white !important;
+
+    &:hover {
+      background-color: rgb(43, 124, 210) !important;
+      border-color: rgb(43, 124, 210) !important;
+    }
+  }
+}
+
+.col-md-6 {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-shadow: 5px 5px 7px rgb(0, 0, 0);
+}

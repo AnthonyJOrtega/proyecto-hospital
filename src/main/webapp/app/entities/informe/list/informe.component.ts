@@ -25,6 +25,7 @@ import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.se
 @Component({
   selector: 'jhi-informe',
   templateUrl: './informe.component.html',
+  styleUrls: ['./informe.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class InformeComponent implements OnInit {

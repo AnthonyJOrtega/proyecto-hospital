@@ -16,7 +16,7 @@ import { MedicamentoService } from 'app/entities/medicamento/service/medicamento
 import { RecetaService } from '../service/receta.service';
 import { IReceta } from '../receta.model';
 import { RecetaFormGroup, RecetaFormService } from './receta-form.service';
-
+import dayjs from 'dayjs/esm';
 @Component({
   selector: 'jhi-receta-update',
   templateUrl: './receta-update.component.html',
@@ -58,6 +58,7 @@ export class RecetaUpdateComponent implements OnInit {
         const informeId = params['informeId'];
         const pacienteId = params['pacienteId'];
         const trabajadorId = params['trabajadorId'];
+        const fechaInicio = params['fechaInicio'];
         if (informeId) {
           this.editForm.patchValue({ informe: { id: +informeId } });
         }
@@ -66,6 +67,9 @@ export class RecetaUpdateComponent implements OnInit {
         }
         if (trabajadorId) {
           this.editForm.patchValue({ trabajador: { id: +trabajadorId } });
+        }
+        if (fechaInicio) {
+          this.editForm.patchValue({ fechaInicio: dayjs(fechaInicio) });
         }
       });
       this.loadRelationshipsOptions();

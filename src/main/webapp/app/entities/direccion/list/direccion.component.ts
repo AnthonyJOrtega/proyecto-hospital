@@ -25,6 +25,7 @@ import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.se
 @Component({
   selector: 'jhi-direccion',
   templateUrl: './direccion.component.html',
+  styleUrls: ['./direccion.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class DireccionComponent implements OnInit {

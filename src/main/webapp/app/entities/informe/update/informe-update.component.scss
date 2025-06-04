@@ -1,0 +1,128 @@
+.d-flex.justify-content-center {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.col-8 {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+// Cabecera
+#jhi-informe-heading {
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: rgba(98, 172, 228, 0.92);
+  color: white;
+  padding: 1.25rem 2rem;
+  border-radius: 8px;
+  margin: -2.2rem -2.2rem 2rem;
+  text-align: center;
+}
+
+// Ajustes de formulario y campos
+.form-label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+}
+
+.input-group .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+// Chip de enfermedad
+.chip-list .badge {
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1.25rem;
+  background-color: #007bff;
+}
+
+.btn-close {
+  filter: brightness(2.5);
+  opacity: 1;
+  margin-left: 0.5rem;
+}
+
+// Botones
+button.btn {
+  font-weight: 500;
+  border-radius: 25px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  margin-right: 0.75rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+
+  &:hover {
+    background-color: #1e7e34;
+  }
+}
+
+// Estado vacío o errores
+.alert-danger {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .col-8 {
+    padding: 1.25rem;
+  }
+
+  #jhi-informe-heading {
+    font-size: 1.75rem;
+    padding: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn-success {
+    margin-left: 0 !important;
+  }
+}

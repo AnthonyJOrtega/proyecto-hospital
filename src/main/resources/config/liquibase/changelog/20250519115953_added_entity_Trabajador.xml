@@ -51,7 +51,18 @@
         </createTable>
 
         <addPrimaryKey columnNames="trabajador_id, especialidad_id" tableName="rel_trabajador__especialidad"/>
-    </changeSet>
+       
+        <createTable tableName="rel_trabajador__direccion">
+            <column name="trabajador_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="direccion_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addPrimaryKey columnNames="trabajador_id, direccion_id" tableName="rel_trabajador__direccion"/>
+       </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 

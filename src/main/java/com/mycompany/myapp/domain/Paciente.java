@@ -61,7 +61,12 @@ public class Paciente implements Serializable {
     @JsonIgnoreProperties(value = { "paciente", "trabajador", "medicamentos", "informe" }, allowSetters = true)
     private Set<Receta> recetas = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "pacientes")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_paciente__direccion",
+        joinColumns = @JoinColumn(name = "paciente_id"),
+        inverseJoinColumns = @JoinColumn(name = "direccion_id")
+    )
     @JsonIgnoreProperties(value = { "pacientes", "trabajadors" }, allowSetters = true)
     private Set<Direccion> direccions = new HashSet<>();
 

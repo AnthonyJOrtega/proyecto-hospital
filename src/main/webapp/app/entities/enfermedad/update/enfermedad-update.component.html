@@ -1,8 +1,12 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-enfermedad-heading" data-cy="EnfermedadCreateUpdateHeading" jhiTranslate="tfg2App.enfermedad.home.createOrEditLabel">
-        Crear o editar Enfermedad
+      <h2 id="jhi-enfermedad-heading" data-cy="EnfermedadCreateUpdateHeading">
+        {{
+          editForm.get('id')?.value
+            ? ('tfg2App.enfermedad.home.editLabel' | translate)
+            : ('tfg2App.enfermedad.home.createLabel' | translate)
+        }}
       </h2>
 
       <div>
@@ -31,7 +35,7 @@
             formControlName="descripcion"
           />
         </div>
-
+        <!-- Elegir id de informe eliminado de momento
         <div class="mb-3">
           <label for="field_informes" jhiTranslate="tfg2App.enfermedad.informe">Informe</label>
           <select
@@ -47,7 +51,7 @@
               <option [ngValue]="informeOption">{{ informeOption.id }}</option>
             }
           </select>
-        </div>
+        </div>-->
       </div>
 
       <div>

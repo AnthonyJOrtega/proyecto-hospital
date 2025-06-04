@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Paciente",
         "createOrEditLabel": "Crear o editar Paciente",
-        "notFound": "Ningún Pacientes encontrado"
+        "notFound": "Ningún Pacientes encontrado",
+        "editLabel": "Editar Paciente"
       },
       "created": "Un nuevo Paciente ha sido creado con el identificador {{ param }}",
       "updated": "Un Paciente ha sido actualizado con el identificador {{ param }}",
@@ -24,7 +25,7 @@
       "seguroMedico": "Seguro Medico",
       "fechaNacimiento": "Fecha Nacimiento",
       "telefono": "Telefono",
-      "trabajador": "Trabajador asignado",
+      "trabajador": "Medico asignado",
       "trabajadorConCita": "Cita/s con ",
       "cita": "Cita",
       "citaDe": "Cita/s de ",

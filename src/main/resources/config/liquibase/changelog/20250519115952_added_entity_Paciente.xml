@@ -48,6 +48,16 @@
         </createTable>
 
         <addPrimaryKey columnNames="paciente_id, trabajador_id" tableName="rel_paciente__trabajador"/>
+        
+        <createTable tableName="rel_paciente__direccion">
+            <column name="paciente_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="direccion_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="paciente_id, direccion_id" tableName="rel_paciente__direccion"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

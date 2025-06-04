@@ -1,0 +1,207 @@
+/* Estilo general */
+.medicamento-container {
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background-color: #98eba323;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Encabezado visual */
+#page-heading {
+  background-image: url('/content/images/medicina.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin: 0rem !important;
+  color: white;
+  background-color: #000000;
+  padding: 4rem 6rem;
+  box-sizing: content-box;
+  position: relative;
+}
+
+#page-heading span.titulo {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 3rem;
+  display: flex;
+  position: absolute;
+  top: 40.5%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.733);
+}
+
+/* Botones superiores */
+.medicamento-container .btn {
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+}
+
+/* Botón crear */
+.btn-primary {
+  background-color: #8934e9;
+  border-color: #8934e9;
+  color: white;
+
+  &:hover {
+    background-color: #5c249c;
+    border-color: #5c249c;
+  }
+}
+
+/* Botón refrescar */
+.btn-info {
+  background-color: #4195ca;
+  border-color: #4195ca;
+  color: white;
+
+  &:hover {
+    background-color: #176ea8;
+    border-color: #176ea8;
+  }
+}
+
+/* Botón eliminar */
+.btn-danger {
+  background-color: #ffebee;
+  color: #d32f2f;
+  border: none;
+
+  &:hover {
+    background-color: #ffcdd2;
+  }
+}
+
+/* Tabla */
+.table-entities {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 111, 15, 0.648);
+  overflow: hidden;
+}
+
+.table-entities table {
+  margin-bottom: 0;
+}
+
+.table-entities thead th {
+  background-color: #f1f5f9;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table-entities tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-top: 1px solid #006eff;
+}
+
+.table-entities tbody tr:nth-child(even) {
+  background-color: #5dd861;
+}
+
+.table-entities tbody tr:nth-child(odd) {
+  background-color: #bcebc4;
+}
+
+.table-entities tbody tr:nth-child(even):hover {
+  background-color: #1dff24;
+}
+
+.table-entities tbody tr:nth-child(odd):hover {
+  background-color: #00bfff;
+}
+
+/* Botones internos tabla */
+.table-entities .btn-group .btn {
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+}
+
+/* Estado vacío */
+.alert-warning {
+  background-color: #fff8e1;
+  border-color: #ffe0b2;
+  color: #5d4037;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.05);
+}
+
+/* Paginación */
+.medicamento-container ngb-pagination {
+  margin-top: 2rem;
+  justify-content: space-between;
+}
+
+::ng-deep .pagination {
+  background-color: transparent !important;
+}
+
+::ng-deep .page-item.active .page-link {
+  background-color: darkgreen !important;
+  border-color: darkgreen !important;
+}
+
+::ng-deep .page-link {
+  color: white !important;
+}
+
+::ng-deep .page-item:hover .page-link {
+  background-color: lightgreen !important;
+}
+
+/* Filtros 
+.medicamento-container jhi-filter {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  margin-top: 5rem;
+}*/
+
+/* Responsive */
+@media (max-width: 768px) {
+  #page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #page-heading span {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .d-flex.justify-content-end {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .d-flex.justify-content-end .btn {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .table-entities table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

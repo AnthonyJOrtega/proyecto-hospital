@@ -15,6 +15,8 @@ import { PacienteService } from '../service/paciente.service';
 import { IPaciente } from '../paciente.model';
 import { PacienteFormGroup, PacienteFormService } from './paciente-form.service';
 import { CommonModule } from '@angular/common';
+import { DireccionUpdateComponent } from 'app/entities/direccion/update/direccion-update.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-paciente-update',
@@ -33,6 +35,7 @@ export class PacienteUpdateComponent implements OnInit {
   protected trabajadorService = inject(TrabajadorService);
   protected direccionService = inject(DireccionService);
   protected activatedRoute = inject(ActivatedRoute);
+  private modalService = inject(NgbModal);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: PacienteFormGroup = this.pacienteFormService.createPacienteFormGroup();
@@ -139,5 +142,13 @@ export class PacienteUpdateComponent implements OnInit {
 
   removeTrabajador(trabajador: any): void {
     this.editForm.patchValue({ trabajadors: [] });
+  }
+  // Método para abrir el modal:
+  abrirModalDireccion(): void {
+    const modalRef = this.modalService.open(DireccionUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      // Si quieres, recarga las direcciones aquí
+      this.loadRelationshipsOptions();
+    });
   }
 }

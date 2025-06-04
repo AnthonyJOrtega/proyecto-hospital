@@ -1,6 +1,6 @@
-<div>
+<div class="especialidad-container">
   <h2 id="page-heading" data-cy="EspecialidadHeading">
-    <span jhiTranslate="tfg2App.especialidad.home.title">Especialidads</span>
+    <span class="titulo-especialidad" jhiTranslate="tfg2App.especialidad.home.title">Especialidads</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -58,7 +58,7 @@
               </div>
             </th>
             <th scope="col" jhiSortBy="ID Trabajador" class="columnaIdUsuario">
-              <div class="d-flex">
+              <div class="d-flex justify-content-center">
                 <span jhiTranslate="tfg2App.especialidad.idTrabajador">ID Trabajador</span>
 
                 <fa-icon class="p-1" icon="sort"></fa-icon>
@@ -79,8 +79,7 @@
               <td class="columnaIdUsuario text-center">
                 @for (trabajador of especialidad.trabajadors; track $index; let last = $last) {
                   <span>
-                    <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
-                      {{ trabajador?.idUsuario }} </a
+                    <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()"> {{ trabajador?.idUsuario }} </a
                     >{{ last ? '' : ', ' }}
                   </span>
                 }

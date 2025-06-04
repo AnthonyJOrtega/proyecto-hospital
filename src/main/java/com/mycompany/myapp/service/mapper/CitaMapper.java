@@ -54,6 +54,8 @@ public interface CitaMapper extends EntityMapper<CitaDTO, Cita> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "idUsuario", source = "idUsuario")
+    @Mapping(target = "especialidads", source = "especialidads")
     TrabajadorDTO toDtoTrabajadorNombreApellido(Trabajador trabajador);
 
     // Este mapeo es para obtener el id de los trabajadores en un Set

@@ -1,4 +1,4 @@
-<div>
+<div class="trabajador-container">
   <h2 id="page-heading" data-cy="TrabajadorHeading">
     <span jhiTranslate="tfg2App.trabajador.home.title">Trabajadors</span>
 
@@ -106,20 +106,24 @@
               <td>{{ trabajador.nombre }}</td>
               <td>{{ trabajador.apellido }}</td>
               <td>{{ trabajador.dni }}</td>
-              <td [jhiTranslate]="'tfg2App.Puesto.' + (trabajador.puesto ?? 'null')">
-                {{
-                  { null: '', MEDICO: 'MEDICO', ENFERMERO: 'ENFERMERO', CELADOR: 'CELADOR', ADMINISTRATIVO: 'ADMINISTRATIVO' }[
-                    trabajador.puesto ?? 'null'
-                  ]
-                }}
+              <td>
+                <span class="badge text-white" [ngClass]="'bg-' + trabajador.puesto?.toLowerCase()">
+                  {{ trabajador.puesto }}
+                </span>
               </td>
               <td>
-                <span
-                  [jhiTranslate]="trabajador.disponibilidad ? 'tfg2App.trabajador.disponible' : 'tfg2App.trabajador.noDisponible'"
-                ></span>
+                <span class="badge" [ngClass]="trabajador.disponibilidad ? 'bg-success text-white' : 'bg-danger text-white'">
+                  {{
+                    trabajador.disponibilidad
+                      ? ('tfg2App.trabajador.disponible' | translate)
+                      : ('tfg2App.trabajador.noDisponible' | translate)
+                  }}
+                </span>
               </td>
-              <td [jhiTranslate]="'tfg2App.Turno.' + (trabajador.turno ?? 'null')">
-                {{ { null: '', DIA: 'DIA', TARDE: 'TARDE', NOCHE: 'NOCHE', GUARDIA: 'GUARDIA' }[trabajador.turno ?? 'null'] }}
+              <td>
+                <span class="badge text-white" [ngClass]="'bg-turno-' + trabajador.turno?.toLowerCase()">
+                  {{ trabajador.turno }}
+                </span>
               </td>
               <td class="text-end">
                 <!--Botones modales para informes, recetas y detalles-->

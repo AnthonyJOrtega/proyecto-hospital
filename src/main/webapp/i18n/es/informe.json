@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Informe",
         "createOrEditLabel": "Crear o editar Informe",
-        "notFound": "Ningún Informes encontrado"
+        "notFound": "Ningún Informes encontrado",
+        "editLabel": "Editar Informe"
       },
       "created": "Un nuevo Informe ha sido creado con el identificador {{ param }}",
       "updated": "Un Informe ha sido actualizado con el identificador {{ param }}",

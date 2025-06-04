@@ -1,0 +1,183 @@
+.enfermedad-container {
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background-color: #d898eb23;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#page-heading {
+  background-image: url('/content/images/enfer1.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin: 0rem !important;
+  color: white;
+  background-color: #000000;
+  padding: 4rem 6rem;
+  box-sizing: content-box;
+  position: relative;
+}
+
+#page-heading span.titulo {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 3rem;
+  display: flex;
+  position: absolute;
+  top: 40.5%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.733);
+}
+/* Botones */
+.enfermedad-container .btn {
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #8934e9;
+  border-color: #8934e9;
+
+  &:hover {
+    background-color: #5c249c;
+    border-color: #5c249c;
+  }
+}
+
+.btn-info {
+  background-color: #4195ca;
+  border-color: #4195ca;
+  color: white;
+
+  &:hover {
+    background-color: #176ea8;
+    border-color: #176ea8;
+  }
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: #f31212;
+    border-color: #960000;
+    color: black;
+  }
+}
+
+/* Tabla */
+.table-entities {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(100, 0, 111, 0.648);
+  overflow: hidden;
+}
+
+.table-entities table {
+  margin-bottom: 0;
+}
+
+.table-entities thead th {
+  background-color: #b173f0;
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table-entities tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-top: 1px solid #006eff;
+}
+
+/* Fila hover */
+.table-entities tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Botones internos */
+.table-entities .btn-group .btn {
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Estado vacío */
+.alert-warning {
+  background-color: #fff8e1;
+  border-color: #ffe0b2;
+  color: #5d4037;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.05);
+}
+
+/* Paginación */
+.enfermedad-container ngb-pagination {
+  margin-top: 2rem;
+  justify-content: space-between;
+}
+
+::ng-deep .pagination {
+  background-color: transparent !important;
+}
+
+::ng-deep .page-item.active .page-link {
+  background-color: rgb(48, 0, 100) !important;
+  border-color: rgb(65, 0, 100) !important;
+}
+
+::ng-deep .page-link {
+  color: white !important;
+}
+
+::ng-deep .page-item:hover .page-link {
+  background-color: rgb(208, 144, 238) !important;
+}
+
+::ng-deep .page-item .page-link {
+  border-color: rgb(138, 43, 210) !important;
+  background-color: rgb(172, 101, 222) !important;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+  #page-heading .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+
+  /* Los botones dentro de la tabla NO se expanden */
+  .table-entities .btn {
+    width: auto;
+    margin-bottom: 0.25rem;
+  }
+
+  .col-md-6 {
+    margin-top: auto;
+    background-color: transparent;
+    margin-bottom: auto;
+    font-size: 1.5rem;
+    color: #000000;
+    text-shadow: 5px 5px 7px rgb(255, 255, 255);
+  }
+}

@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Adress",
         "createOrEditLabel": "Create or edit a Adress",
-        "notFound": "No Adresses found"
+        "notFound": "No Adresses found",
+        "editLabel": "Edit Adress"
       },
       "created": "A new Adress is created with identifier {{ param }}",
       "updated": "A Adress is updated with identifier {{ param }}",

@@ -2,7 +2,19 @@
   <div class="col-8">
     <ng-container *ngIf="trabajador as trabajadorRef">
       <div>
-        <h2 data-cy="trabajadorDetailsHeading"><span jhiTranslate="tfg2App.trabajador.detail.title">Trabajador</span></h2>
+        <h2 data-cy="trabajadorDetailsHeading">
+          <span [jhiTranslate]="'tfg2App.Puesto.' + (trabajadorRef.puesto ?? 'null')">
+            {{
+              {
+                null: '',
+                MEDICO: 'MEDICO',
+                ENFERMERO: 'ENFERMERO',
+                CELADOR: 'CELADOR',
+                ADMINISTRATIVO: 'ADMINISTRATIVO',
+              }[trabajadorRef.puesto ?? 'null']
+            }}
+          </span>
+        </h2>
 
         <hr />
 

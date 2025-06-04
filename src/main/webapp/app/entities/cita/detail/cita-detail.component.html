@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
-    @if (cita(); as citaRef) {
+    @if (isModal ? citaLocal : cita(); as citaRef) {
       <div>
         <h2 data-cy="citaDetailsHeading"><span jhiTranslate="tfg2App.cita.detail.title">Cita</span></h2>
 
@@ -31,18 +31,18 @@
           </dd>
           <dt><span jhiTranslate="tfg2App.cita.informe">Informe</span></dt>
           <dd>
-            @if (cita()!.informe) {
+            @if (citaRef.informe) {
               <div>
-                <a [routerLink]="['/informe', cita()!.informe?.id, 'view']">{{ citaRef.informe?.id }}</a>
+                <a [routerLink]="['/informe', citaRef.informe.id, 'view']">{{ citaRef.informe.id }}</a>
               </div>
             }
           </dd>
           <dt><span jhiTranslate="tfg2App.cita.paciente">Paciente</span></dt>
           <dd>
-            @if (cita()!.paciente) {
+            @if (citaRef.paciente) {
               <div>
                 <a href="#" (click)="openPacienteDetailModal(citaRef.paciente!); $event.preventDefault()">
-                  {{ citaRef.paciente?.nombre }} {{ citaRef.paciente?.apellido }}
+                  {{ citaRef.paciente.nombre }} {{ citaRef.paciente.apellido }}
                 </a>
               </div>
             }
@@ -66,6 +66,8 @@
         <button type="button" [routerLink]="['/cita', citaRef.id, 'edit']" class="btn btn-primary">
           <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
         </button>
+
+        <!-- Botón para eliminar la cita -->
       </div>
     }
   </div>

@@ -4,9 +4,10 @@
       "home": {
         "title": "Citas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Cita",
+        "createLabel": "Crear nueva Cita",
         "createOrEditLabel": "Crear o editar Cita",
-        "notFound": "Ningún Citas encontrado"
+        "notFound": "Ningún Citas encontrado",
+        "editLabel": "Editar Cita"
       },
       "created": "Un nuevo Cita ha sido creado con el identificador {{ param }}",
       "updated": "Un Cita ha sido actualizado con el identificador {{ param }}",
@@ -23,7 +24,8 @@
       "observaciones": "Observaciones",
       "informe": "Informe",
       "paciente": "Paciente",
-      "trabajador": "Trabajador"
+      "trabajador": "Medico",
+      "fechaPasada": "La fecha seleccionada es en el pasado. Por favor, elija una fecha futura."
     }
   }
 }

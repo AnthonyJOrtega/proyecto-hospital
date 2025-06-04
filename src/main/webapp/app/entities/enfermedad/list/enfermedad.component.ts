@@ -19,6 +19,7 @@ import { EnfermedadDeleteDialogComponent } from '../delete/enfermedad-delete-dia
 @Component({
   selector: 'jhi-enfermedad',
   templateUrl: './enfermedad.component.html',
+  styleUrls: ['./enfermedad.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class EnfermedadComponent implements OnInit {
