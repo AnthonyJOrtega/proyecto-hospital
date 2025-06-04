@@ -23,8 +23,8 @@
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
         "direccion": "Addresses",
         "especialidad": "Specialty",
-        "paciente": "Patient",
-        "trabajador": "Worker"
+        "paciente": "Patients",
+        "trabajador": "Workers"
       },
 
       "administracion": {

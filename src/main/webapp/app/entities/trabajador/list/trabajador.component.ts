@@ -22,6 +22,7 @@ import { TrabajadorDetailComponent } from '../detail/trabajador-detail.component
 @Component({
   selector: 'jhi-trabajador',
   templateUrl: './trabajador.component.html',
+  styleUrls: ['./trabajador.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class TrabajadorComponent implements OnInit {

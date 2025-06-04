@@ -11,7 +11,7 @@ export interface ICita {
   observaciones?: string | null;
   informe?: Pick<IInforme, 'id'> | null;
   paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'> | null;
-  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'>[] | null;
+  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido' | 'especialidads' | 'idUsuario'>[] | null;
 }
 
 export type NewCita = Omit<ICita, 'id'> & { id: null };

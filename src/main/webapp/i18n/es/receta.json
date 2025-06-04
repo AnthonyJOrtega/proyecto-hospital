@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Receta",
         "createOrEditLabel": "Crear o editar Receta",
-        "notFound": "Ningún Recetas encontrado"
+        "notFound": "Ningún Recetas encontrado",
+        "editLabel": "Editar Receta"
       },
       "created": "Un nuevo Receta ha sido creado con el identificador {{ param }}",
       "updated": "Un Receta ha sido actualizado con el identificador {{ param }}",

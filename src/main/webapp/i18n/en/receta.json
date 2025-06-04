@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Prescription",
         "createOrEditLabel": "Create or edit a Prescription",
-        "notFound": "No Prescriptions found"
+        "notFound": "No Prescriptions found",
+        "editLabel": "Edit Prescription"
       },
       "created": "A new Prescription is created with identifier {{ param }}",
       "updated": "A Prescription is updated with identifier {{ param }}",

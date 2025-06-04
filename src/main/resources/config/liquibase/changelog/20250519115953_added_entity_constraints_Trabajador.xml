@@ -23,5 +23,17 @@
                                  referencedColumnNames="id"
                                  referencedTableName="especialidad"
                                  />
+        
+        <addForeignKeyConstraint baseColumnNames="trabajador_id"
+                         baseTableName="rel_trabajador__direccion"
+                         constraintName="fk_rel_trabajador__direccion__trabajador_id"
+                         referencedColumnNames="id"
+                         referencedTableName="trabajador"/>
+                         
+        <addForeignKeyConstraint baseColumnNames="direccion_id"
+                         baseTableName="rel_trabajador__direccion"
+                         constraintName="fk_rel_trabajador__direccion__direccion_id"
+                         referencedColumnNames="id"
+                         referencedTableName="direccion"/>
     </changeSet>
 </databaseChangeLog>

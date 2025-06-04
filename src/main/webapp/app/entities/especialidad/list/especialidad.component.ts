@@ -22,6 +22,7 @@ import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.se
 @Component({
   selector: 'jhi-especialidad',
   templateUrl: './especialidad.component.html',
+  styleUrls: ['./especialidad.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class EspecialidadComponent implements OnInit {

@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Especialidad",
         "createOrEditLabel": "Crear o editar Especialidad",
-        "notFound": "Ningún Especialidads encontrado"
+        "notFound": "Ningún Especialidads encontrado",
+        "editLabel": "Editar Especialidad"
       },
       "created": "Un nuevo Especialidad ha sido creado con el identificador {{ param }}",
       "updated": "Un Especialidad ha sido actualizado con el identificador {{ param }}",

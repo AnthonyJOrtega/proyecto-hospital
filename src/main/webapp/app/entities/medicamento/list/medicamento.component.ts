@@ -19,6 +19,7 @@ import { MedicamentoDeleteDialogComponent } from '../delete/medicamento-delete-d
 @Component({
   selector: 'jhi-medicamento',
   templateUrl: './medicamento.component.html',
+  styleUrls: ['./medicamento.component.scss'],
   imports: [RouterModule, FormsModule, SharedModule, SortDirective, SortByDirective, FilterComponent, ItemCountComponent],
 })
 export class MedicamentoComponent implements OnInit {

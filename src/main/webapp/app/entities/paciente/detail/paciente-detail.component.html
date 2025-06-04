@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8 modal-content">
+  <div class="col-8">
     <ng-container *ngIf="paciente as pacienteRef">
       <div>
-        <h2 data-cy="pacienteDetailsHeading" style="margin-left: 30px">
+        <h2 class="modal-header-custom" data-cy="pacienteDetailsHeading" style="margin-left: 30px">
           <span jhiTranslate="tfg2App.paciente.detail.title">Paciente</span>
         </h2>
 
@@ -68,8 +68,8 @@
           <dt><span jhiTranslate="tfg2App.paciente.direccion">Direccion</span></dt>
           <dd>
             @for (direccion of pacienteRef.direccions; track $index) {
-              <span class="badge rounded-pill bg-primary py-2 px-2 me-1">
-                <a [routerLink]="['/direccion', direccion.id, 'view']" (click)="close()" class="text-white text-decoration-none h6">
+              <span>
+                <a [routerLink]="['/direccion', direccion.id, 'view']" (click)="close()">
                   {{ direccion?.calle }} --- C.P: {{ direccion?.codigoPostal }} --- nº:{{ direccion?.numero }} --- ({{ direccion?.ciudad }}
                   {{ direccion?.pais }})</a
                 >

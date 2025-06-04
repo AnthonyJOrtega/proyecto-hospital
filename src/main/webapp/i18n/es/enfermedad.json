@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Enfermedad",
         "createOrEditLabel": "Crear o editar Enfermedad",
-        "notFound": "Ningún Enfermedad encontrado"
+        "notFound": "Ningún Enfermedad encontrado",
+        "editLabel": "Editar Enfermedad"
       },
       "created": "Un nuevo Enfermedad ha sido creado con el identificador {{ param }}",
       "updated": "Un Enfermedad ha sido actualizado con el identificador {{ param }}",

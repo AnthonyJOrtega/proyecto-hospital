@@ -26,6 +26,7 @@ import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.se
 @Component({
   selector: 'jhi-receta',
   templateUrl: './receta.component.html',
+  styleUrls: ['./receta.component.scss'],
   imports: [
     RouterModule,
     FormsModule,

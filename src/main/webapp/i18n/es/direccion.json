@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nueva Dirección",
         "createOrEditLabel": "Crear o editar Dirección",
-        "notFound": "Ninguna Dirección encontrada"
+        "notFound": "Ninguna Dirección encontrada",
+        "editLabel": "Editar Dirección"
       },
       "created": "Una nueva Dirección ha sido creado con el identificador {{ param }}",
       "updated": "Una Dirección ha sido actualizado con el identificador {{ param }}",

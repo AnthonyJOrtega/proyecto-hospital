@@ -66,7 +66,7 @@ export default class NavbarComponent implements OnInit {
   logout(): void {
     this.collapseNavbar();
     this.loginService.logout();
-    this.router.navigate(['']);
+    window.location.href = '/login'; // Fuerza recarga y va a login
   }
 
   toggleNavbar(): void {

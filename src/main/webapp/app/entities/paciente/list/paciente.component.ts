@@ -24,6 +24,7 @@ import { RecetaListModalComponent } from 'app/entities/receta/list/modal-pacient
 @Component({
   selector: 'jhi-paciente',
   templateUrl: './paciente.component.html',
+  styleUrls: ['./paciente.component.scss'],
   imports: [
     RouterModule,
     FormsModule,

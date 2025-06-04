@@ -8,7 +8,8 @@
         "createOrEditLabel": "Crear o editar Trabajador",
         "notFound": "Ningún Trabajador encontrado",
         "modalInformeTitle": "Informes del Trabajador/a",
-        "modalRecetaTitle": "Recetas del Trabajador/a"
+        "modalRecetaTitle": "Recetas del Trabajador/a",
+        "editLabel": "Editar Trabajador"
       },
       "created": "Un nuevo Trabajador ha sido creado",
       "updated": "Un Trabajador ha sido actualizado",

@@ -32,9 +32,9 @@
           <ng-container *ngIf="account(); else loginBlock">
             <!-- TITULO SI ESTÁ LOGUEADO -->
             <h1 class="hospital-tech-title">
-              <span class="hospital-tech-main">HOSPITAL TECH</span>
+              <span class="hospital-tech-main" jhiTranslate="home.title">HOSPITAL TECH</span>
               <hr class="mx-auto" style="opacity: 0.2; border: none; height: 1px; background-color: rgba(0, 0, 0, 0.1)" />
-              <span class="hospital-tech-sub">Bienvenido</span>
+              <span class="hospital-tech-sub" jhiTranslate="home.subtitle">Bienvenido</span>
             </h1>
             <!-- MENSAJE DE USUARIO -->
 
@@ -46,7 +46,7 @@
                 style="padding-left: 3rem; padding-right: 3rem"
               >
                 <i class="bi bi-calendar-plus fs-4 position-absolute" style="left: 1.5rem"></i>
-                <span>Crear Nueva Cita</span>
+                <span jhiTranslate="tfg2App.cita.home.createLabel">Crear Nueva Cita</span>
                 <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
               </button>
 
@@ -57,7 +57,7 @@
                 style="padding-left: 3rem; padding-right: 3rem"
               >
                 <i class="bi bi-person-plus fs-4 position-absolute" style="left: 1.5rem"></i>
-                <span>Crear Nuevo Paciente</span>
+                <span jhiTranslate="tfg2App.paciente.home.createLabel">Crear Nuevo Paciente</span>
                 <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
               </button>
 
@@ -68,7 +68,7 @@
                 routerLink="/informe/new"
               >
                 <i class="bi bi-file-earmark-text fs-4 position-absolute" style="left: 1.5rem"></i>
-                <span>Crear o Editar Informe</span>
+                <span jhiTranslate="tfg2App.informe.home.createLabel">Crear Informe</span>
                 <i class="bi bi-chevron-right position-absolute" style="right: 1.5rem"></i>
               </button>
             </div>

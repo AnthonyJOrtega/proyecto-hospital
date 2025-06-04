@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-cita-heading" data-cy="CitaCreateUpdateHeading" jhiTranslate="tfg2App.cita.home.createOrEditLabel">
-        Crear o editar Cita
+      <h2 id="jhi-cita-heading" data-cy="CitaCreateUpdateHeading">
+        {{ editForm.get('id')?.value ? ('tfg2App.cita.home.editLabel' | translate) : ('tfg2App.cita.home.createLabel' | translate) }}
       </h2>
 
       <div>
@@ -14,7 +14,49 @@
             <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
         }
+        <!-- Selector de especialidad -->
+        <div class="mb-3">
+          <label class="form-label" for="field_especialidad">Especialidad</label>
+          <select class="form-control" id="field_especialidad" (change)="onEspecialidadChange($event)">
+            <option value="">Selecciona una especialidad</option>
+            <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
+          </select>
+        </div>
 
+        <!-- Trabajador (solo uno) -->
+        <div class="mb-3">
+          <label class="form-label" for="trabajadorInput" jhiTranslate="tfg2App.cita.trabajador">Trabajador</label>
+          <div class="input-group mb-2" *ngIf="!trabajadorSeleccionado">
+            <input
+              type="text"
+              id="trabajadorInput"
+              class="form-control"
+              list="trabajadorOptions"
+              [(ngModel)]="trabajadorInputText"
+              (change)="addTrabajadorFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un trabajador"
+              autocomplete="off"
+            />
+            <datalist id="trabajadorOptions">
+              <option
+                *ngFor="let t of medicosFiltrados"
+                [value]="t.nombre + ' ' + t.apellido + ' (' + getEspecialidadesString(t) + ') --- ID usuario: ' + t.idUsuario"
+              ></option>
+            </datalist>
+          </div>
+          <div class="chip-list mb-2" *ngIf="trabajadorSeleccionado">
+            <span class="badge bg-primary me-1">
+              {{ trabajadorSeleccionado.nombre }} {{ trabajadorSeleccionado.apellido }}
+              <span *ngIf="trabajadorSeleccionado.especialidads?.length"> ({{ getEspecialidadesString(trabajadorSeleccionado) }}) </span>
+              --- ID usuario: {{ trabajadorSeleccionado.idUsuario }}
+              <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarTrabajador()"></button>
+            </span>
+          </div>
+          <div *ngIf="trabajadorNoValido" class="alert alert-danger mt-2">Trabajador no registrado. Selecciona uno de la lista.</div>
+        </div>
+
+        <!--FECHA DE LA CITA-->
         <div class="mb-3">
           <label class="form-label" for="field_fechaCreacion" jhiTranslate="tfg2App.cita.fechaCreacion">Fecha Creacion</label>
           <div class="input-group">
@@ -33,6 +75,7 @@
             </button>
           </div>
         </div>
+        <!-- HORA DE LA CITA -->
 
         <div class="mb-3">
           <label class="form-label" for="field_estadoCita" jhiTranslate="tfg2App.cita.estadoCita">Estado Cita</label>
@@ -73,9 +116,10 @@
           </select>
         </div>
 -->
+        <!-- Paciente (solo uno, con chip) -->
         <div class="mb-3">
           <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.cita.paciente">Paciente</label>
-          <div class="input-group">
+          <div class="input-group mb-2" *ngIf="!pacienteSeleccionado">
             <input
               class="form-control"
               id="field_paciente"
@@ -89,44 +133,20 @@
             <datalist id="pacienteOptions">
               <option
                 *ngFor="let pacienteOption of pacientesSharedCollection"
-                [value]="pacienteOption.nombre + ' ' + pacienteOption.apellido"
-              ></option>
-            </datalist>
-          </div>
-        </div>
-
-        <!-- Trabajador (solo uno) -->
-        <div class="mb-3">
-          <label for="trabajadorInput" jhiTranslate="tfg2App.cita.trabajador">Trabajador</label>
-          <div class="input-group mb-2" *ngIf="!trabajadorSeleccionado">
-            <input
-              type="text"
-              id="trabajadorInput"
-              class="form-control"
-              list="trabajadorOptions"
-              [(ngModel)]="trabajadorInputText"
-              (change)="addTrabajadorFromInput()"
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="Escribe o selecciona un trabajador"
-              autocomplete="off"
-            />
-            <datalist id="trabajadorOptions">
-              <option
-                *ngFor="let t of medicosSharedCollection"
-                [value]="t.nombre + ' ' + t.apellido + ' --- ID usuario: ' + t.idUsuario"
+                [value]="pacienteOption.nombre + ' ' + pacienteOption.apellido + ' - DNI: ' + pacienteOption.dni"
               ></option>
             </datalist>
           </div>
 
-          <div class="chip-list mb-2" *ngIf="trabajadorSeleccionado">
-            <span class="badge bg-primary me-1">
-              {{ trabajadorSeleccionado.nombre }} {{ trabajadorSeleccionado.apellido }} --- ID usuario:
-              {{ trabajadorSeleccionado.idUsuario }}
-              <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarTrabajador()"></button>
+          <div class="chip-list mb-2" *ngIf="pacienteSeleccionado">
+            <span class="badge bg-success me-1">
+              {{ pacienteSeleccionado.nombre }} {{ pacienteSeleccionado.apellido }}
+              <span *ngIf="pacienteSeleccionado.dni">- DNI: {{ pacienteSeleccionado.dni }}</span>
+              <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarPaciente()"></button>
             </span>
           </div>
 
-          <div *ngIf="trabajadorNoValido" class="alert alert-danger mt-2">Trabajador no registrado. Selecciona uno de la lista.</div>
+          <div *ngIf="pacienteNoValido" class="alert alert-danger mt-2">Paciente no registrado. Selecciona uno de la lista.</div>
         </div>
       </div>
 

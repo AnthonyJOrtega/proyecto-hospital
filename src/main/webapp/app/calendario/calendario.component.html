@@ -1,0 +1,91 @@
+<div class="hospital-calendar-container">
+  <div class="hospital-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="hospital-title">
+        <i class="fas fa-calendar-alt me-2"></i>
+        Calendario de Citas Médicas
+      </h2>
+
+      <div class="hospital-actions">
+        <button class="btn btn-hospital-primary me-2" (click)="abrirModalCita()">
+          <i class="fas fa-plus me-1"></i>
+          Nueva Cita
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-container">
+    <div class="filter-group">
+      <label for="filterPaciente">Filtrar por Paciente</label>
+      <div class="input-with-icon">
+        <i class="fas fa-user input-icon"></i>
+        <input
+          type="text"
+          id="filterPaciente"
+          class="form-control filter-input"
+          [(ngModel)]="filterPaciente"
+          (input)="filtrarCitas()"
+          placeholder="Buscar paciente..."
+          list="pacienteOptions"
+        />
+        <datalist id="pacienteOptions">
+          <option *ngFor="let paciente of pacientesSharedCollection" [value]="paciente.nombre + ' ' + paciente.apellido"></option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label for="filterTrabajador">Filtrar por Trabajador</label>
+      <div class="input-with-icon">
+        <i class="fas fa-user-md input-icon"></i>
+        <input
+          type="text"
+          id="filterTrabajador"
+          class="form-control filter-input"
+          [(ngModel)]="filterTrabajador"
+          (input)="filtrarCitas()"
+          placeholder="Buscar trabajador..."
+          list="trabajadorOptions"
+        />
+        <datalist id="trabajadorOptions">
+          <option
+            *ngFor="let trabajador of trabajadorsSharedCollection"
+            [value]="trabajador.nombre + ' ' + trabajador.apellido + ' --- ID usuario: ' + trabajador.idUsuario"
+          ></option>
+        </datalist>
+      </div>
+    </div>
+  </div>
+
+  <div class="hospital-calendar-card">
+    <!-- Mensaje de fecha pasada con Toast flotante para mensaje de fecha pasada -->
+    <div
+      *ngIf="mostrarMensajeFechaPasada"
+      class="toast-fecha-pasada alert alert-danger text-center show"
+      style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); min-width: 300px; z-index: 2000"
+    >
+      {{ 'tfg2App.cita.fechaPasada' | translate }}
+    </div>
+    <full-calendar [options]="calendarOptions"></full-calendar>
+  </div>
+  <!-- Leyenda de estados -->
+  <div class="calendar-legend mt-4">
+    <div class="legend-item">
+      <span class="legend-color finalizado"></span>
+      <span class="legend-label">Finalizado</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color pendiente"></span>
+      <span class="legend-label">Pendiente</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color cancelado"></span>
+      <span class="legend-label">Cancelado</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color sin-estado"></span>
+      <span class="legend-label">Sin estado</span>
+    </div>
+  </div>
+</div>

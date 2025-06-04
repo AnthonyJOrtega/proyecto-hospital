@@ -21,11 +21,51 @@ export default class HomeComponent implements OnInit, OnDestroy {
   private readonly accountService = inject(AccountService);
   private readonly router = inject(Router);
 
+  private chatlingScriptLoaded = false;
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
-      .subscribe(account => this.account.set(account));
+      .subscribe(account => {
+        this.account.set(account);
+        if (account && !this.chatlingScriptLoaded) {
+          this.addChatlingScript();
+          this.chatlingScriptLoaded = true;
+        }
+        if (!account && this.chatlingScriptLoaded) {
+          this.removeChatlingScript();
+          this.chatlingScriptLoaded = false;
+        }
+      });
+  }
+
+  addChatlingScript(): void {
+    // Configuración del chatbot
+    const config = document.createElement('script');
+    config.innerHTML = 'window.chtlConfig = { chatbotId: "1255511581" }';
+    config.id = 'chtl-config';
+    document.body.appendChild(config);
+
+    // Script del chatbot
+    const script = document.createElement('script');
+    script.id = 'chtl-script';
+    script.type = 'text/javascript';
+    script.async = true;
+    script.setAttribute('data-id', '1255511581');
+    script.src = 'https://chatling.ai/js/embed.js';
+    document.body.appendChild(script);
+  }
+
+  removeChatlingScript(): void {
+    const script = document.getElementById('chtl-script');
+    if (script) {
+      script.remove();
+    }
+    const config = document.getElementById('chtl-config');
+    if (config) {
+      config.remove();
+    }
   }
 
   login(): void {

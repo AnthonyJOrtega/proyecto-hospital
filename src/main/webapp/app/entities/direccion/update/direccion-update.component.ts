@@ -14,6 +14,7 @@ import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.se
 import { DireccionService } from '../service/direccion.service';
 import { IDireccion } from '../direccion.model';
 import { DireccionFormGroup, DireccionFormService } from './direccion-form.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-direccion-update',
@@ -32,6 +33,14 @@ export class DireccionUpdateComponent implements OnInit {
   protected pacienteService = inject(PacienteService);
   protected trabajadorService = inject(TrabajadorService);
   protected activatedRoute = inject(ActivatedRoute);
+  public activeModal: NgbActiveModal | null = null;
+  constructor() {
+    try {
+      this.activeModal = inject(NgbActiveModal);
+    } catch (e) {
+      // No está en un modal, no pasa nada
+    }
+  }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: DireccionFormGroup = this.direccionFormService.createDireccionFormGroup();
@@ -67,17 +76,25 @@ export class DireccionUpdateComponent implements OnInit {
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDireccion>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
-      next: () => this.onSaveSuccess(),
+      next: res => this.onSaveSuccess(res.body ?? undefined),
       error: () => this.onSaveError(),
     });
   }
 
-  protected onSaveSuccess(): void {
-    this.previousState();
+  protected onSaveSuccess(direccion?: IDireccion): void {
+    if (this.activeModal && typeof this.activeModal.close === 'function') {
+      this.activeModal.close(direccion ?? this.direccion ?? undefined);
+    } else {
+      // Redirige a la lista de direcciones tras guardar
+      window.location.href = '/direccion';
+    }
   }
 
   protected onSaveError(): void {
     // Api for inheritance.
+    if (this.activeModal) {
+      this.activeModal.dismiss('error');
+    }
   }
 
   protected onSaveFinalize(): void {

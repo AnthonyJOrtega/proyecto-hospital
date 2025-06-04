@@ -6,7 +6,8 @@
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear nuevo Medicamento",
         "createOrEditLabel": "Crear o editar Medicamento",
-        "notFound": "Ningún Medicamentos encontrado"
+        "notFound": "Ningún Medicamentos encontrado",
+        "editLabel": "Editar Medicamento"
       },
       "created": "Un nuevo Medicamento ha sido creado con el identificador {{ param }}",
       "updated": "Un Medicamento ha sido actualizado con el identificador {{ param }}",

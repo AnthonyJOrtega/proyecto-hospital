@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Patient",
         "createOrEditLabel": "Create or edit a Patient",
-        "notFound": "No Patients found"
+        "notFound": "No Patients found",
+        "editLabel": "Edit Patient"
       },
       "created": "A new Patient is created with identifier {{ param }}",
       "updated": "A Patient is updated with identifier {{ param }}",
@@ -24,7 +25,7 @@
       "seguroMedico": "Health Insurance",
       "fechaNacimiento": "Date of Birth",
       "telefono": "Phone",
-      "trabajador": "Worker assigned",
+      "trabajador": " Assigned Doctor",
       "trabajadorConCita": "Appointments with ",
       "cita": "Appointment",
       "citaDe": "Appointment/s of ",

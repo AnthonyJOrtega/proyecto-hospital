@@ -37,6 +37,11 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import(`./entities/entity.routes`),
   },
+  {
+    path: 'calendario',
+    loadComponent: () => import('./calendario/calendario.component').then(m => m.CalendarioComponent),
+    title: 'Calendario',
+  },
   ...errorRoute,
 ];
 

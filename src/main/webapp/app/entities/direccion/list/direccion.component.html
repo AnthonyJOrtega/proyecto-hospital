@@ -1,8 +1,8 @@
-<div>
+<div class="direccion-container">
   <h2 id="page-heading" data-cy="DireccionHeading">
     <span jhiTranslate="tfg2App.direccion.home.title">Direccions</span>
 
-    <div class="d-flex justify-content-end">
+    <div class="direccion-header-actions d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
         <span jhiTranslate="tfg2App.direccion.home.refreshListLabel">Refrescar lista</span>
@@ -98,6 +98,7 @@
                 <fa-icon class="p-1" icon="sort"></fa-icon>
               </div>
             </th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

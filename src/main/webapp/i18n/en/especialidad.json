@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Speciality",
         "createOrEditLabel": "Create or edit a Speciality",
-        "notFound": "No Specialities found"
+        "notFound": "No Specialities found",
+        "editLabel": "Edit Speciality"
       },
       "created": "A new Speciality is created with identifier {{ param }}",
       "updated": "A Speciality is updated with identifier {{ param }}",

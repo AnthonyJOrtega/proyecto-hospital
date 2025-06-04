@@ -24,6 +24,7 @@ import { PacienteService } from 'app/entities/paciente/service/paciente.service'
 @Component({
   selector: 'jhi-cita',
   templateUrl: './cita.component.html',
+  styleUrls: ['./cita.component.scss'],
   imports: [
     RouterModule,
     FormsModule,

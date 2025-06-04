@@ -1,9 +1,9 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
+    "title": "HOSPITAL TECH",
+    "subtitle": "Welcome",
     "logged": {
-      "message": "logged in as \"{{username}}\""
+      "message": "You are logged in as \"{{username}}\""
     },
     "question": "If you have any question on JHipster:",
     "link": {

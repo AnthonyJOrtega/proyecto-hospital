@@ -40,25 +40,30 @@
           <dd>
             <span>{{ direccionRef.numero }}</span>
           </dd>
-          <dt><span jhiTranslate="tfg2App.direccion.paciente">Paciente</span></dt>
-          <dd>
-            @for (paciente of direccionRef.pacientes; track $index; let last = $last) {
-              <span>
-                <a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente?.nombre }} {{ paciente?.apellido }}</a
-                >{{ last ? '' : ', ' }}
-              </span>
-            }
-          </dd>
-          <dt><span jhiTranslate="tfg2App.direccion.trabajador">Trabajador</span></dt>
-          <dd>
-            @for (trabajador of direccionRef.trabajadors; track $index; let last = $last) {
-              <span>
-                <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
-                  {{ trabajador.nombre }} {{ trabajador.apellido }}
-                </a>
-              </span>
-            }
-          </dd>
+          <ng-container *ngIf="direccionRef.pacientes?.length">
+            <dt><span jhiTranslate="tfg2App.direccion.paciente">Paciente</span></dt>
+            <dd>
+              @for (paciente of direccionRef.pacientes; track $index; let last = $last) {
+                <span>
+                  <a [routerLink]="['/paciente', paciente.id, 'view']"> {{ paciente?.nombre }} {{ paciente?.apellido }} </a
+                  >{{ last ? '' : ', ' }}
+                </span>
+              }
+            </dd>
+          </ng-container>
+
+          <ng-container *ngIf="direccionRef.trabajadors?.length">
+            <dt><span jhiTranslate="tfg2App.direccion.trabajador">Trabajador</span></dt>
+            <dd>
+              @for (trabajador of direccionRef.trabajadors; track $index; let last = $last) {
+                <span>
+                  <a href="#" (click)="openTrabajadorDetailModal(trabajador); $event.preventDefault()">
+                    {{ trabajador.nombre }} {{ trabajador.apellido }} </a
+                  >{{ last ? '' : ', ' }}
+                </span>
+              }
+            </dd>
+          </ng-container>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

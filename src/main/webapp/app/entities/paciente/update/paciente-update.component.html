@@ -1,8 +1,10 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-paciente-heading" data-cy="PacienteCreateUpdateHeading" jhiTranslate="tfg2App.paciente.home.createOrEditLabel">
-        Crear o editar Paciente
+      <h2 id="jhi-paciente-heading" data-cy="PacienteCreateUpdateHeading">
+        {{
+          editForm.get('id')?.value ? ('tfg2App.paciente.home.editLabel' | translate) : ('tfg2App.paciente.home.createLabel' | translate)
+        }}
       </h2>
 
       <div>
@@ -78,7 +80,7 @@
               [(ngModel)]="trabajadorInputText"
               (change)="addTrabajadorFromInput()"
               [ngModelOptions]="{ standalone: true }"
-              placeholder="Escribe o selecciona un trabajador"
+              placeholder="Escribe o selecciona un medico si no tiene ninguno asignado"
               autocomplete="off"
             />
             <datalist id="trabajadorOptions">
@@ -100,28 +102,34 @@
             </span>
           </div>
         </div>
-        <!-- Direcciones  (Que lo he quitado porque voy asociar una direccion para cada paciente desde direcciones)
+        <!--DIRECCIONES-->
         <div class="mb-3">
-          <label for="field_direccions" jhiTranslate="tfg2App.paciente.direccion">Direccion</label>
-          <select
-      class="form-control"
-            id="field_direccions"
-            data-cy="direccion"
-            multiple
-            name="direccions"
-            formControlName="direccions"
-            [compareWith]="compareDireccion"
-          >
-            @for (direccionOption of direccionsSharedCollection; track $index) {
-              <option [ngValue]="direccionOption">
-                {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
-                  direccionOption.ciudad
-                }} 
-                {{ direccionOption.pais }})
-              </option>
-            }
-          </select>
-</div>-->
+          <label class="form-label" for="field_direccions" jhiTranslate="tfg2App.paciente.direccion">Direccion</label>
+          <div class="d-flex align-items-end">
+            <select
+              class="form-control"
+              id="field_direccions"
+              data-cy="direccion"
+              multiple
+              name="direccions"
+              formControlName="direccions"
+              [compareWith]="compareDireccion"
+            >
+              @for (direccionOption of direccionsSharedCollection; track $index) {
+                <option [ngValue]="direccionOption">
+                  {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
+                    direccionOption.ciudad
+                  }}
+                  {{ direccionOption.pais }})
+                </option>
+              }
+            </select>
+            <button type="button" class="btn btn-success btn-sm" style="padding: 4px 8px; font-size: 1rem" (click)="abrirModalDireccion()">
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="tfg2App.direccion.home.createLabel">Crear nueva dirección</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div>
