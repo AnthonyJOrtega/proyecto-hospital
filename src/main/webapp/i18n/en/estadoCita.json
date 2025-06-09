@@ -4,7 +4,9 @@
       "null": "",
       "FINALIZADO": "COMPLETED",
       "PENDIENTE": "PENDING",
-      "CANCELADO": "CANCELED"
+      "CANCELADO": "CANCELED",
+      "URGENTE": "URGENT",
+      "CONTROLMEDICO": "CONTROL"
     }
   }
 }

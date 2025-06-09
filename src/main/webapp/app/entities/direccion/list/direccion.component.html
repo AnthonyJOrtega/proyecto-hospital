@@ -19,6 +19,30 @@
       </button>
     </div>
   </h2>
+  <div class="row mb-3">
+    <!-- Filtro para paciente (nombre o apellido) -->
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar paciente por nombre o apellido"
+        [(ngModel)]="filtroPaciente"
+        (ngModelChange)="filtrarDirecciones()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <!-- Filtro para trabajador (nombre o apellido) -->
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar profesional por nombre o apellido"
+        [(ngModel)]="filtroTrabajador"
+        (ngModelChange)="filtrarDirecciones()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -102,7 +126,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (direccion of direccions(); track trackId(direccion)) {
+          @for (direccion of direccionesFiltradas.length ? direccionesFiltradas : direccions(); track trackId(direccion)) {
             <tr data-cy="entityTable">
               <!--<td>
                 <a [routerLink]="['/direccion', direccion.id, 'view']">{{ direccion.id }}</a>
@@ -136,7 +160,7 @@
                 </div>
                 <div *ngFor="let trabajador of direccion.trabajadors" class="fw-bold text-success text-uppercase">
                   <span jhiTranslate="tfg2App.direccion.trabajador">
-                    <strong>TRABAJADOR</strong>
+                    <strong>PROFESIONAL</strong>
                   </span>
                 </div>
               </td>

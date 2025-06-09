@@ -24,12 +24,12 @@
       "receta": "Receta",
       "sinReceta": "Sin receta",
       "paciente": "Paciente",
-      "trabajador": "Trabajador",
-      "sinTrabajador": "Sin trabajador",
+      "trabajador": "Profesional",
+      "sinTrabajador": "Sin profesional",
       "enfermedad": "Enfermedad",
       "sinEnfermedad": "Sin enfermedad",
       "cita": "Cita",
-      "noInformes": "No hay informes para este trabajador."
+      "noInformes": "No hay informes para este profesional."
     }
   }
 }

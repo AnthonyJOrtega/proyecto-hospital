@@ -2,7 +2,7 @@
   "tfg2App": {
     "trabajador": {
       "home": {
-        "title": "Trabajadores",
+        "title": "Profesionales",
         "refreshListLabel": "Refrescar lista",
         "createLabel": "Crear un nuevo Trabajador",
         "createOrEditLabel": "Crear o editar Trabajador",

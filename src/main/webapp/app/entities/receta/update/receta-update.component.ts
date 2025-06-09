@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
 
 import SharedModule from 'app/shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IPaciente } from 'app/entities/paciente/paciente.model';
 import { PacienteService } from 'app/entities/paciente/service/paciente.service';
@@ -25,10 +25,16 @@ import dayjs from 'dayjs/esm';
 export class RecetaUpdateComponent implements OnInit {
   isSaving = false;
   receta: IReceta | null = null;
+  medicamentoInputText = '';
+  medicamentoNoValido = false;
+  medicamentoSeleccionado: IMedicamento | null = null;
+  nuevaMedicamentoDosis = '';
+  nuevoMedicamentoCreado = false;
 
   pacientesSharedCollection: IPaciente[] = [];
   trabajadorsSharedCollection: ITrabajador[] = [];
   medicamentosSharedCollection: IMedicamento[] = [];
+  medicamentosSeleccionados: IMedicamento[] = [];
 
   protected recetaService = inject(RecetaService);
   protected recetaFormService = inject(RecetaFormService);
@@ -125,6 +131,8 @@ export class RecetaUpdateComponent implements OnInit {
       this.medicamentosSharedCollection,
       ...(receta.medicamentos ?? []),
     );
+    this.medicamentosSeleccionados = receta.medicamentos ? [...receta.medicamentos] : [];
+    this.editForm.get('medicamentos')?.setValue(this.medicamentosSeleccionados);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -157,24 +165,69 @@ export class RecetaUpdateComponent implements OnInit {
       .subscribe((medicamentos: IMedicamento[]) => (this.medicamentosSharedCollection = medicamentos));
   }
 
-  medicamentoInputText = '';
-  medicamentoSeleccionado: IMedicamento | null = null;
-
   addMedicamentoFromInput(): void {
-    const input = this.medicamentoInputText?.trim().toLowerCase();
-    if (!input) return;
-    const medicamento = this.medicamentosSharedCollection.find(m => m.nombre?.toLowerCase() === input);
-    if (medicamento) {
-      this.medicamentoSeleccionado = medicamento;
-      this.editForm.get('medicamentos')?.setValue([medicamento]);
-    } else {
-      this.editForm.get('medicamentos')?.setValue([]);
+    const input = this.medicamentoInputText.trim();
+    const encontrado = this.medicamentosSharedCollection.find(m => `${m.nombre} (${m.dosis})` === input);
+
+    if (encontrado && !this.medicamentosSeleccionados.some(m => m.id === encontrado.id)) {
+      this.medicamentosSeleccionados.push(encontrado);
+      this.editForm.get('medicamentos')?.setValue(this.medicamentosSeleccionados);
+      this.medicamentoNoValido = false;
+      this.nuevaMedicamentoDosis = '';
+    } else if (!encontrado) {
+      this.medicamentoNoValido = !!this.medicamentoInputText;
     }
     this.medicamentoInputText = '';
   }
+  nuevaMedicamentoDescripcion = '';
+  crearNuevoMedicamento(): void {
+    const nombre = this.medicamentoInputText?.trim();
+    const dosis = this.nuevaMedicamentoDosis?.trim();
+    const descripcion = this.nuevaMedicamentoDescripcion?.trim();
+    if (!nombre || !dosis) return;
 
-  quitarMedicamento(): void {
-    this.medicamentoSeleccionado = null;
-    this.editForm.get('medicamentos')?.setValue([]);
+    this.medicamentoService.create({ id: null, nombre, dosis, descripcion }).subscribe({
+      next: response => {
+        const nuevo = response.body!;
+        this.medicamentosSharedCollection.push(nuevo);
+        this.medicamentoSeleccionado = nuevo;
+        this.editForm.get('medicamentos')?.setValue([nuevo]);
+        this.nuevoMedicamentoCreado = true;
+        this.medicamentoNoValido = false;
+        this.nuevaMedicamentoDosis = '';
+        this.nuevaMedicamentoDescripcion = '';
+        setTimeout(() => (this.nuevoMedicamentoCreado = false), 4000);
+      },
+      error: () => {
+        // Manejo de error si lo necesitas
+      },
+    });
+  }
+
+  quitarMedicamento(index: number): void {
+    this.medicamentosSeleccionados.splice(index, 1);
+    this.editForm.get('medicamentos')?.setValue(this.medicamentosSeleccionados);
+  }
+  onMedicamentoInput(): void {
+    const value = this.editForm.get('medicamento')?.value;
+
+    if (!value) {
+      this.medicamentoSeleccionado = null;
+      this.medicamentoNoValido = false;
+      return;
+    }
+
+    // Busca coincidencia exacta con nombre + dosis
+    const encontrada = this.medicamentosSharedCollection.find(m => `${m.nombre} (${m.dosis})` === value);
+
+    if (encontrada) {
+      this.medicamentoSeleccionado = encontrada;
+      this.editForm.setControl('medicamentos', new FormControl([encontrada])); // Opcional: para guardar
+      this.medicamentoNoValido = false;
+    } else {
+      this.medicamentoSeleccionado = null;
+      this.editForm.setControl('medicamentos', new FormControl([]));
+      this.medicamentoNoValido = true;
+    }
   }
 }

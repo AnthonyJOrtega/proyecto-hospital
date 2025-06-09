@@ -76,9 +76,25 @@
           </select>
         </div>
 -->
+        <!-- Selector de enfermedad -->
         <div class="mb-3">
+          <!-- Campo de descripción solo si la enfermedad no está registrada -->
+          <div *ngIf="enfermedadNoValida" class="alert alert-danger mt-2">
+            La enfermedad no está registrada. Por favor, crea una nueva enfermedad o selecciona una de la lista.
+          </div>
+          <div *ngIf="enfermedadNoValida" class="mt-2">
+            <label for="descripcionEnfermedad" class="form-label">Descripción de la Nueva enfermedad</label>
+            <textarea
+              id="descripcionEnfermedad"
+              class="form-control"
+              [(ngModel)]="nuevaEnfermedadDescripcion"
+              [ngModelOptions]="{ standalone: true }"
+              rows="2"
+              placeholder="Escribe una descripción para la nueva enfermedad"
+            ></textarea>
+          </div>
           <label for="enfermedadInput" jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</label>
-          <div *ngIf="!enfermedadSeleccionada">
+          <div *ngIf="!enfermedadSeleccionada" class="input-group mb-2">
             <input
               type="text"
               id="enfermedadInput"
@@ -93,6 +109,15 @@
             <datalist id="enfermedadOptions">
               <option *ngFor="let e of enfermedadsSharedCollection" [value]="e.nombre"></option>
             </datalist>
+            <!-- Botón siempre visible -->
+            <button
+              type="button"
+              class="btn btn-primary btn-sm shadow rounded-pill px-4 py-2 ms-2"
+              (click)="crearNuevaEnfermedad()"
+              [disabled]="!enfermedadInputText || !nuevaEnfermedadDescripcion"
+            >
+              <fa-icon icon="plus"></fa-icon> Crear Enfermedad
+            </button>
           </div>
         </div>
 
@@ -101,6 +126,10 @@
             {{ enfermedadSeleccionada.nombre }}
             <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarEnfermedad()"></button>
           </span>
+        </div>
+        <div *ngIf="nuevaEnfermedadCreada" class="alert alert-success mt-2">Enfermedad creada correctamente.</div>
+        <div *ngIf="enfermedadDuplicada" class="alert alert-warning mt-2">
+          Esta enfermedad ya existe en la lista. Por favor, selecciona una de la lista.
         </div>
       </div>
 

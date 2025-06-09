@@ -19,10 +19,27 @@
           <dd>
             <span>{{ citaRef.fechaCreacion | formatMediumDate }}</span>
           </dd>
+          <dt><span jhiTranslate="tfg2App.cita.horaCreacion">Hora Creacion</span></dt>
+          <dd>
+            <span>{{ citaRef.horaCreacion }}</span>
+          </dd>
           <dt><span jhiTranslate="tfg2App.cita.estadoCita">Estado Cita</span></dt>
           <dd>
             <span [jhiTranslate]="'tfg2App.EstadoCita.' + (citaRef.estadoCita ?? 'null')">{{
               { null: '', FINALIZADO: 'FINALIZADO', PENDIENTE: 'PENDIENTE', CANCELADO: 'CANCELADO' }[citaRef.estadoCita ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="tfg2App.cita.estadoPaciente">Estado Paciente</span></dt>
+          <dd>
+            <span [jhiTranslate]="'tfg2App.EstadoCita.' + (citaRef.estadoPaciente ?? 'null')">{{
+              {
+                null: '',
+                URGENTE: 'URGENTE',
+                CONTROLMEDICO: 'CONTROLMEDICO',
+                FINALIZADO: 'FINALIZADO',
+                PENDIENTE: 'PENDIENTE',
+                CANCELADO: 'CANCELADO',
+              }[citaRef.estadoPaciente ?? 'null']
             }}</span>
           </dd>
           <dt><span jhiTranslate="tfg2App.cita.observaciones">Observaciones</span></dt>
@@ -65,6 +82,10 @@
 
         <button type="button" [routerLink]="['/cita', citaRef.id, 'edit']" class="btn btn-primary">
           <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+        <button *ngIf="isModal" type="submit" (click)="delete(citaRef)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+          <fa-icon icon="times"></fa-icon>
+          <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
         </button>
 
         <!-- Botón para eliminar la cita -->

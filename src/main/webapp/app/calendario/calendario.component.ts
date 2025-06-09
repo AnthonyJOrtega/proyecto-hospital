@@ -27,7 +27,6 @@ export class CalendarioComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-
     locale: 'es',
     buttonText: {
       today: 'Hoy',
@@ -36,9 +35,12 @@ export class CalendarioComponent implements OnInit {
       day: 'Día',
     },
     events: [],
+    eventContent: function (arg) {
+      // arg.event.title puede contener HTML
+      return { html: arg.event.title };
+    },
     editable: false,
     selectable: true,
-
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -46,15 +48,10 @@ export class CalendarioComponent implements OnInit {
     },
     dateClick: this.onDateClick.bind(this),
     eventClick: this.onEventClick.bind(this),
-    eventMouseEnter: this.onEventMouseEnter.bind(this), // Agrega el evento para el tooltip
-    eventMouseLeave: this.onEventMouseLeave.bind(this), // Limpia el tooltip al salir
+    eventMouseEnter: this.onEventMouseEnter.bind(this),
+    eventMouseLeave: this.onEventMouseLeave.bind(this),
   };
   citasOriginales: any[] = [];
-  filterPaciente: string = '';
-  filterTrabajador: string = '';
-  trabajadorsSharedCollection: any;
-  pacientesSharedCollection: IPaciente[] = [];
-
   mostrarMensajeFechaPasada = false;
 
   constructor(
@@ -65,21 +62,11 @@ export class CalendarioComponent implements OnInit {
     private router: Router,
   ) {}
 
+  filterPaciente: string = '';
+  filterTrabajador: string = '';
+
   ngOnInit(): void {
     this.cargarCitasModal();
-    this.cargarTrabajadores();
-    this.cargarPacientes();
-  }
-  cargarTrabajadores(): void {
-    this.trabajadorService.query({ size: 10000 }).subscribe((res: { body: ITrabajador[] | null }) => {
-      // Solo médicos
-      this.trabajadorsSharedCollection = (res.body ?? []).filter(t => t.puesto === 'MEDICO');
-    });
-  }
-  cargarPacientes(): void {
-    this.pacienteService.query({ size: 10000 }).subscribe((res: { body: IPaciente[] | null }) => {
-      this.pacientesSharedCollection = res.body ?? [];
-    });
   }
 
   onDateClick(arg: any): void {
@@ -87,17 +74,15 @@ export class CalendarioComponent implements OnInit {
     const hoy = new Date().toISOString().slice(0, 10);
     if (fecha < hoy) {
       this.mostrarMensajeFechaPasada = true;
-      // Hace visible el mensaje de fecha pasada durante 2 segundos
       setTimeout(() => (this.mostrarMensajeFechaPasada = false), 2000);
-
       return;
     }
-    this.mostrarMensajeFechaPasada = false; // Oculta el mensaje si la fecha es válida
+    this.mostrarMensajeFechaPasada = false;
     this.abrirModalCita(undefined, fecha);
   }
 
   abrirModalCita(citaId?: number, fecha?: string): void {
-    this.mostrarMensajeFechaPasada = false; // Oculta el mensaje al abrir el modal manualmente
+    this.mostrarMensajeFechaPasada = false;
     const modalRef = this.modalService.open(CitaUpdateComponent, {
       size: 'lg',
       backdrop: 'static',
@@ -109,27 +94,20 @@ export class CalendarioComponent implements OnInit {
       modalRef.componentInstance.fecha = fecha;
     }
 
-    modalRef.closed.subscribe(() => {
-      this.cargarCitasModal(); // Refresca eventos tras cerrar modal
+    // Solo refresca si el modal se cierra con 'saved'
+    modalRef.closed.subscribe(result => {
+      if (result === 'saved') {
+        this.cargarCitasModal(); // Refresca el calendario
+      }
     });
   }
 
-  filtrarCitas(): void {
-    const citasFiltradas = this.citasOriginales.filter(
-      (cita: { paciente: { nombre: any; apellido: any }; trabajadors: { nombre: any; apellido: any }[] }) => {
-        const coincidePaciente = this.filterPaciente
-          ? `${cita.paciente?.nombre} ${cita.paciente?.apellido}`.toLowerCase().includes(this.filterPaciente.toLowerCase())
-          : true;
-        const coincideTrabajador = this.filterTrabajador
-          ? cita.trabajadors?.some((trabajador: { nombre: any; apellido: any }) =>
-              `${trabajador.nombre} ${trabajador.apellido}`.toLowerCase().includes(this.filterTrabajador.toLowerCase()),
-            )
-          : true;
-        return coincidePaciente && coincideTrabajador;
-      },
-    );
-
-    this.calendarOptions.events = this.mapearCitas(citasFiltradas);
+  cargarCitasModal(): void {
+    this.http.get<any[]>('/api/citas?size=9999').subscribe(citas => {
+      this.citasOriginales = citas;
+      this.aplicarFiltros();
+      this.calendarOptions.events = this.mapearCitas(citas);
+    });
   }
 
   private mapearCitas(citas: any[]): any[] {
@@ -138,50 +116,40 @@ export class CalendarioComponent implements OnInit {
       let text = '';
       switch (cita.estadoCita) {
         case 'FINALIZADO':
-          color = '#28a745'; // verde
+          color = '#28a745';
           break;
         case 'PENDIENTE':
-          color = '#ffc107'; // amarillo
+          color = '#ffc107';
           break;
         case 'CANCELADO':
-          color = '#dc3545'; // rojo
+          color = '#dc3545';
           break;
         default:
-          color = '#ffffff'; // gris
-          text = '#000000'; // blanco
+          color = '#ffffff';
+          text = '#000000';
       }
-
-      // Construir el título con el nombre del paciente y los trabajadores
       const pacienteNombre = cita.paciente ? `${cita.paciente.nombre} ${cita.paciente.apellido}` : 'Paciente no asignado';
       const trabajadoresNombres =
         cita.trabajadors && cita.trabajadors.length > 0
           ? cita.trabajadors.map((trabajador: any) => `${trabajador.nombre} ${trabajador.apellido}`).join(', ')
           : 'Trabajador no asignado';
-
-      // Información adicional para el tooltip
       const tooltipInfo = `
         Paciente: ${pacienteNombre}
         Trabajador(es): ${trabajadoresNombres}
       `;
-
       return {
-        title: cita.paciente ? `Cita con ${cita.paciente.nombre} ${cita.paciente.apellido}` : 'Cita sin paciente asignado',
+        title: cita.paciente
+          ? `Cita con ${cita.paciente.nombre} ${cita.paciente.apellido} <b>(${cita.horaCreacion})</b>`
+          : 'Cita sin paciente asignado',
         date: cita.fechaCreacion,
         backgroundColor: color,
         borderColor: color,
         textColor: text,
         extendedProps: {
           id: cita.id,
-          tooltip: tooltipInfo.trim(), // Información para el tooltip
+          tooltip: tooltipInfo.trim(),
         },
       };
-    });
-  }
-
-  cargarCitasModal(): void {
-    this.http.get<any[]>('/api/citas?size=9999').subscribe(citas => {
-      this.citasOriginales = citas; // Guarda las citas originales
-      this.calendarOptions.events = this.mapearCitas(citas);
     });
   }
 
@@ -198,10 +166,7 @@ export class CalendarioComponent implements OnInit {
     tooltip.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
     tooltip.style.zIndex = '1000';
     tooltip.innerText = info.event.extendedProps.tooltip;
-
     document.body.appendChild(tooltip);
-
-    // Guarda la referencia para poder quitar el listener después
     this.tooltipListener = function moveTooltip(event: MouseEvent) {
       tooltip.style.top = `${event.pageY + 10}px`;
       tooltip.style.left = `${event.pageX + 10}px`;
@@ -223,13 +188,52 @@ export class CalendarioComponent implements OnInit {
   onEventClick(arg: any): void {
     this.onEventMouseLeave();
     const citaId = arg.event.extendedProps?.id;
-    console.log('CitaId para modal:', citaId);
     if (citaId) {
       const modalRef = this.modalService.open(CitaDetailComponent, {
         size: 'lg',
         backdrop: 'static',
       });
       modalRef.componentInstance.citaId = citaId;
+
+      // Refresca el calendario si se elimina la cita
+      modalRef.closed.subscribe(result => {
+        if (result === 'deleted') {
+          this.cargarCitasModal();
+        }
+      });
     }
+  }
+  aplicarFiltros(): void {
+    let citasFiltradas = this.citasOriginales;
+
+    // Función para normalizar texto (quita acentos y pasa a minúsculas)
+    const normalizar = (texto: string) =>
+      texto
+        ? texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+        : '';
+
+    if (this.filterPaciente.trim()) {
+      const filtro = normalizar(this.filterPaciente.trim());
+      citasFiltradas = citasFiltradas.filter(
+        cita =>
+          cita.paciente &&
+          (normalizar(`${cita.paciente.nombre} ${cita.paciente.apellido}`).includes(filtro) ||
+            (cita.paciente.dni && normalizar(cita.paciente.dni).includes(filtro))),
+      );
+    }
+
+    if (this.filterTrabajador.trim()) {
+      const filtro = normalizar(this.filterTrabajador.trim());
+      citasFiltradas = citasFiltradas.filter(
+        cita =>
+          cita.trabajadors &&
+          cita.trabajadors.some((trabajador: any) => normalizar(`${trabajador.nombre} ${trabajador.apellido}`).includes(filtro)),
+      );
+    }
+
+    this.calendarOptions.events = this.mapearCitas(citasFiltradas);
   }
 }

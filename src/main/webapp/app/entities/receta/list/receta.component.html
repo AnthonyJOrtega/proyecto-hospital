@@ -122,6 +122,11 @@
                     <fa-icon icon="times"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
                   </button>
+                  <!-- Botón para descargar PDF -->
+                  <button type="button" (click)="downloadRecetaAsPdf(receta)" class="btn btn-hospital-download">
+                    <i class="fas faPills me-1"></i>
+                    <fa-icon icon="file-pdf" [fixedWidth]="true"></fa-icon>
+                  </button>
                 </div>
               </td>
             </tr>

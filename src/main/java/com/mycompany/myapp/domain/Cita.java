@@ -5,6 +5,7 @@ import com.mycompany.myapp.domain.enumeration.EstadoCita;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,9 +27,16 @@ public class Cita implements Serializable {
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion;
 
+    @Column(name = "hora_creacion")
+    private LocalTime horaCreacion;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_cita")
     private EstadoCita estadoCita;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_paciente")
+    private EstadoCita estadoPaciente;
 
     @Column(name = "observaciones")
     private String observaciones;
@@ -79,6 +87,19 @@ public class Cita implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public LocalTime getHoraCreacion() {
+        return this.horaCreacion;
+    }
+
+    public Cita horaCreacion(LocalTime horaCreacion) {
+        this.setHoraCreacion(horaCreacion);
+        return this;
+    }
+
+    public void setHoraCreacion(LocalTime horaCreacion) {
+        this.horaCreacion = horaCreacion;
+    }
+
     public EstadoCita getEstadoCita() {
         return this.estadoCita;
     }
@@ -90,6 +111,19 @@ public class Cita implements Serializable {
 
     public void setEstadoCita(EstadoCita estadoCita) {
         this.estadoCita = estadoCita;
+    }
+
+    public EstadoCita getEstadoPaciente() {
+        return this.estadoPaciente;
+    }
+
+    public Cita estadoPaciente(EstadoCita estadoPaciente) {
+        this.setEstadoPaciente(estadoPaciente);
+        return this;
+    }
+
+    public void setEstadoPaciente(EstadoCita estadoPaciente) {
+        this.estadoPaciente = estadoPaciente;
     }
 
     public String getObservaciones() {
@@ -179,7 +213,9 @@ public class Cita implements Serializable {
         return "Cita{" +
             "id=" + getId() +
             ", fechaCreacion='" + getFechaCreacion() + "'" +
+            ", horaCreacion='" + getHoraCreacion() + "'" +
             ", estadoCita='" + getEstadoCita() + "'" +
+            ", estadoPaciente='" + getEstadoPaciente() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             "}";
     }

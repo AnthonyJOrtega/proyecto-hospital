@@ -36,6 +36,8 @@ export class EspecialidadComponent implements OnInit {
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
+  filtroNombreEspecialidad = '';
+  especialidadsFiltradas: IEspecialidad[] = [];
 
   public readonly router = inject(Router);
   protected readonly especialidadService = inject(EspecialidadService);
@@ -74,6 +76,7 @@ export class EspecialidadComponent implements OnInit {
     this.queryBackend().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.filtrarEspecialidadesPorNombre();
       },
     });
   }
@@ -148,5 +151,23 @@ export class EspecialidadComponent implements OnInit {
       const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
       modalRef.componentInstance.trabajador = response.body;
     });
+  }
+  //Metodo para filtrar las especialidades por nombre
+  filtrarEspecialidadesPorNombre(): void {
+    const filtro = this.filtroNombreEspecialidad
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+    if (!filtro) {
+      this.especialidadsFiltradas = this.especialidads();
+      return;
+    }
+    this.especialidadsFiltradas = this.especialidads().filter(especialidad =>
+      especialidad.nombre
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .includes(filtro),
+    );
   }
 }

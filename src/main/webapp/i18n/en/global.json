@@ -16,7 +16,13 @@
         "receta": "Prescription",
         "especialidad": "Specialty",
         "enfermedad": "Disease",
-        "medicamento": "Medication"
+        "medicamento": "Medication",
+        "adminAuthority": "Administrative Authority"
+      },
+      "calendario": {
+        "main": "Calendar",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "calendarioCitas": "Appointment Medical Calendar"
       },
       "gestion": {
         "main": "Management",
@@ -50,7 +56,7 @@
         "register": "Register"
       },
       "admin": {
-        "main": "Administration",
+        "main": "System configuration",
         "userManagement": "User management",
         "tracker": "User tracker",
         "metrics": "Metrics",
@@ -160,6 +166,8 @@
   },
   "error": {
     "internalServerError": "Internal server error",
+    "citaDuplicada": "Appointment already exists",
+    "franjaocupada": "The selected time slot is already occupied",
     "server.not.reachable": "Server not reachable",
     "url.not.found": "Not found",
     "NotNull": "Field {{ fieldName }} cannot be empty!",

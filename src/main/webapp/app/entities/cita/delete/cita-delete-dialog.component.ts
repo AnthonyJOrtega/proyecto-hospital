@@ -25,5 +25,6 @@ export class CitaDeleteDialogComponent {
     this.citaService.delete(id).subscribe(() => {
       this.activeModal.close(ITEM_DELETED_EVENT);
     });
+    this.activeModal.close('deleted');
   }
 }

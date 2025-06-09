@@ -24,13 +24,13 @@
       "instrucciones": "Instrucciones",
       "paciente": "Paciente",
       "sinPaciente": "Sin paciente",
-      "trabajador": "Trabajador",
-      "sinTrabajador": "Sin trabajador",
+      "trabajador": "Profesional",
+      "sinTrabajador": "Sin profesional",
       "medicamento": "Medicamento",
       "sinMedicamento": "Sin medicamento",
       "informe": "Informe",
       "sinReceta": "Sin receta",
-      "modalTitulo": "Recetas del Trabajador/a"
+      "modalTitulo": "Recetas del Profesional"
     }
   }
 }

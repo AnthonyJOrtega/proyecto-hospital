@@ -19,6 +19,50 @@
       </button>
     </div>
   </h2>
+  <!--FILTROS DE CITAS-->
+  <div class="row mb-3">
+    <!-- Filtro por ID de cita -->
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por ID de cita"
+        [(ngModel)]="filtroIdCita"
+        (ngModelChange)="filtrarCitas()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <!-- Filtro por nombre/apellido de paciente -->
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por paciente"
+        [(ngModel)]="filtroPaciente"
+        (ngModelChange)="filtrarCitas()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <!-- Filtro por fecha de creación -->
+    <div class="col-3">
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="filtroFecha"
+        (ngModelChange)="filtrarCitas()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <!-- Filtro por estado de la cita -->
+    <div class="col-3">
+      <select class="form-select" [(ngModel)]="filtroEstado" (ngModelChange)="filtrarCitas()" [ngModelOptions]="{ standalone: true }">
+        <option value="">Todos los estados</option>
+        <option value="FINALIZADO">Finalizado</option>
+        <option value="PENDIENTE">Pendiente</option>
+        <option value="CANCELADO">Cancelado</option>
+      </select>
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -79,7 +123,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (cita of citas(); track trackId(cita)) {
+          @for (cita of citasFiltradas.length ? citasFiltradas : citas(); track trackId(cita)) {
             <tr data-cy="entityTable">
               <td>
                 <a [routerLink]="['/cita', cita.id, 'view']">{{ cita.id }}</a>

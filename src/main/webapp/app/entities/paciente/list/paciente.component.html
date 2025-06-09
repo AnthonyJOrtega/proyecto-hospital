@@ -19,6 +19,28 @@
       </button>
     </div>
   </h2>
+  <div class="row mb-3">
+    <div class="col-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por nombre o apellido"
+        [(ngModel)]="filtroPaciente"
+        (ngModelChange)="filtrarPacientes()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="col-6 just">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por DNI"
+        [(ngModel)]="filtroDni"
+        (ngModelChange)="filtrarPacientes()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -89,7 +111,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (paciente of pacientes(); track trackId(paciente)) {
+          @for (paciente of pacientesFiltrados.length ? pacientesFiltrados : pacientes(); track trackId(paciente)) {
             <tr data-cy="entityTable">
               <!--OCULTAR ID DE PACIENTE
               <td>

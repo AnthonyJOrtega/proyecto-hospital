@@ -97,31 +97,74 @@
           </select>
         </div>
 -->
-        <div class="mb-3">
-          <label for="medicamentoInput" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
-          <div *ngIf="!medicamentoSeleccionado">
+        <!-- Medicamento -->
+        <div class="hospital-form-group mb-3">
+          <label class="form-label" for="medicamentoInput" jhiTranslate="tfg2App.receta.medicamento">Medicamento</label>
+          <div class="input-group">
             <input
-              type="text"
               id="medicamentoInput"
               class="form-control"
+              name="medicamento"
               list="medicamentoOptions"
               [(ngModel)]="medicamentoInputText"
               (change)="addMedicamentoFromInput()"
               [ngModelOptions]="{ standalone: true }"
-              placeholder="Escribe o selecciona un medicamento"
+              placeholder="Buscar medicamento..."
               autocomplete="off"
             />
             <datalist id="medicamentoOptions">
-              <option *ngFor="let m of medicamentosSharedCollection" [value]="m.nombre"></option>
+              <option
+                *ngFor="let medicamento of medicamentosSharedCollection"
+                [value]="medicamento.nombre + ' (' + medicamento.dosis + ')'"
+              ></option>
             </datalist>
+            <button
+              type="button"
+              class="btn btn-outline-primary ms-2"
+              (click)="crearNuevoMedicamento()"
+              [disabled]="!medicamentoInputText || !medicamentoNoValido"
+            >
+              <i class="fas fa-plus"></i> Crear Medicamento
+            </button>
           </div>
-        </div>
 
-        <div class="chip-list mb-2" *ngIf="medicamentoSeleccionado">
-          <span class="badge rounded-pill bg-success me-3 fs-6">
-            {{ medicamentoSeleccionado.nombre }}
-            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarMedicamento()"></button>
-          </span>
+          <!-- Mostrar campo de dosis solo si es nuevo medicamento -->
+          <div *ngIf="medicamentoNoValido" class="mt-2">
+            <label for="dosisMedicamento" class="form-label">Dosis del medicamento</label>
+            <input
+              id="dosisMedicamento"
+              class="form-control"
+              [(ngModel)]="nuevaMedicamentoDosis"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Ejemplo: 500mg"
+            />
+          </div>
+
+          <div *ngIf="medicamentoNoValido" class="alert alert-danger mt-2">
+            Medicamento no registrado. Haz clic en "Crear Medicamento" para agregarlo.
+          </div>
+          <div *ngIf="nuevoMedicamentoCreado" class="alert alert-success mt-2">
+            Medicamento creado correctamente. Ahora puedes seleccionarlo de la lista.
+          </div>
+          <div *ngIf="medicamentoNoValido" class="mt-2">
+            <label for="descripcionMedicamento" class="form-label">Descripción del medicamento</label>
+            <textarea
+              id="descripcionMedicamento"
+              class="form-control"
+              [(ngModel)]="nuevaMedicamentoDescripcion"
+              [ngModelOptions]="{ standalone: true }"
+              rows="2"
+              placeholder="Escribe una descripción para el nuevo medicamento"
+            ></textarea>
+          </div>
+
+          <div
+            *ngFor="let medicamento of medicamentosSeleccionados; let i = index"
+            class="form-control d-flex justify-content-between align-items-center bg-light mt-2"
+          >
+            <span>{{ medicamento.nombre }} ({{ medicamento.dosis }})</span>
+            <button type="button" class="btn-close" aria-label="Quitar" (click)="quitarMedicamento(i)"></button>
+          </div>
         </div>
       </div>
 

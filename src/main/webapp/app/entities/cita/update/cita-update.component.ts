@@ -17,14 +17,14 @@ import { EstadoCita } from 'app/entities/enumerations/estado-cita.model';
 import { CitaService } from '../service/cita.service';
 import { ICita, NewCita } from '../cita.model';
 import { CitaFormGroup, CitaFormService } from './cita-form.service';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import dayjs from 'dayjs/esm';
 
 @Component({
   selector: 'jhi-cita-update',
   templateUrl: './cita-update.component.html',
   styleUrls: ['./cita-update.component.scss'],
-  imports: [SharedModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [SharedModule, FormsModule, ReactiveFormsModule, RouterModule, NgbTimepickerModule],
 })
 export class CitaUpdateComponent implements OnInit {
   @Input() citaId?: number;
@@ -32,18 +32,23 @@ export class CitaUpdateComponent implements OnInit {
 
   isSaving = false;
   cita: ICita | null = null;
-  estadoCitaValues = Object.keys(EstadoCita);
+  estadoCitaValues = ['PENDIENTE', 'FINALIZADO', 'CANCELADO'];
+  estadoPacienteValues = ['URGENTE', 'CONTROLMEDICO'];
   pacienteSeleccionado: IPaciente | null = null;
   pacienteNoValido = false;
   trabajadorInputText = '';
   trabajadorSeleccionado: ITrabajador | null = null;
   trabajadorNoValido = false;
+  franjaOcupada = false;
 
   informesCollection: IInforme[] = [];
   pacientesSharedCollection: IPaciente[] = [];
   trabajadorsSharedCollection: ITrabajador[] = [];
   medicosSharedCollection: ITrabajador[] = [];
   public isModal: boolean = false;
+  citaDuplicada = false;
+  pacienteDuplicado = false;
+  nuevoPacienteCreado = false;
 
   protected citaService = inject(CitaService);
   protected citaFormService = inject(CitaFormService);
@@ -75,6 +80,12 @@ export class CitaUpdateComponent implements OnInit {
       // Inicializa el control pacienteString si es necesario
       if (!this.editForm.get('pacienteString')) {
         this.editForm.addControl('pacienteString', new FormControl('', [Validators.required]));
+      }
+      if (!this.editForm.get('horaCreacion')) {
+        this.editForm.addControl('horaCreacion', new FormControl<dayjs.Dayjs | null | undefined>(null, [Validators.required]));
+      }
+      if (!this.editForm.get('id')?.value) {
+        this.editForm.get('estadoCita')?.setValue('PENDIENTE');
       }
       if (this.citaId) {
         this.citaService.find(this.citaId).subscribe(res => {
@@ -113,10 +124,9 @@ export class CitaUpdateComponent implements OnInit {
   }
 
   save(): void {
-    this.validatePacienteSelection(); // valida antes
+    this.validatePacienteSelection();
 
     if (this.editForm.invalid || !this.editForm.get('paciente')?.value) {
-      console.warn('Formulario inválido o paciente no válido. No se guarda.');
       return;
     }
 
@@ -124,7 +134,29 @@ export class CitaUpdateComponent implements OnInit {
     const cita = this.citaFormService.getCita(this.editForm);
 
     const result = cita.id ? this.citaService.update(cita) : this.citaService.create(cita as NewCita);
-    this.subscribeToSaveResponse(result);
+    result.subscribe({
+      next: () => {
+        if (this.isModal) {
+          this.activeModal.close('saved'); // <-- Esto refresca el calendario
+        } else {
+          this.previousState();
+        }
+      },
+      error: err => {
+        this.isSaving = false;
+        // Detecta el error de franja ocupada
+        if (err?.error?.type === 'franjaocupada' || err?.error?.message === 'error.franjaocupada') {
+          this.franjaOcupada = true;
+          this.citaDuplicada = false;
+        } else if (err?.error?.type === 'duplicada' || err?.error?.message === 'error.duplicada') {
+          this.citaDuplicada = true;
+          this.franjaOcupada = false;
+        } else {
+          this.citaDuplicada = false;
+          this.franjaOcupada = false;
+        }
+      },
+    });
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICita>>): void {
@@ -173,7 +205,7 @@ export class CitaUpdateComponent implements OnInit {
     // --- Añade esto ---
     // Rellena el campo auxiliar de paciente
     if (cita.paciente) {
-      this.editForm.get('pacienteString')?.setValue(`${cita.paciente.nombre} ${cita.paciente.apellido}`);
+      this.editForm.get('pacienteString')?.setValue(`${cita.paciente.nombre} ${cita.paciente.apellido} - DNI: ${cita.paciente.dni}`);
     } else {
       this.editForm.get('pacienteString')?.setValue('');
     }
@@ -328,7 +360,66 @@ export class CitaUpdateComponent implements OnInit {
     const value = select.value;
     this.especialidadSeleccionada = value || null;
     this.trabajadorSeleccionado = null;
-    this.trabajadorInputText = '';
     this.editForm.get('trabajadors')?.setValue([]);
+    this.trabajadorNoValido = false;
+  }
+  onTrabajadorSelect(): void {
+    if (this.trabajadorSeleccionado) {
+      this.editForm.get('trabajadors')?.setValue([this.trabajadorSeleccionado]);
+      this.trabajadorNoValido = false;
+    } else {
+      this.editForm.get('trabajadors')?.setValue([]);
+      this.trabajadorNoValido = true;
+    }
+  }
+  //metodo para crear un nuevo paciente sino existe
+  crearNuevoPaciente(): void {
+    const inputValue = this.editForm.get('pacienteString')?.value?.trim();
+    if (!inputValue) {
+      return;
+    }
+
+    // Comprobar duplicados por nombre y apellido
+    const isDuplicate = this.pacientesSharedCollection.some(
+      paciente => `${paciente.nombre} ${paciente.apellido}`.toLowerCase() === inputValue.toLowerCase(),
+    );
+
+    if (isDuplicate) {
+      this.pacienteDuplicado = true;
+      return; // No permitimos crear un paciente duplicado
+    }
+
+    // Separar nombre y apellidos
+    const [nombre, ...apellidoParts] = inputValue.split(' ');
+    const apellido = apellidoParts.join(' ');
+
+    const nuevoPaciente = {
+      id: null,
+      nombre: nombre.trim(),
+      apellido: apellido.trim(),
+      dni: '',
+      seguroMedico: '',
+      fechaNacimiento: null,
+      telefono: '',
+    } as const; // Usamos 'as const' para inferir el tipo literal
+
+    this.pacienteService.create(nuevoPaciente).subscribe({
+      next: response => {
+        // Agrega el nuevo paciente a la lista y lo selecciona
+        this.pacientesSharedCollection.push(response.body!);
+        this.pacienteSeleccionado = response.body!;
+        this.editForm.get('paciente')?.setValue(response.body);
+        this.editForm.get('pacienteString')?.setValue(`${response.body?.nombre} ${response.body?.apellido} - DNI: ${response.body?.dni}`);
+        this.editForm.get('pacienteString')?.setErrors(null);
+        this.pacienteNoValido = false;
+        this.nuevoPacienteCreado = true; // Mostrar mensaje de éxito
+        setTimeout(() => (this.nuevoPacienteCreado = false), 5000); // Ocultar mensaje después de 5 segundos
+      },
+      error: () => {
+        this.editForm.get('paciente')?.setValue(null);
+        this.editForm.get('pacienteString')?.setErrors({ invalidPaciente: true });
+        this.pacienteNoValido = true;
+      },
+    });
   }
 }

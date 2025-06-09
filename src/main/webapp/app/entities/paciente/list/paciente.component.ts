@@ -40,6 +40,9 @@ export class PacienteComponent implements OnInit {
   subscription: Subscription | null = null;
   pacientes = signal<IPaciente[]>([]);
   isLoading = false;
+  filtroPaciente = '';
+  pacientesFiltrados: IPaciente[] = [];
+  filtroDni = '';
 
   sortState = sortStateSignal({});
   filters: IFilterOptions = new FilterOptions();
@@ -84,6 +87,7 @@ export class PacienteComponent implements OnInit {
     this.queryBackend().subscribe({
       next: (res: EntityArrayResponseType) => {
         this.onResponseSuccess(res);
+        this.filtrarPacientes();
       },
     });
   }
@@ -169,5 +173,34 @@ export class PacienteComponent implements OnInit {
   openRecetasModal(paciente: IPaciente): void {
     const modalRef = this.modalService.open(RecetaListModalComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.pacienteId = paciente.id;
+  }
+  //FILTRO PARA PACIENTE Y DNI
+  filtrarPacientes(): void {
+    const normalizar = (txt: string) =>
+      txt
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const palabras = this.filtroPaciente
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    const filtroDniNorm = this.filtroDni.trim().toLowerCase();
+
+    this.pacientesFiltrados = this.pacientes().filter(paciente => {
+      const nombre = normalizar(paciente.nombre || '');
+      const apellido = normalizar(paciente.apellido || '');
+      const dni = (paciente.dni || '').toLowerCase();
+
+      const coincideNombreApellido =
+        palabras.length === 0 || palabras.every(palabra => nombre.includes(palabra) || apellido.includes(palabra));
+
+      const coincideDni = !filtroDniNorm || dni.includes(filtroDniNorm);
+
+      // Deben cumplirse ambos filtros si están activos
+      return coincideNombreApellido && coincideDni;
+    });
   }
 }
