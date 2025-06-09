@@ -1,6 +1,8 @@
 package com.mycompany.myapp.repository;
 
 import com.mycompany.myapp.domain.Cita;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -27,4 +29,11 @@ public interface CitaRepository extends CitaRepositoryWithBagRelationships, JpaR
     default Page<Cita> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    boolean existsByTrabajadorsIdAndFechaCreacionAndHoraCreacionBetween(
+        Long trabajadorId,
+        LocalDate fechaCreacion,
+        LocalTime horaInicio,
+        LocalTime horaFin
+    );
 }

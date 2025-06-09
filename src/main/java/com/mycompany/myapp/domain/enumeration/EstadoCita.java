@@ -7,4 +7,6 @@ public enum EstadoCita {
     FINALIZADO,
     PENDIENTE,
     CANCELADO,
+    URGENTE,
+    CONTROLMEDICO,
 }

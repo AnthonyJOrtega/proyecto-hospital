@@ -20,9 +20,13 @@ public interface CitaMapper extends EntityMapper<CitaDTO, Cita> {
     @Mapping(target = "informe", source = "informe", qualifiedByName = "informeId")
     @Mapping(target = "paciente", source = "paciente", qualifiedByName = "pacienteNombreApellido")
     @Mapping(target = "trabajadors", source = "trabajadors", qualifiedByName = "trabajadorNombreApellidoSet")
+    @Mapping(target = "horaCreacion", source = "horaCreacion")
+    @Mapping(target = "estadoPaciente", source = "estadoPaciente")
     CitaDTO toDto(Cita s);
 
     @Mapping(target = "removeTrabajador", ignore = true)
+    @Mapping(target = "horaCreacion", source = "horaCreacion")
+    @Mapping(target = "estadoPaciente", source = "estadoPaciente")
     Cita toEntity(CitaDTO citaDTO);
 
     @Named("informeId")
@@ -41,6 +45,7 @@ public interface CitaMapper extends EntityMapper<CitaDTO, Cita> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "dni", source = "dni")
     PacienteDTO toDtoPacienteNombreApellido(Paciente paciente);
 
     @Named("trabajadorId")

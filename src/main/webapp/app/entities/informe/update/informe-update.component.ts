@@ -13,7 +13,7 @@ import { IPaciente } from 'app/entities/paciente/paciente.model';
 import { PacienteService } from 'app/entities/paciente/service/paciente.service';
 import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
 import { TrabajadorService } from 'app/entities/trabajador/service/trabajador.service';
-import { IEnfermedad } from 'app/entities/enfermedad/enfermedad.model';
+import { IEnfermedad, NewEnfermedad } from 'app/entities/enfermedad/enfermedad.model';
 import { EnfermedadService } from 'app/entities/enfermedad/service/enfermedad.service';
 import { InformeService } from '../service/informe.service';
 import { IInforme } from '../informe.model';
@@ -220,14 +220,59 @@ export class InformeUpdateComponent implements OnInit {
     if (enfermedad) {
       this.enfermedadSeleccionada = enfermedad;
       this.editForm.get('enfermedads')?.setValue([enfermedad]);
+      this.enfermedadNoValida = false;
+      this.enfermedadDuplicada = false;
+      this.nuevaEnfermedadDescripcion = '';
+      this.enfermedadInputText = ''; // <-- Solo limpiar si existe
     } else {
+      this.enfermedadSeleccionada = null;
       this.editForm.get('enfermedads')?.setValue([]);
+      this.enfermedadNoValida = true; // <-- Activa el modo "nueva enfermedad"
+      this.enfermedadDuplicada = false;
+      this.nuevaEnfermedadDescripcion = '';
+      // NO limpiar this.enfermedadInputText aquí
     }
-    this.enfermedadInputText = '';
   }
 
   quitarEnfermedad(): void {
     this.enfermedadSeleccionada = null;
     this.editForm.get('enfermedads')?.setValue([]);
+  }
+
+  //Metodo para crear enfermedad si no existe en la base
+  nuevaEnfermedadCreada = false;
+  nuevaEnfermedadDescripcion = '';
+  enfermedadNoValida = false;
+  enfermedadDuplicada = false;
+
+  crearNuevaEnfermedad(): void {
+    const nombre = this.enfermedadInputText?.trim();
+    const descripcion = this.nuevaEnfermedadDescripcion?.trim();
+
+    if (!nombre) return;
+
+    // Comprobar duplicados por nombre (ignora mayúsculas/minúsculas)
+    const isDuplicate = this.enfermedadsSharedCollection.some(e => e.nombre?.toLowerCase() === nombre.toLowerCase());
+    if (isDuplicate) {
+      this.enfermedadDuplicada = true;
+      return;
+    }
+
+    this.enfermedadService.create({ id: null, nombre, descripcion } as NewEnfermedad).subscribe({
+      next: response => {
+        const nueva = response.body!;
+        this.enfermedadsSharedCollection.push(nueva);
+        this.enfermedadSeleccionada = nueva;
+        this.editForm.get('enfermedads')?.setValue([nueva]);
+        this.nuevaEnfermedadCreada = true;
+        this.enfermedadNoValida = false;
+        this.nuevaEnfermedadDescripcion = '';
+        this.enfermedadInputText = '';
+        setTimeout(() => (this.nuevaEnfermedadCreada = false), 4000);
+      },
+      error: () => {
+        this.enfermedadNoValida = true;
+      },
+    });
   }
 }

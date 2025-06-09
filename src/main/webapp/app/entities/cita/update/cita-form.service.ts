@@ -19,7 +19,9 @@ type CitaFormDefaults = Pick<NewCita, 'id' | 'trabajadors'>;
 type CitaFormGroupContent = {
   id: FormControl<ICita['id'] | NewCita['id']>;
   fechaCreacion: FormControl<ICita['fechaCreacion']>;
+  horaCreacion: FormControl<ICita['horaCreacion']>;
   estadoCita: FormControl<ICita['estadoCita']>;
+  estadoPaciente: FormControl<ICita['estadoPaciente']>;
   observaciones: FormControl<ICita['observaciones']>;
   informe: FormControl<ICita['informe']>;
   paciente: FormControl<ICita['paciente']>;
@@ -45,7 +47,9 @@ export class CitaFormService {
         },
       ),
       fechaCreacion: new FormControl(citaRawValue.fechaCreacion),
+      horaCreacion: new FormControl(citaRawValue.horaCreacion),
       estadoCita: new FormControl(citaRawValue.estadoCita),
+      estadoPaciente: new FormControl(citaRawValue.estadoPaciente),
       observaciones: new FormControl(citaRawValue.observaciones),
       informe: new FormControl(citaRawValue.informe),
       paciente: new FormControl(citaRawValue.paciente),

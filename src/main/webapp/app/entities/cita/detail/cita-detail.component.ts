@@ -86,5 +86,27 @@ export class CitaDetailComponent {
       modalRef.componentInstance.trabajador = response.body;
     });
   }
+  delete(cita: ICita): void {
+    const modalRef = this.modalService.open(CitaDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.cita = cita;
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'deleted') {
+        if (this.isModal && this.activeModal) {
+          this.activeModal.close('deleted'); // Cierra el modal detail con 'deleted'
+        } else {
+          this.load(); // O navega a la lista si no es modal
+        }
+      }
+    });
+  }
   //Metodo para eliminar la cita
+
+  // Método para recargar la cita actual
+  load(): void {
+    if (this.citaId) {
+      this.citaService.find(this.citaId).subscribe(res => {
+        this.citaLocal = res.body;
+      });
+    }
+  }
 }

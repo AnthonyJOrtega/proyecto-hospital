@@ -29,6 +29,10 @@ export class TrabajadorComponent implements OnInit {
   subscription: Subscription | null = null;
   trabajadors = signal<ITrabajador[]>([]);
   isLoading = false;
+  filtroTrabajador = '';
+  filtroIdUsuario = '';
+  trabajadoresFiltrados: ITrabajador[] = [];
+  filtroDisponibilidad = '';
 
   sortState = sortStateSignal({});
   filters: IFilterOptions = new FilterOptions();
@@ -156,5 +160,38 @@ export class TrabajadorComponent implements OnInit {
   openRecetasModal(trabajador: ITrabajador): void {
     const modalRef = this.modalService.open(RecetaListModalTrabajadorComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.trabajadorId = trabajador.id;
+  }
+
+  //METODO PARA FILTRAR TRABAJADORES POR NOMBRE E ID DE USUARIO
+  filtrarTrabajadores(): void {
+    const normalizar = (txt: string) =>
+      txt
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const palabras = this.filtroTrabajador
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    const filtroIdUsuarioNorm = this.filtroIdUsuario.trim().toLowerCase();
+
+    this.trabajadoresFiltrados = this.trabajadors().filter(trabajador => {
+      const nombre = normalizar(trabajador.nombre || '');
+      const apellido = normalizar(trabajador.apellido || '');
+      const idUsuario = (trabajador.idUsuario || '').toString().toLowerCase();
+
+      const coincideNombreApellido =
+        palabras.length === 0 || palabras.every(palabra => nombre.includes(palabra) || apellido.includes(palabra));
+
+      const coincideIdUsuario = !filtroIdUsuarioNorm || idUsuario.includes(filtroIdUsuarioNorm);
+
+      // Filtro de disponibilidad
+      const coincideDisponibilidad = this.filtroDisponibilidad === '' || String(trabajador.disponibilidad) === this.filtroDisponibilidad;
+
+      // Deben cumplirse todos los filtros activos
+      return coincideNombreApellido && coincideIdUsuario && coincideDisponibilidad;
+    });
   }
 }

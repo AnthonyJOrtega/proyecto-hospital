@@ -9,9 +9,9 @@ export interface IReceta {
   fechaInicio?: dayjs.Dayjs | null;
   fechaFin?: dayjs.Dayjs | null;
   instrucciones?: string | null;
-  paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'> | null;
-  trabajador?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'> | null;
-  medicamentos?: Pick<IMedicamento, 'id' | 'nombre'>[] | null;
+  paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido' | 'dni'> | null;
+  trabajador?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido' | 'idUsuario' | 'especialidads'> | null;
+  medicamentos?: Pick<IMedicamento, 'id' | 'nombre' | 'dosis'>[] | null;
   informe?: Pick<IInforme, 'id'> | null | undefined;
 }
 

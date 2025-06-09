@@ -19,6 +19,43 @@
       </button>
     </div>
   </h2>
+  <div class="row mb-3">
+    <div class="col-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por nombre o apellido"
+        [(ngModel)]="filtroTrabajador"
+        (ngModelChange)="filtrarTrabajadores()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="col-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por ID de profesional"
+        [(ngModel)]="filtroIdUsuario"
+        (ngModelChange)="filtrarTrabajadores()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="row mb-3">
+      <div class="col-12 d-flex align-items-center">
+        <label class="form-label me-2 mb-0">Disponibilidad:</label>
+        <select
+          class="form-select w-auto"
+          [(ngModel)]="filtroDisponibilidad"
+          (ngModelChange)="filtrarTrabajadores()"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option value="">Todos</option>
+          <option value="true">Disponibles</option>
+          <option value="false">No disponibles</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -96,7 +133,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (trabajador of trabajadors(); track trackId(trabajador)) {
+          @for (trabajador of trabajadoresFiltrados.length ? trabajadoresFiltrados : trabajadors(); track trackId(trabajador)) {
             <tr data-cy="entityTable">
               <!-- Ocultar ID del trabajador 
               <td>

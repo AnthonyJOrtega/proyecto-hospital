@@ -16,7 +16,13 @@
         "receta": "Receta",
         "especialidad": "Especialidad",
         "enfermedad": "Enfermedad",
-        "medicamento": "Medicamento"
+        "medicamento": "Medicamento",
+        "adminAuthority": "Autoridad Administrativa"
+      },
+      "calendario": {
+        "main": "Calendario",
+        "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
+        "calendarioCitas": "Calendario de Citas Médicas"
       },
       "gestion": {
         "main": "Gestión",
@@ -50,7 +56,7 @@
         "register": "Crear una cuenta"
       },
       "admin": {
-        "main": "Administración",
+        "main": "Configuración del Sistema",
         "userManagement": "Gestión de usuarios",
         "tracker": "Registro de usuarios",
         "metrics": "Métricas",
@@ -159,6 +165,8 @@
   },
   "error": {
     "internalServerError": "Error interno en el servidor",
+    "citaDuplicada": "Ya existe una CITA para la misma fecha y hora, elija otra fecha y hora por favor",
+    "franjaocupada": "La franja horaria seleccionada ya está ocupada",
     "server.not.reachable": "Servidor no accesible",
     "url.not.found": "No existe",
     "NotNull": "¡El campo {{fieldName}} no puede estar vacío!",

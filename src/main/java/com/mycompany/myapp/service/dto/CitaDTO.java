@@ -3,6 +3,7 @@ package com.mycompany.myapp.service.dto;
 import com.mycompany.myapp.domain.enumeration.EstadoCita;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,7 +18,11 @@ public class CitaDTO implements Serializable {
 
     private LocalDate fechaCreacion;
 
+    private LocalTime horaCreacion;
+
     private EstadoCita estadoCita;
+
+    private EstadoCita estadoPaciente;
 
     private String observaciones;
 
@@ -43,12 +48,28 @@ public class CitaDTO implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public LocalTime getHoraCreacion() {
+        return horaCreacion;
+    }
+
+    public void setHoraCreacion(LocalTime horaCreacion) {
+        this.horaCreacion = horaCreacion;
+    }
+
     public EstadoCita getEstadoCita() {
         return estadoCita;
     }
 
     public void setEstadoCita(EstadoCita estadoCita) {
         this.estadoCita = estadoCita;
+    }
+
+    public EstadoCita getEstadoPaciente() {
+        return estadoPaciente;
+    }
+
+    public void setEstadoPaciente(EstadoCita estadoPaciente) {
+        this.estadoPaciente = estadoPaciente;
     }
 
     public String getObservaciones() {
@@ -110,7 +131,9 @@ public class CitaDTO implements Serializable {
         return "CitaDTO{" +
             "id=" + getId() +
             ", fechaCreacion='" + getFechaCreacion() + "'" +
+            ", horaCreacion='" + getHoraCreacion() + "'" +
             ", estadoCita='" + getEstadoCita() + "'" +
+            ", estadoPaciente='" + getEstadoPaciente() + "'" +
             ", observaciones='" + getObservaciones() + "'" +
             ", informe=" + getInforme() +
             ", paciente=" + getPaciente() +

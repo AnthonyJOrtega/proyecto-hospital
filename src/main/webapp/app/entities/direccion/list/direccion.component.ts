@@ -159,4 +159,48 @@ export class DireccionComponent implements OnInit {
       modalRef.componentInstance.trabajador = response.body;
     });
   }
+  // ...existing code...
+  filtroPaciente = '';
+  filtroTrabajador = '';
+  direccionesFiltradas: IDireccion[] = [];
+  //FILTROS PARA TRABAJADORES Y PACIENTES POR NOMBRE Y APELLIDOS
+  filtrarDirecciones(): void {
+    const normalizar = (txt: string) =>
+      txt
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const pacientePalabras = this.filtroPaciente
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    const trabajadorPalabras = this.filtroTrabajador
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.direccionesFiltradas = this.direccions().filter(direccion => {
+      // Paciente: todas las palabras deben estar en nombre o apellido
+      const pacienteCoincide =
+        pacientePalabras.length === 0 ||
+        direccion.pacientes?.some(p => {
+          const nombre = normalizar(p.nombre || '');
+          const apellido = normalizar(p.apellido || '');
+          return pacientePalabras.every(palabra => nombre.includes(palabra) || apellido.includes(palabra));
+        });
+
+      // Trabajador: todas las palabras deben estar en nombre o apellido
+      const trabajadorCoincide =
+        trabajadorPalabras.length === 0 ||
+        direccion.trabajadors?.some(t => {
+          const nombre = normalizar(t.nombre || '');
+          const apellido = normalizar(t.apellido || '');
+          return trabajadorPalabras.every(palabra => nombre.includes(palabra) || apellido.includes(palabra));
+        });
+
+      return pacienteCoincide && trabajadorCoincide;
+    });
+  }
 }

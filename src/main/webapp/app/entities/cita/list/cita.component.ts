@@ -163,4 +163,42 @@ export class CitaComponent implements OnInit {
       modalRef.componentInstance.paciente = response.body;
     });
   }
+  filtroIdCita = '';
+  filtroPaciente = '';
+  filtroFecha = '';
+  filtroEstado = '';
+  citasFiltradas: ICita[] = [];
+
+  filtrarCitas(): void {
+    const normalizar = (txt: string) =>
+      txt
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') || '';
+
+    const palabrasPaciente = this.filtroPaciente
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.citasFiltradas = this.citas().filter(cita => {
+      // Filtro por ID de cita
+      const coincideId = !this.filtroIdCita || cita.id?.toString().includes(this.filtroIdCita);
+
+      // Filtro por paciente (nombre o apellido)
+      const nombre = normalizar(cita.paciente?.nombre || '');
+      const apellido = normalizar(cita.paciente?.apellido || '');
+      const coincidePaciente =
+        palabrasPaciente.length === 0 || palabrasPaciente.every(palabra => nombre.includes(palabra) || apellido.includes(palabra));
+
+      // Filtro por fecha (solo compara la parte de la fecha)
+      const coincideFecha =
+        !this.filtroFecha || (cita.fechaCreacion && cita.fechaCreacion.format('YYYY-MM-DD').startsWith(this.filtroFecha));
+
+      // Filtro por estado
+      const coincideEstado = !this.filtroEstado || cita.estadoCita === this.filtroEstado;
+
+      return coincideId && coincidePaciente && coincideFecha && coincideEstado;
+    });
+  }
 }

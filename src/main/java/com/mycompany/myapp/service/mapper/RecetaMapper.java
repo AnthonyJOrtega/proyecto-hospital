@@ -1,10 +1,12 @@
 package com.mycompany.myapp.service.mapper;
 
+import com.mycompany.myapp.domain.Especialidad;
 import com.mycompany.myapp.domain.Informe;
 import com.mycompany.myapp.domain.Medicamento;
 import com.mycompany.myapp.domain.Paciente;
 import com.mycompany.myapp.domain.Receta;
 import com.mycompany.myapp.domain.Trabajador;
+import com.mycompany.myapp.service.dto.EspecialidadDTO;
 import com.mycompany.myapp.service.dto.InformeDTO;
 import com.mycompany.myapp.service.dto.MedicamentoDTO;
 import com.mycompany.myapp.service.dto.PacienteDTO;
@@ -17,7 +19,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Receta} and its DTO {@link RecetaDTO}.
  */
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { PacienteMapper.class, TrabajadorMapper.class })
 public interface RecetaMapper extends EntityMapper<RecetaDTO, Receta> {
     @Mapping(target = "paciente", source = "paciente", qualifiedByName = "pacienteNombreApellido")
     @Mapping(target = "trabajador", source = "trabajador", qualifiedByName = "trabajadorNombreApellido")
@@ -53,6 +55,7 @@ public interface RecetaMapper extends EntityMapper<RecetaDTO, Receta> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
+    @Mapping(target = "dosis", source = "dosis")
     MedicamentoDTO toDtoMedicamentoNombre(Medicamento medicamento);
 
     @Named("medicamentoNombreSet")
@@ -71,6 +74,7 @@ public interface RecetaMapper extends EntityMapper<RecetaDTO, Receta> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "dni", source = "dni")
     PacienteDTO toDtoPacienteNombreApellido(Paciente paciente);
 
     // Este mapeo es para obtener el nombre del trabajador
@@ -79,5 +83,7 @@ public interface RecetaMapper extends EntityMapper<RecetaDTO, Receta> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "idUsuario", source = "idUsuario")
+    @Mapping(target = "especialidads", source = "especialidads", qualifiedByName = "especialidadIdSet")
     TrabajadorDTO toDtoTrabajadorNombreApellido(Trabajador trabajador);
 }

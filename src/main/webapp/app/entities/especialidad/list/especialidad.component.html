@@ -20,6 +20,19 @@
     </div>
   </h2>
 
+  <div class="row mb-3">
+    <div class="col-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Filtrar por nombre de especialidad"
+        [(ngModel)]="filtroNombreEspecialidad"
+        (ngModelChange)="filtrarEspecialidadesPorNombre()"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+  </div>
+
   <jhi-alert-error />
 
   <jhi-alert />
@@ -68,7 +81,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (especialidad of especialidads(); track trackId(especialidad)) {
+          @for (especialidad of especialidadsFiltradas.length ? especialidadsFiltradas : especialidads(); track trackId(especialidad)) {
             <tr data-cy="entityTable">
               <!--
               <td>

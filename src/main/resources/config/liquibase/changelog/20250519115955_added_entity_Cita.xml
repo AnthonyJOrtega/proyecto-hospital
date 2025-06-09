@@ -17,7 +17,13 @@
             <column name="fecha_creacion" type="date">
                 <constraints nullable="true" />
             </column>
+            <column name="hora_creacion" type="time">
+                <constraints nullable="true" />
+            </column>
             <column name="estado_cita" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="estado_paciente" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="observaciones" type="varchar(255)">
@@ -65,7 +71,9 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="fecha_creacion" type="date"/>
+            <column name="hora_creacion" type="time"/>
             <column name="estado_cita" type="string"/>
+            <column name="estado_paciente" type="string"/>
             <column name="observaciones" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
