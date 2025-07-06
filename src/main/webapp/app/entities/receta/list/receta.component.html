@@ -19,6 +19,34 @@
       </button>
     </div>
   </h2>
+  <!-- Filtros de búsqueda -->
+  <div class="row mb-3">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="ID" [(ngModel)]="filtroId" (input)="filtrarRecetas()" />
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Paciente (nombre o apellido)"
+        [(ngModel)]="filtroPaciente"
+        (input)="filtrarRecetas()"
+      />
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Trabajador (nombre o apellido)"
+        [(ngModel)]="filtroTrabajador"
+        (input)="filtrarRecetas()"
+      />
+    </div>
+    <div class="col">
+      <input type="date" class="form-control" placeholder="Fecha inicio" [(ngModel)]="filtroFecha" (change)="filtrarRecetas()" />
+      <small class="fw-bold text-white">Filtra por la fecha de inicio</small>
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -79,7 +107,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (receta of recetas(); track trackId(receta)) {
+          @for (receta of recetasFiltradas; track trackId(receta)) {
             <tr data-cy="entityTable">
               <td>
                 <a [routerLink]="['/receta', receta.id, 'view']">{{ receta.id }}</a>

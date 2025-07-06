@@ -19,6 +19,33 @@
       </button>
     </div>
   </h2>
+  <!-- Filtros de búsqueda -->
+  <div class="row mb-3">
+    <div class="col">
+      <input type="number" class="form-control" placeholder="ID Informe" [(ngModel)]="filtroId" (input)="filtrarInformes()" />
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Paciente (nombre o apellido)"
+        [(ngModel)]="filtroPaciente"
+        (input)="filtrarInformes()"
+      />
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Profesional (nombre o apellido)"
+        [(ngModel)]="filtroTrabajador"
+        (input)="filtrarInformes()"
+      />
+    </div>
+    <div class="col">
+      <input type="date" class="form-control" placeholder="Fecha" [(ngModel)]="filtroFecha" (change)="filtrarInformes()" />
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -78,7 +105,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (informe of informes(); track trackId(informe)) {
+          @for (informe of informesFiltrados; track trackId(informe)) {
             <tr data-cy="entityTable">
               <td>
                 <a [routerLink]="['/informe', informe.id, 'view']">{{ informe.id }}</a>

@@ -22,7 +22,23 @@
       "calendario": {
         "main": "Calendar",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "calendarioCitas": "Appointment Medical Calendar"
+        "calendarioCitas": "Appointment Medical Calendar",
+        "today": "Today",
+        "month": "Month",
+        "week": "Week",
+        "day": "Day",
+        "filtrarPaciente": "Filter by Patient",
+        "filtrarTrabajador": "Filter by Worker",
+        "citaCon": "Meet {{nombre}}",
+        "citaSinPaciente": "Meet without assigned patient",
+        "paciente": "Patient",
+        "pacienteNoAsignado": "Unassigned Patient",
+        "trabajador": "Worker(s)",
+        "trabajadorNoAsignado": "Unassigned Worker",
+        "finalizado": "Finished",
+        "pendiente": "Pending",
+        "cancelado": "Cancelled",
+        "sinEstado": "Without status"
       },
       "gestion": {
         "main": "Management",
@@ -30,7 +46,7 @@
         "direccion": "Addresses",
         "especialidad": "Specialty",
         "paciente": "Patients",
-        "trabajador": "Workers"
+        "trabajador": "Healthcare Workers"
       },
 
       "administracion": {

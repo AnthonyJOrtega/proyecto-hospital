@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import esLocale from '@fullcalendar/core/locales/es';
+import enLocale from '@fullcalendar/core/locales/en-gb';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +16,7 @@ import { ITrabajador } from 'app/entities/trabajador/trabajador.model';
 import { IPaciente } from 'app/entities/paciente/paciente.model';
 import { PacienteService } from 'app/entities/paciente/service/paciente.service';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calendario',
@@ -27,7 +29,8 @@ export class CalendarioComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin],
     initialView: 'dayGridMonth',
-    locale: 'es',
+    locale: esLocale,
+    firstDay: 1,
     buttonText: {
       today: 'Hoy',
       month: 'Mes',
@@ -40,7 +43,7 @@ export class CalendarioComponent implements OnInit {
       return { html: arg.event.title };
     },
     editable: false,
-    selectable: true,
+    selectable: false,
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -60,6 +63,7 @@ export class CalendarioComponent implements OnInit {
     private trabajadorService: TrabajadorService,
     private pacienteService: PacienteService,
     private router: Router,
+    private translateService: TranslateService, // <--- añade esto
   ) {}
 
   filterPaciente: string = '';
@@ -67,6 +71,15 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarCitasModal();
+
+    this.translateService.onLangChange.subscribe(lang => {
+      this.actualizarIdiomaCalendario(lang.lang);
+      this.aplicarFiltros(); // <-- vuelve a mapear y traducir los eventos
+    });
+
+    // Inicializa el idioma y los eventos al arrancar
+    this.actualizarIdiomaCalendario(this.translateService.currentLang || 'es');
+    this.aplicarFiltros();
   }
 
   onDateClick(arg: any): void {
@@ -128,19 +141,22 @@ export class CalendarioComponent implements OnInit {
           color = '#ffffff';
           text = '#000000';
       }
-      const pacienteNombre = cita.paciente ? `${cita.paciente.nombre} ${cita.paciente.apellido}` : 'Paciente no asignado';
+      const pacienteNombre = cita.paciente ? `${cita.paciente.nombre} ${cita.paciente.apellido}` : '';
       const trabajadoresNombres =
         cita.trabajadors && cita.trabajadors.length > 0
           ? cita.trabajadors.map((trabajador: any) => `${trabajador.nombre} ${trabajador.apellido}`).join(', ')
-          : 'Trabajador no asignado';
+          : this.translateService.instant('global.menu.calendario.trabajadorNoAsignado');
+
       const tooltipInfo = `
-        Paciente: ${pacienteNombre}
-        Trabajador(es): ${trabajadoresNombres}
-      `;
+      ${this.translateService.instant('global.menu.calendario.paciente')}: ${pacienteNombre || this.translateService.instant('global.menu.calendario.pacienteNoAsignado')}
+      ${this.translateService.instant('global.menu.calendario.trabajador')}: ${trabajadoresNombres}
+    `;
+
       return {
         title: cita.paciente
-          ? `Cita con ${cita.paciente.nombre} ${cita.paciente.apellido} <b>(${cita.horaCreacion})</b>`
-          : 'Cita sin paciente asignado',
+          ? this.translateService.instant('global.menu.calendario.citaCon', { nombre: pacienteNombre }) +
+            `<br><span style="font-size:0.9em">(${cita.horaCreacion})</span>`
+          : this.translateService.instant('global.menu.calendario.citaSinPaciente'),
         date: cita.fechaCreacion,
         backgroundColor: color,
         borderColor: color,
@@ -235,5 +251,22 @@ export class CalendarioComponent implements OnInit {
     }
 
     this.calendarOptions.events = this.mapearCitas(citasFiltradas);
+  }
+  actualizarIdiomaCalendario(lang: string): void {
+    let localeObj = esLocale;
+    if (lang.startsWith('en')) {
+      localeObj = enLocale;
+    }
+
+    this.calendarOptions = {
+      ...this.calendarOptions,
+      locale: localeObj,
+      buttonText: {
+        today: this.translateService.instant('global.menu.calendario.today'),
+        month: this.translateService.instant('global.menu.calendario.month'),
+        week: this.translateService.instant('global.menu.calendario.week'),
+        day: this.translateService.instant('global.menu.calendario.day'),
+      },
+    };
   }
 }

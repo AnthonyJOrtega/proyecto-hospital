@@ -401,6 +401,36 @@ datalist option:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
+  :host ::ng-deep .fc-event {
+    font-size: 0.42rem;
+    padding: 4px 6px;
+  }
+
+  :host ::ng-deep .fc-daygrid-day-frame {
+    max-height: 100px; /* o el valor que prefieras */
+    overflow-y: auto;
+  }
+
+  .calendar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .legend-item {
+    flex: 1 1 120px; /* Se ajusta a dispositivos pequeños */
+    display: flex;
+    align-items: center;
+  }
+
+  .legend-label {
+    font-size: 0.9rem;
+  }
+
+  .legend-color {
+    width: 18px;
+    height: 18px;
+  }
   .hospital-calendar-container {
     padding: 1rem;
   }

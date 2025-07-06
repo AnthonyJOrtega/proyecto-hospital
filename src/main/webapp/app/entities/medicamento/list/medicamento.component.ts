@@ -93,6 +93,7 @@ export class MedicamentoComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.medicamentos.set(dataFromBody);
+    this.medicamentosFiltrados = dataFromBody;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IMedicamento[] | null): IMedicamento[] {
@@ -135,6 +136,29 @@ export class MedicamentoComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+  // Propiedad para el filtro
+  filtroNombre: string = '';
+  // Lista filtrada
+  medicamentosFiltrados: IMedicamento[] = [];
+
+  // Función de filtrado
+  filtrarMedicamentos(): void {
+    const normalizar = (txt: string) =>
+      txt
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') || '';
+
+    const palabrasNombre = this.filtroNombre
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.medicamentosFiltrados = this.medicamentos().filter(medicamento => {
+      const nombre = normalizar(medicamento.nombre ?? '');
+      return palabrasNombre.length === 0 || palabrasNombre.every(palabra => nombre.includes(palabra));
     });
   }
 }

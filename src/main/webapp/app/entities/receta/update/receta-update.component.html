@@ -4,6 +4,11 @@
       <h2 id="jhi-receta-heading" data-cy="RecetaCreateUpdateHeading">
         {{ editForm.get('id')?.value ? ('tfg2App.receta.home.editLabel' | translate) : ('tfg2App.receta.home.createLabel' | translate) }}
       </h2>
+      <!-- Mensaje de aviso para rellenar todos los campos -->
+      <div class="alert alert-warning mt-2" role="alert">
+        <i class="fas fa-exclamation-triangle me-1"></i>
+        <strong>AVISO:</strong> Asegúrese de rellenar todos los campos
+      </div>
 
       <div>
         <jhi-alert-error />
@@ -32,6 +37,12 @@
               <fa-icon icon="calendar-alt"></fa-icon>
             </button>
           </div>
+          <div
+            *ngIf="editForm.get('fechaInicio')?.invalid && (editForm.get('fechaInicio')?.touched || editForm.get('fechaInicio')?.dirty)"
+            class="alert alert-danger mt-2"
+          >
+            Debes seleccionar una fecha valida.
+          </div>
         </div>
 
         <div class="mb-3">
@@ -49,6 +60,12 @@
             />
             <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
           </div>
+          <div
+            *ngIf="editForm.get('fechaFin')?.invalid && (editForm.get('fechaFin')?.touched || editForm.get('fechaFin')?.dirty)"
+            class="alert alert-danger mt-2"
+          >
+            Debes seleccionar una fecha valida.
+          </div>
         </div>
 
         <div class="mb-3">
@@ -61,6 +78,14 @@
             data-cy="instrucciones"
             formControlName="instrucciones"
           />
+          <div
+            *ngIf="
+              editForm.get('instrucciones')?.invalid && (editForm.get('instrucciones')?.touched || editForm.get('instrucciones')?.dirty)
+            "
+            class="alert alert-danger mt-2"
+          >
+            Debes ingresar instrucciones validas.
+          </div>
         </div>
         <!--    PACIENTE Y TRABAJADOR DESACTIVADOS PORQUE NO SE PUEDEN CREAR RECETAS SIN PACIENTE Y TRABAJADOR
         <div class="mb-3">
@@ -110,8 +135,12 @@
               (change)="addMedicamentoFromInput()"
               [ngModelOptions]="{ standalone: true }"
               placeholder="Buscar medicamento..."
+              required
               autocomplete="off"
             />
+            <div *ngIf="medicamentoNoValido" class="alert alert-danger mt-2">
+              Medicamento no válido. Por favor, verifica los datos ingresados.
+            </div>
             <datalist id="medicamentoOptions">
               <option
                 *ngFor="let medicamento of medicamentosSharedCollection"

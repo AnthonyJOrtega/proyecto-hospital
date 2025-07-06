@@ -19,6 +19,18 @@
       </button>
     </div>
   </h2>
+  <!-- Filtro por nombre -->
+  <div class="filtro row mb-3">
+    <div class="col">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nombre del medicamento"
+        [(ngModel)]="filtroNombre"
+        (input)="filtrarMedicamentos()"
+      />
+    </div>
+  </div>
 
   <jhi-alert-error />
 
@@ -68,7 +80,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (medicamento of medicamentos(); track trackId(medicamento)) {
+          @for (medicamento of medicamentosFiltrados; track trackId(medicamento)) {
             <tr data-cy="entityTable">
               <!-- OCULTAR ID DEL MEDICAMENTO 
               <td>

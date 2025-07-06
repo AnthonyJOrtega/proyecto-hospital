@@ -20,6 +20,8 @@ import { Turno } from 'app/entities/enumerations/turno.model';
 import { TrabajadorService } from '../service/trabajador.service';
 import { ITrabajador } from '../trabajador.model';
 import { TrabajadorFormGroup, TrabajadorFormService } from './trabajador-form.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DireccionUpdateComponent } from 'app/entities/direccion/update/direccion-update.component';
 
 @Component({
   selector: 'jhi-trabajador-update',
@@ -44,6 +46,7 @@ export class TrabajadorUpdateComponent implements OnInit {
   protected pacienteService = inject(PacienteService);
   protected direccionService = inject(DireccionService);
   protected activatedRoute = inject(ActivatedRoute);
+  private modalService = inject(NgbModal);
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   editForm: TrabajadorFormGroup = this.trabajadorFormService.createTrabajadorFormGroup();
@@ -121,6 +124,9 @@ export class TrabajadorUpdateComponent implements OnInit {
       this.direccionsSharedCollection,
       ...(trabajador.direccions ?? []),
     );
+    // Si hay direcciones, selecciona la primera por defecto
+    // Si no hay direcciones, direccionSeleccionada será null
+    this.direccionSeleccionada = trabajador.direccions && trabajador.direccions.length > 0 ? trabajador.direccions[0] : null;
   }
 
   protected loadRelationshipsOptions(): void {
@@ -154,7 +160,7 @@ export class TrabajadorUpdateComponent implements OnInit {
       .subscribe((pacientes: IPaciente[]) => (this.pacientesSharedCollection = pacientes));
 
     this.direccionService
-      .query()
+      .query({ size: 9999 }) // Asegúrate de que se obtienen todas las direcciones
       .pipe(map((res: HttpResponse<IDireccion[]>) => res.body ?? []))
       .pipe(
         map((direccions: IDireccion[]) =>
@@ -162,5 +168,36 @@ export class TrabajadorUpdateComponent implements OnInit {
         ),
       )
       .subscribe((direccions: IDireccion[]) => (this.direccionsSharedCollection = direccions));
+  }
+  // Método para abrir el modal:
+  abrirModalDireccion(): void {
+    const modalRef = this.modalService.open(DireccionUpdateComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.closed.subscribe(() => {
+      // Si quieres, recarga las direcciones aquí
+      this.loadRelationshipsOptions();
+    });
+  }
+
+  direccionInputText = '';
+  direccionSeleccionada: IDireccion | null = null;
+
+  addDireccionFromInput(): void {
+    const input = this.direccionInputText?.trim().toLowerCase();
+    if (!input) return;
+    const direccion = this.direccionsSharedCollection.find(
+      d =>
+        (d.calle + ' --- C.P: ' + d.codigoPostal + ' --- nº:' + d.numero + ' --- (' + d.ciudad + ' ' + d.pais + ')').toLowerCase() ===
+        input,
+    );
+    if (direccion) {
+      this.direccionSeleccionada = direccion;
+      this.editForm.patchValue({ direccions: [direccion] });
+      this.direccionInputText = '';
+    }
+  }
+
+  removeDireccion(): void {
+    this.direccionSeleccionada = null;
+    this.editForm.patchValue({ direccions: [] });
   }
 }

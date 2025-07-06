@@ -165,3 +165,111 @@ ngb-pagination {
     }
   }
 }
+@media (max-width: 768px) {
+  .direccion-container {
+    padding: 1rem;
+    background-size: cover;
+    background-position: center 30%;
+  }
+
+  /* Título del módulo */
+  #page-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  /* Botones superiores */
+  .direccion-header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .direccion-header-actions button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Filtros */
+  .row.mb-3 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .row.mb-3 .col {
+    width: 100%;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Tabla responsive */
+  .table-entities {
+    overflow-x: auto; /* Elimina scroll horizontal */
+  }
+
+  .table-entities table {
+    width: 100%;
+    font-size: 0.56rem; /* Reduce el texto aún más */
+    display: block; /* Permite ajuste más libre */
+    table-layout: auto; /* Deja que el ancho se adapte al contenido */
+    border-collapse: collapse;
+  }
+
+  .table-entities table thead th,
+  .table-entities table tbody td {
+    padding: 0.5rem 0.6rem;
+    white-space: nowrap; /* ✅ evita que se rompan palabras */
+    word-break: normal;
+    text-align: left;
+  }
+
+  /* Botones Edit y Delete */
+  .btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  .btn-group .btn {
+    font-size: inherit; /* Mantiene el tamaño del texto */
+    padding: 0.05rem 0.15rem; /* Mínimo espacio alrededor del texto */
+    white-space: nowrap;
+    border-radius: 4px; /* Menor redondez */
+    display: inline-flex; /* Solo ocupa el espacio necesario */
+    align-items: center;
+    gap: 0.2rem; /* Menor separación entre ícono y texto */
+    line-height: 1;
+  }
+
+  .btn-group .btn fa-icon {
+    margin: 0;
+  }
+
+  /* Mostrar texto que estaba oculto en móvil por Bootstrap */
+  .btn .d-none.d-md-inline {
+    display: inline !important;
+  }
+
+  /* Alertas */
+  .alert-warning {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Tamaño general compacto de botones */
+  .btn-sm {
+    font-size: 0.65rem;
+    padding: 0.45rem 0.75rem;
+  }
+}

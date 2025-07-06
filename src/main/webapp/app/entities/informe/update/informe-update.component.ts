@@ -33,6 +33,7 @@ export class InformeUpdateComponent implements OnInit {
   pacientesSharedCollection: IPaciente[] = [];
   trabajadorsSharedCollection: ITrabajador[] = [];
   enfermedadsSharedCollection: IEnfermedad[] = [];
+  palabrasObservaciones = 0;
 
   protected informeService = inject(InformeService);
   protected informeFormService = inject(InformeFormService);
@@ -134,6 +135,9 @@ export class InformeUpdateComponent implements OnInit {
       this.enfermedadsSharedCollection,
       ...(informe.enfermedads ?? []),
     );
+    this.enfermedadesSeleccionadas = informe.enfermedads ?? [];
+    this.editForm.get('enfermedads')?.setValue(this.enfermedadesSeleccionadas);
+    this.enfermedadSeleccionada = informe.enfermedads && informe.enfermedads.length > 0 ? informe.enfermedads[0] : null;
   }
 
   protected loadRelationshipsOptions(): void {
@@ -213,30 +217,31 @@ export class InformeUpdateComponent implements OnInit {
   enfermedadInputText = '';
   enfermedadSeleccionada: IEnfermedad | null = null;
 
+  enfermedadesSeleccionadas: IEnfermedad[] = [];
+
   addEnfermedadFromInput(): void {
     const input = this.enfermedadInputText?.trim().toLowerCase();
     if (!input) return;
     const enfermedad = this.enfermedadsSharedCollection.find(e => e.nombre && e.nombre.toLowerCase() === input);
     if (enfermedad) {
-      this.enfermedadSeleccionada = enfermedad;
-      this.editForm.get('enfermedads')?.setValue([enfermedad]);
+      // Evita duplicados
+      if (!this.enfermedadesSeleccionadas.some(e => e.id === enfermedad.id)) {
+        this.enfermedadesSeleccionadas.push(enfermedad);
+        this.editForm.get('enfermedads')?.setValue(this.enfermedadesSeleccionadas);
+      }
       this.enfermedadNoValida = false;
       this.enfermedadDuplicada = false;
       this.nuevaEnfermedadDescripcion = '';
-      this.enfermedadInputText = ''; // <-- Solo limpiar si existe
+      this.enfermedadInputText = '';
     } else {
-      this.enfermedadSeleccionada = null;
-      this.editForm.get('enfermedads')?.setValue([]);
-      this.enfermedadNoValida = true; // <-- Activa el modo "nueva enfermedad"
+      this.enfermedadNoValida = true;
       this.enfermedadDuplicada = false;
-      this.nuevaEnfermedadDescripcion = '';
-      // NO limpiar this.enfermedadInputText aquí
     }
   }
 
-  quitarEnfermedad(): void {
-    this.enfermedadSeleccionada = null;
-    this.editForm.get('enfermedads')?.setValue([]);
+  quitarEnfermedad(enfermedad: IEnfermedad): void {
+    this.enfermedadesSeleccionadas = this.enfermedadesSeleccionadas.filter(e => e.id !== enfermedad.id);
+    this.editForm.get('enfermedads')?.setValue(this.enfermedadesSeleccionadas);
   }
 
   //Metodo para crear enfermedad si no existe en la base
@@ -274,5 +279,97 @@ export class InformeUpdateComponent implements OnInit {
         this.enfermedadNoValida = true;
       },
     });
+  }
+
+  limitWords(event: Event): void {
+    const control = this.editForm.get('resumen');
+    if (!control) return;
+
+    let value = control.value || '';
+    let words = value
+      .trim()
+      .split(/\s+/)
+      .filter(w => w);
+
+    this.palabrasObservaciones = words.length;
+
+    if (words.length > 150) {
+      // Recorta a 150 palabras
+      const truncated = words.slice(0, 150).join(' ');
+      control.setValue(truncated, { emitEvent: false });
+      this.palabrasObservaciones = 150;
+    }
+  }
+
+  // Bloquea cualquier escritura adicional si ya se alcanzó el límite
+  onKeyDown(event: KeyboardEvent): void {
+    const control = this.editForm.get('resumen');
+    if (!control) return;
+
+    const value = control.value || '';
+    const words = value
+      .trim()
+      .split(/\s+/)
+      .filter(w => w);
+    this.palabrasObservaciones = words.length;
+
+    if (words.length >= 150 && !this.isAllowedKey(event)) {
+      event.preventDefault(); // Bloquea la entrada
+    }
+  }
+
+  // Permite ciertas teclas incluso al llegar al límite (flechas, borrar, etc.)
+  private isAllowedKey(event: KeyboardEvent): boolean {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'Tab'];
+    return allowedKeys.includes(event.key);
+  }
+  quitarPaciente(): void {
+    this.editForm.get('paciente')?.setValue(null);
+  }
+
+  quitarTrabajador(): void {
+    this.editForm.get('trabajador')?.setValue(null);
+  }
+
+  getEspecialidadesString(trabajador: ITrabajador): string {
+    return trabajador.especialidads && trabajador.especialidads.length ? trabajador.especialidads.map(e => e.nombre).join(', ') : '';
+  }
+
+  trabajadorInputText = '';
+  trabajadorSeleccionado: ITrabajador | null = null;
+
+  addTrabajadorFromInput(): void {
+    const input = this.trabajadorInputText?.trim().toLowerCase();
+    if (!input) return;
+    const trabajador = this.trabajadorsSharedCollection.find(
+      t =>
+        (
+          t.nombre +
+          ' ' +
+          t.apellido +
+          (t.puesto ? ' ' + t.puesto : '') +
+          (this.getEspecialidadesString(t) ? ' (' + this.getEspecialidadesString(t) + ')' : '') +
+          ' - ID usuario: ' +
+          t.idUsuario
+        ).toLowerCase() === input,
+    );
+    if (trabajador) {
+      this.trabajadorSeleccionado = trabajador;
+      this.editForm.get('trabajador')?.setValue(trabajador);
+      this.trabajadorInputText = '';
+    }
+  }
+  pacienteInputText = '';
+  pacienteSeleccionado: IPaciente | null = null;
+
+  addPacienteFromInput(): void {
+    const input = this.pacienteInputText?.trim().toLowerCase();
+    if (!input) return;
+    const paciente = this.pacientesSharedCollection.find(p => (p.nombre + ' ' + p.apellido + ' - DNI: ' + p.dni).toLowerCase() === input);
+    if (paciente) {
+      this.pacienteSeleccionado = paciente;
+      this.editForm.get('paciente')?.setValue(paciente);
+      this.pacienteInputText = '';
+    }
   }
 }

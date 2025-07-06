@@ -22,7 +22,23 @@
       "calendario": {
         "main": "Calendario",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "calendarioCitas": "Calendario de Citas Médicas"
+        "calendarioCitas": "Calendario de Citas Médicas",
+        "today": "Hoy",
+        "month": "Mes",
+        "week": "Semana",
+        "day": "Día",
+        "filtrarPaciente": "Filtrar por Paciente",
+        "filtrarTrabajador": "Filtrar por Trabajador",
+        "citaCon": "Cita con {{nombre}}",
+        "citaSinPaciente": "Cita sin paciente asignado",
+        "paciente": "Paciente",
+        "pacienteNoAsignado": "Paciente no asignado",
+        "trabajador": "Trabajador(es)",
+        "trabajadorNoAsignado": "Trabajador no asignado",
+        "finalizado": "Finalizado",
+        "pendiente": "Pendiente",
+        "cancelado": "Cancelado",
+        "sinEstado": "Sin estado"
       },
       "gestion": {
         "main": "Gestión",
@@ -30,7 +46,7 @@
         "direccion": "Direcciones",
         "especialidad": "Especialidad",
         "paciente": "Pacientes",
-        "trabajador": "Trabajadores"
+        "trabajador": "Personal Sanitario"
       },
 
       "administracion": {

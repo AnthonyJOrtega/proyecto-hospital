@@ -11,6 +11,21 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   }
 }
+.home-bg {
+  background-size: cover;
+  background-position: center 10% !important;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+}
+
+// Opcional: ajusta para móvil si quieres que se vea diferente
+@media (max-width: 768px) {
+  .home-bg {
+    background-size: contain;
+    background-position: top center;
+  }
+}
 body,
 html {
   height: 100%;

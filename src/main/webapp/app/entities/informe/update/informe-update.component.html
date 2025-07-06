@@ -4,6 +4,11 @@
       <h2 id="jhi-informe-heading" data-cy="InformeCreateUpdateHeading">
         {{ editForm.get('id')?.value ? ('tfg2App.informe.home.editLabel' | translate) : ('tfg2App.informe.home.createLabel' | translate) }}
       </h2>
+      <!-- Mensaje de rellenar todos los campos -->
+      <div class="alert alert-warning mt-2" role="alert">
+        <i class="fas fa-exclamation-triangle me-1"></i>
+        <strong>AVISO:</strong> Asegúrese de rellenar todos los campos
+      </div>
 
       <div>
         <jhi-alert-error />
@@ -17,12 +22,36 @@
 
         <div class="mb-3">
           <label class="form-label" for="field_fecha" jhiTranslate="tfg2App.informe.fecha">Fecha</label>
-          <input type="text" class="form-control" name="fecha" id="field_fecha" data-cy="fecha" formControlName="fecha" />
+          <input type="date" class="form-control" name="fecha" id="field_fecha" data-cy="fecha" formControlName="fecha" />
+          <div
+            *ngIf="editForm.get('fecha')?.invalid && (editForm.get('fecha')?.touched || editForm.get('fecha')?.dirty)"
+            class="alert alert-danger mt-2"
+          >
+            Debes seleccionar una fecha valida.
+          </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label" for="field_resumen" jhiTranslate="tfg2App.informe.resumen">Resumen</label>
-          <input type="text" class="form-control" name="resumen" id="field_resumen" data-cy="resumen" formControlName="resumen" />
+          <input
+            type="text"
+            class="form-control"
+            name="resumen"
+            id="field_resumen"
+            data-cy="resumen"
+            formControlName="resumen"
+            (input)="limitWords($event)"
+            (keydown)="onKeyDown($event)"
+            maxlength="255"
+          />
+          <small class="text-muted"> Palabras: {{ palabrasObservaciones }}/150 </small>
+          <div *ngIf="palabrasObservaciones >= 150" class="alert alert-danger mt-2">Máximo 150 palabras.</div>
+          <div
+            *ngIf="editForm.get('resumen')?.invalid && (editForm.get('resumen')?.touched || editForm.get('resumen')?.dirty)"
+            class="alert alert-danger mt-2"
+          >
+            Debes rellenar este campo, es obligatorio para continuar.
+          </div>
         </div>
         <!--    INFORME DEJADO COMENTADO PARA FUTURAS MEJORAS
         <div class="mb-3">
@@ -41,46 +70,93 @@
             }
           </select>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_paciente" jhiTranslate="tfg2App.informe.paciente">Paciente</label>
-          <select
-            class="form-control"
-            id="field_paciente"
-            data-cy="paciente"
-            name="paciente"
-            formControlName="paciente"
-            [compareWith]="comparePaciente"
-          >
-            <option [ngValue]="null"></option>
-            @for (pacienteOption of pacientesSharedCollection; track $index) {
-              <option [ngValue]="pacienteOption">{{ pacienteOption.nombre }}</option>
-            }
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" for="field_trabajador" jhiTranslate="tfg2App.informe.trabajador">Trabajador</label>
-          <select
-            class="form-control"
-            id="field_trabajador"
-            data-cy="trabajador"
-            name="trabajador"
-            formControlName="trabajador"
-            [compareWith]="compareTrabajador"
-          >
-            <option [ngValue]="null"></option>
-            @for (trabajadorOption of trabajadorsSharedCollection; track $index) {
-              <option [ngValue]="trabajadorOption">{{ trabajadorOption.nombre }}</option>
-            }
-          </select>
-        </div>
 -->
-        <!-- Selector de enfermedad -->
+        <!-- INPUT de paciente SOLO si NO hay cita asociada -->
+        <div class="mb-3" *ngIf="!editForm.get('cita')?.value && !editForm.get('paciente')?.value">
+          <label class="form-label" for="pacienteInput" jhiTranslate="tfg2App.informe.paciente">Paciente</label>
+          <div class="input-group align-items-end">
+            <input
+              type="text"
+              id="pacienteInput"
+              class="form-control"
+              list="pacienteOptions"
+              [(ngModel)]="pacienteInputText"
+              (change)="addPacienteFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un paciente"
+              autocomplete="off"
+              required
+            />
+            <datalist id="pacienteOptions">
+              <option *ngFor="let p of pacientesSharedCollection" [value]="p.nombre + ' ' + p.apellido + ' - DNI: ' + p.dni"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <!-- Badge de paciente SOLO si NO hay cita asociada -->
+        <div class="mb-3" *ngIf="!editForm.get('cita')?.value && editForm.get('paciente')?.value">
+          <label class="form-label" jhiTranslate="tfg2App.informe.paciente">Paciente</label>
+          <span class="badge bg-success">
+            {{ editForm.get('paciente')?.value?.nombre }} {{ editForm.get('paciente')?.value?.apellido }}
+            {{ editForm.get('paciente')?.value?.dni }}
+            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarPaciente()"></button>
+          </span>
+        </div>
+
+        <!-- INPUT de trabajador SOLO si NO hay cita asociada -->
+        <div class="mb-3" *ngIf="!editForm.get('cita')?.value && !editForm.get('trabajador')?.value">
+          <label class="form-label" for="trabajadorInput" jhiTranslate="tfg2App.informe.trabajador">Trabajador</label>
+          <div class="input-group align-items-end">
+            <input
+              type="text"
+              id="trabajadorInput"
+              class="form-control"
+              list="trabajadorOptions"
+              [(ngModel)]="trabajadorInputText"
+              (change)="addTrabajadorFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona un trabajador"
+              autocomplete="off"
+              required
+            />
+            <datalist id="trabajadorOptions">
+              <option
+                *ngFor="let t of trabajadorsSharedCollection"
+                [value]="
+                  t.nombre +
+                  ' ' +
+                  t.apellido +
+                  (t.puesto ? ' ' + t.puesto : '') +
+                  (getEspecialidadesString(t) ? ' (' + getEspecialidadesString(t) + ')' : '') +
+                  ' - ID usuario: ' +
+                  t.idUsuario
+                "
+              ></option>
+            </datalist>
+          </div>
+        </div>
+
+        <!-- Badge de trabajador SOLO si NO hay cita asociada -->
+        <div class="mb-3" *ngIf="!editForm.get('cita')?.value && editForm.get('trabajador')?.value">
+          <label class="form-label" jhiTranslate="tfg2App.informe.trabajador">Trabajador</label>
+          <span class="badge bg-primary">
+            {{ editForm.get('trabajador')?.value?.nombre }} {{ editForm.get('trabajador')?.value?.apellido }}
+            {{ editForm.get('trabajador')?.value?.puesto }} (<span *ngIf="editForm.get('trabajador')?.value as trabajador">
+              {{ getEspecialidadesString(trabajador) }} </span
+            >) ID usuario: {{ editForm.get('trabajador')?.value?.idUsuario }}
+            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarTrabajador()"></button>
+          </span>
+        </div>
+
+        <!-- Enfermedad -->
         <div class="mb-3">
           <!-- Campo de descripción solo si la enfermedad no está registrada -->
           <div *ngIf="enfermedadNoValida" class="alert alert-danger mt-2">
             La enfermedad no está registrada. Por favor, crea una nueva enfermedad o selecciona una de la lista.
+          </div>
+          <div *ngIf="enfermedadNoValida" class="alert alert-warning mt-2">
+            En el caso de crear una nueva enfermedad, asegúrese de pulsar el botón de crear enfermedad (SITUADO ABAJO A LA DERECHA) al
+            terminar de escribir la descripción.
           </div>
           <div *ngIf="enfermedadNoValida" class="mt-2">
             <label for="descripcionEnfermedad" class="form-label">Descripción de la Nueva enfermedad</label>
@@ -94,7 +170,8 @@
             ></textarea>
           </div>
           <label for="enfermedadInput" jhiTranslate="tfg2App.informe.enfermedad">Enfermedad</label>
-          <div *ngIf="!enfermedadSeleccionada" class="input-group mb-2">
+          <!-- Input para añadir enfermedades -->
+          <div *ngIf="true" class="input-group mb-2">
             <input
               type="text"
               id="enfermedadInput"
@@ -105,11 +182,11 @@
               [ngModelOptions]="{ standalone: true }"
               placeholder="Escribe o selecciona una enfermedad"
               autocomplete="off"
+              required
             />
             <datalist id="enfermedadOptions">
               <option *ngFor="let e of enfermedadsSharedCollection" [value]="e.nombre"></option>
             </datalist>
-            <!-- Botón siempre visible -->
             <button
               type="button"
               class="btn btn-primary btn-sm shadow rounded-pill px-4 py-2 ms-2"
@@ -119,12 +196,30 @@
               <fa-icon icon="plus"></fa-icon> Crear Enfermedad
             </button>
           </div>
+
+          <!-- Chips de enfermedades seleccionadas -->
+          <div class="chip-list mb-2" *ngIf="enfermedadesSeleccionadas.length > 0">
+            <span class="badge bg-primary me-1" *ngFor="let enfermedad of enfermedadesSeleccionadas">
+              {{ enfermedad.nombre }}
+              <button
+                type="button"
+                class="btn-close btn-close-white btn-sm ms-1"
+                aria-label="Quitar"
+                (click)="quitarEnfermedad(enfermedad)"
+              ></button>
+            </span>
+          </div>
         </div>
 
         <div class="chip-list mb-2" *ngIf="enfermedadSeleccionada">
           <span class="badge bg-primary me-1">
             {{ enfermedadSeleccionada.nombre }}
-            <button type="button" class="btn-close btn-close-white btn-sm ms-1" aria-label="Quitar" (click)="quitarEnfermedad()"></button>
+            <button
+              type="button"
+              class="btn-close btn-close-white btn-sm ms-1"
+              aria-label="Quitar"
+              (click)="quitarEnfermedad(enfermedadSeleccionada)"
+            ></button>
           </span>
         </div>
         <div *ngIf="nuevaEnfermedadCreada" class="alert alert-success mt-2">Enfermedad creada correctamente.</div>

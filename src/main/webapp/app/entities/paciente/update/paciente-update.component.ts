@@ -100,11 +100,12 @@ export class PacienteUpdateComponent implements OnInit {
       this.direccionsSharedCollection,
       ...(paciente.direccions ?? []),
     );
+    this.direccionSeleccionada = paciente.direccions && paciente.direccions.length > 0 ? paciente.direccions[0] : null;
   }
 
   protected loadRelationshipsOptions(): void {
     this.trabajadorService
-      .query()
+      .query({ size: 9999 })
       .pipe(map((res: HttpResponse<ITrabajador[]>) => res.body ?? []))
       .pipe(
         map((trabajadors: ITrabajador[]) =>
@@ -114,7 +115,7 @@ export class PacienteUpdateComponent implements OnInit {
       .subscribe((trabajadors: ITrabajador[]) => (this.trabajadorsSharedCollection = trabajadors));
 
     this.direccionService
-      .query()
+      .query({ size: 9999 })
       .pipe(map((res: HttpResponse<IDireccion[]>) => res.body ?? []))
       .pipe(
         map((direccions: IDireccion[]) =>
@@ -150,5 +151,27 @@ export class PacienteUpdateComponent implements OnInit {
       // Si quieres, recarga las direcciones aquí
       this.loadRelationshipsOptions();
     });
+  }
+  direccionInputText = '';
+  direccionSeleccionada: IDireccion | null = null;
+
+  addDireccionFromInput(): void {
+    const input = this.direccionInputText?.trim().toLowerCase();
+    if (!input) return;
+    const direccion = this.direccionsSharedCollection.find(
+      d =>
+        (d.calle + ' --- C.P: ' + d.codigoPostal + ' --- nº:' + d.numero + ' --- (' + d.ciudad + ' ' + d.pais + ')').toLowerCase() ===
+        input,
+    );
+    if (direccion) {
+      this.direccionSeleccionada = direccion;
+      this.editForm.patchValue({ direccions: [direccion] });
+      this.direccionInputText = '';
+    }
+  }
+
+  removeDireccion(): void {
+    this.direccionSeleccionada = null;
+    this.editForm.patchValue({ direccions: [] });
   }
 }

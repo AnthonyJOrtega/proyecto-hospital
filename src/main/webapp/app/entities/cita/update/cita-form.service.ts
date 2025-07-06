@@ -27,6 +27,7 @@ type CitaFormGroupContent = {
   paciente: FormControl<ICita['paciente']>;
   trabajadors: FormControl<ICita['trabajadors']>;
   pacienteString: FormControl<string | null>;
+  especialidad: FormControl<string | null>;
 };
 
 export type CitaFormGroup = FormGroup<CitaFormGroupContent>;
@@ -46,15 +47,24 @@ export class CitaFormService {
           validators: [Validators.required],
         },
       ),
-      fechaCreacion: new FormControl(citaRawValue.fechaCreacion),
-      horaCreacion: new FormControl(citaRawValue.horaCreacion),
+      fechaCreacion: new FormControl(citaRawValue.fechaCreacion, {
+        validators: [Validators.required],
+      }),
+      horaCreacion: new FormControl(citaRawValue.horaCreacion, {
+        validators: [Validators.required],
+      }),
       estadoCita: new FormControl(citaRawValue.estadoCita),
       estadoPaciente: new FormControl(citaRawValue.estadoPaciente),
       observaciones: new FormControl(citaRawValue.observaciones),
       informe: new FormControl(citaRawValue.informe),
       paciente: new FormControl(citaRawValue.paciente),
-      trabajadors: new FormControl(citaRawValue.trabajadors ?? []),
+      trabajadors: new FormControl(citaRawValue.trabajadors ?? [], {
+        validators: [Validators.required],
+      }),
       pacienteString: new FormControl('', [Validators.required]),
+      especialidad: new FormControl<string | null>(null, {
+        validators: [],
+      }),
     });
   }
 

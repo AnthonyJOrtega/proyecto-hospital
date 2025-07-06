@@ -157,21 +157,62 @@
   border-color: rgb(138, 43, 210) !important;
   background-color: rgb(172, 101, 222) !important;
 }
-
+.filtro {
+  margin-top: 1rem !important;
+}
 /* Responsive ajustes */
 @media (max-width: 768px) {
-  #page-heading .btn {
-    width: 100%;
-    margin-bottom: 0.5rem;
-    margin-right: 0;
+  /* Encabezado con título y botones */
+  #page-heading {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center !important;
+    gap: 0.75rem !important;
+
+    .titulo {
+      font-size: 1.8rem !important;
+      line-height: 1.2 !important;
+      margin-bottom: 0.5rem !important;
+    }
+
+    .d-flex {
+      display: flex;
+      justify-content: flex-end !important;
+      flex-direction: row !important;
+      gap: 0.5rem !important;
+
+      .btn {
+        margin-left: -1rem !important;
+        width: auto !important;
+        padding: 0.5rem 0.6rem !important;
+        font-size: 0.85rem !important;
+      }
+    }
   }
 
-  /* Los botones dentro de la tabla NO se expanden */
+  /* Filtros */
+  .row.mb-3 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .row.mb-3 .col {
+    width: 100%;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Botones dentro de la tabla */
   .table-entities .btn {
     width: auto;
     margin-bottom: 0.25rem;
   }
 
+  /* Evita conflictos con encabezados u otros contenedores */
   .col-md-6 {
     margin-top: auto;
     background-color: transparent;

@@ -44,12 +44,20 @@ export class InformeFormService {
           validators: [Validators.required],
         },
       ),
-      fecha: new FormControl(informeRawValue.fecha),
-      resumen: new FormControl(informeRawValue.resumen),
+      fecha: new FormControl(informeRawValue.fecha, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      resumen: new FormControl(informeRawValue.resumen, {
+        validators: [Validators.required, Validators.minLength(10)],
+      }),
       receta: new FormControl(informeRawValue.receta),
       paciente: new FormControl(informeRawValue.paciente),
       trabajador: new FormControl(informeRawValue.trabajador),
-      enfermedads: new FormControl(informeRawValue.enfermedads ?? []),
+      enfermedads: new FormControl(informeRawValue.enfermedads ?? [], {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
       cita: new FormControl(informeRawValue.cita),
     });
   }

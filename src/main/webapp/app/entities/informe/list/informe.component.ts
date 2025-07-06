@@ -104,6 +104,7 @@ export class InformeComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.informes.set(dataFromBody);
+    this.informesFiltrados = dataFromBody;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IInforme[] | null): IInforme[] {
@@ -161,6 +162,62 @@ export class InformeComponent implements OnInit {
     this.trabajadorService.find(trabajador.id).subscribe(response => {
       const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
       modalRef.componentInstance.trabajador = response.body;
+    });
+  }
+  filtroId: number | null = null;
+  filtroPaciente = '';
+  filtroTrabajador = '';
+  filtroFecha: string | null = null;
+
+  informesFiltrados: IInforme[] = []; // Los que se muestran
+
+  filtrarInformes(): void {
+    const normalizar = (txt: string) =>
+      txt
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') || '';
+
+    // Paciente
+    const palabrasPaciente = this.filtroPaciente
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    // Trabajador
+    const palabrasTrabajador = this.filtroTrabajador
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.informesFiltrados = this.informes().filter(informe => {
+      // ID
+      const coincideId = !this.filtroId || informe.id?.toString().includes(this.filtroId?.toString());
+
+      // Paciente
+      const nombrePaciente = normalizar(informe.paciente?.nombre ?? '');
+      const apellidoPaciente = normalizar(informe.paciente?.apellido ?? '');
+      const dniPaciente = normalizar(informe.paciente?.dni ?? '');
+      const coincidePaciente =
+        palabrasPaciente.length === 0 ||
+        palabrasPaciente.every(
+          palabra => nombrePaciente.includes(palabra) || apellidoPaciente.includes(palabra) || dniPaciente.includes(palabra),
+        );
+
+      // Trabajador
+      const nombreTrabajador = normalizar(informe.trabajador?.nombre ?? '');
+      const apellidoTrabajador = normalizar(informe.trabajador?.apellido ?? '');
+      const idUsuarioTrabajador = normalizar((informe.trabajador?.idUsuario ?? '').toString());
+      const coincideTrabajador =
+        palabrasTrabajador.length === 0 ||
+        palabrasTrabajador.every(
+          palabra => nombreTrabajador.includes(palabra) || apellidoTrabajador.includes(palabra) || idUsuarioTrabajador.includes(palabra),
+        );
+
+      // Fecha
+      const coincideFecha = !this.filtroFecha || (informe.fecha && informe.fecha.startsWith(this.filtroFecha));
+
+      return coincideId && coincidePaciente && coincideTrabajador && coincideFecha;
     });
   }
 }

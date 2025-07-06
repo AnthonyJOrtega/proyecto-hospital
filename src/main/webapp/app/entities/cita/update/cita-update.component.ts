@@ -49,6 +49,10 @@ export class CitaUpdateComponent implements OnInit {
   citaDuplicada = false;
   pacienteDuplicado = false;
   nuevoPacienteCreado = false;
+  pacienteCreado = false;
+  minFecha = { year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate() };
+  esNuevaCita = true;
+  palabrasObservaciones = 0;
 
   protected citaService = inject(CitaService);
   protected citaFormService = inject(CitaFormService);
@@ -74,6 +78,7 @@ export class CitaUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ cita }) => {
+      this.esNuevaCita = !cita?.id; // para el calendario si es una nueva cita no poder elegir dias anteriores
       this.cita = cita;
       this.editForm = this.citaFormService.createCitaFormGroup();
       document.body.classList.add('cita-update-view');
@@ -421,5 +426,48 @@ export class CitaUpdateComponent implements OnInit {
         this.pacienteNoValido = true;
       },
     });
+  }
+
+  limitWords(event: Event): void {
+    const control = this.editForm.get('observaciones');
+    if (!control) return;
+
+    let value = control.value || '';
+    let words = value
+      .trim()
+      .split(/\s+/)
+      .filter(w => w);
+
+    this.palabrasObservaciones = words.length;
+
+    if (words.length > 150) {
+      // Recorta a 150 palabras
+      const truncated = words.slice(0, 150).join(' ');
+      control.setValue(truncated, { emitEvent: false });
+      this.palabrasObservaciones = 150;
+    }
+  }
+
+  // Bloquea cualquier escritura adicional si ya se alcanzó el límite
+  onKeyDown(event: KeyboardEvent): void {
+    const control = this.editForm.get('observaciones');
+    if (!control) return;
+
+    const value = control.value || '';
+    const words = value
+      .trim()
+      .split(/\s+/)
+      .filter(w => w);
+    this.palabrasObservaciones = words.length;
+
+    if (words.length >= 150 && !this.isAllowedKey(event)) {
+      event.preventDefault(); // Bloquea la entrada
+    }
+  }
+
+  // Permite ciertas teclas incluso al llegar al límite (flechas, borrar, etc.)
+  private isAllowedKey(event: KeyboardEvent): boolean {
+    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'Tab'];
+    return allowedKeys.includes(event.key);
   }
 }

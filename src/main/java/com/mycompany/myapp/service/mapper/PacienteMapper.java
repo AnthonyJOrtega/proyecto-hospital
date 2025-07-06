@@ -33,6 +33,7 @@ public interface PacienteMapper extends EntityMapper<PacienteDTO, Paciente> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "puesto", source = "puesto")
     TrabajadorDTO toDtoTrabajadorId(Trabajador trabajador);
 
     @Named("trabajadorIdSet")

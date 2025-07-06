@@ -11,7 +11,7 @@ export interface IPaciente {
   seguroMedico?: string | null;
   fechaNacimiento?: dayjs.Dayjs | null;
   telefono?: string | null;
-  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'>[] | null;
+  trabajadors?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido' | 'puesto'>[] | null;
   direccions?: Pick<IDireccion, 'id' | 'calle' | 'codigoPostal' | 'numero' | 'ciudad' | 'pais'>[] | null;
   citas?: Pick<ICita, 'id' | 'trabajadors'>[] | null;
 }

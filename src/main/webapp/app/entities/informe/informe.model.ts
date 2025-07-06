@@ -9,8 +9,8 @@ export interface IInforme {
   fecha?: string | null;
   resumen?: string | null;
   receta?: Pick<IReceta, 'id'> | null;
-  paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido'> | null;
-  trabajador?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido'> | null;
+  paciente?: Pick<IPaciente, 'id' | 'nombre' | 'apellido' | 'dni'> | null;
+  trabajador?: Pick<ITrabajador, 'id' | 'nombre' | 'apellido' | 'puesto' | 'especialidads' | 'idUsuario'> | null;
   enfermedads?: Pick<IEnfermedad, 'id' | 'nombre' | 'descripcion'>[] | null;
   cita?: Pick<ICita, 'id'> | null;
 }

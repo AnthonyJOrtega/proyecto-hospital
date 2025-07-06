@@ -44,12 +44,24 @@ export class RecetaFormService {
           validators: [Validators.required],
         },
       ),
-      fechaInicio: new FormControl(recetaRawValue.fechaInicio),
-      fechaFin: new FormControl(recetaRawValue.fechaFin),
-      instrucciones: new FormControl(recetaRawValue.instrucciones),
-      paciente: new FormControl(recetaRawValue.paciente),
-      trabajador: new FormControl(recetaRawValue.trabajador),
-      medicamentos: new FormControl(recetaRawValue.medicamentos ?? []),
+      fechaInicio: new FormControl(recetaRawValue.fechaInicio, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      fechaFin: new FormControl(recetaRawValue.fechaFin, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      instrucciones: new FormControl(recetaRawValue.instrucciones, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      paciente: new FormControl(recetaRawValue.paciente, {}),
+      trabajador: new FormControl(recetaRawValue.trabajador, {}),
+      medicamentos: new FormControl(recetaRawValue.medicamentos ?? [], {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
       informe: new FormControl(recetaRawValue.informe),
     });
   }

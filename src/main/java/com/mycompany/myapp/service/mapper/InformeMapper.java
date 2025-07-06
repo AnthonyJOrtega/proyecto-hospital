@@ -46,6 +46,7 @@ public interface InformeMapper extends EntityMapper<InformeDTO, Informe> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "dni", source = "dni")
     PacienteDTO toDtoPacienteNombreApellido(Paciente paciente);
 
     @Named("trabajadorNombreApellido")
@@ -53,6 +54,9 @@ public interface InformeMapper extends EntityMapper<InformeDTO, Informe> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "nombre", source = "nombre")
     @Mapping(target = "apellido", source = "apellido")
+    @Mapping(target = "puesto", source = "puesto")
+    @Mapping(target = "especialidads", source = "especialidads")
+    @Mapping(target = "idUsuario", source = "idUsuario")
     TrabajadorDTO toDtoTrabajadorNombreApellido(Trabajador trabajador);
 
     @Named("trabajadorId")

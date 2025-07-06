@@ -117,6 +117,7 @@ export class RecetaComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.recetas.set(dataFromBody);
+    this.recetasFiltradas = dataFromBody;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IReceta[] | null): IReceta[] {
@@ -174,6 +175,57 @@ export class RecetaComponent implements OnInit {
     this.trabajadorService.find(trabajador.id).subscribe(response => {
       const modalRef = this.modalService.open(TrabajadorDetailComponent, { size: 'lg', backdrop: 'static' });
       modalRef.componentInstance.trabajador = response.body;
+    });
+  }
+  // Agrega estas propiedades en tu componente:
+  filtroId: string = '';
+  filtroPaciente: string = '';
+  filtroTrabajador: string = '';
+  filtroFecha: string = '';
+
+  recetasFiltradas: IReceta[] = [];
+
+  // Llama a este método tras cargar recetas o al cambiar un filtro
+  filtrarRecetas(): void {
+    const normalizar = (txt: string) =>
+      txt
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') || '';
+
+    const palabrasPaciente = this.filtroPaciente
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    const palabrasTrabajador = this.filtroTrabajador
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.recetasFiltradas = this.recetas().filter(receta => {
+      // ID
+      const coincideId = !this.filtroId || receta.id?.toString().includes(this.filtroId);
+
+      // Paciente
+      const nombrePaciente = normalizar(receta.paciente?.nombre ?? '');
+      const apellidoPaciente = normalizar(receta.paciente?.apellido ?? '');
+      const coincidePaciente =
+        palabrasPaciente.length === 0 ||
+        palabrasPaciente.every(palabra => nombrePaciente.includes(palabra) || apellidoPaciente.includes(palabra));
+
+      // Trabajador
+      const nombreTrabajador = normalizar(receta.trabajador?.nombre ?? '');
+      const apellidoTrabajador = normalizar(receta.trabajador?.apellido ?? '');
+      const coincideTrabajador =
+        palabrasTrabajador.length === 0 ||
+        palabrasTrabajador.every(palabra => nombreTrabajador.includes(palabra) || apellidoTrabajador.includes(palabra));
+
+      // Fecha (puedes ajustar el campo según tu modelo)
+      const coincideFecha =
+        !this.filtroFecha || (receta.fechaInicio && receta.fechaInicio.format('YYYY-MM-DD').startsWith(this.filtroFecha));
+
+      return coincideId && coincidePaciente && coincideTrabajador && coincideFecha;
     });
   }
   // Método para descargar una receta en PDF

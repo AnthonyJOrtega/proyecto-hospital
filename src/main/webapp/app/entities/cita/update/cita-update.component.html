@@ -18,8 +18,8 @@
         <!-- Selector de especialidad -->
         <div class="mb-3">
           <label class="form-label" for="field_especialidad">Especialidad</label>
-          <select class="form-control" id="field_especialidad" (change)="onEspecialidadChange($event)">
-            <option value="">Selecciona una especialidad</option>
+          <select class="form-control" id="field_especialidad" formControlName="especialidad" (change)="onEspecialidadChange($event)">
+            <option [ngValue]="null">-- Selecciona una especialidad --</option>
             <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
           </select>
         </div>
@@ -55,8 +55,9 @@
                   [(ngModel)]="trabajadorInputText"
                   (change)="addTrabajadorFromInput()"
                   [ngModelOptions]="{ standalone: true }"
-                  placeholder="Escribe o selecciona un trabajador"
+                  placeholder="Escribe o selecciona un profesional tras seleccionar la especialidad"
                   autocomplete="off"
+                  required=""
                 />
                 <datalist id="trabajadorOptions">
                   <option
@@ -93,6 +94,8 @@
                 ngbDatepicker
                 #fechaCreacionDp="ngbDatepicker"
                 formControlName="fechaCreacion"
+                placeholder="selecciona una fecha y luego una hora para la cita"
+                [minDate]="esNuevaCita ? minFecha : { year: 1900, month: 1, day: 1 }"
               />
               <button type="button" class="btn btn-secondary" (click)="fechaCreacionDp.toggle()">
                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -101,11 +104,27 @@
             <div *ngIf="citaDuplicada" class="alert alert-warning">
               {{ 'error.citaDuplicada' | translate }}
             </div>
+            <div
+              *ngIf="
+                editForm.get('fechaCreacion')?.invalid && (editForm.get('fechaCreacion')?.touched || editForm.get('fechaCreacion')?.dirty)
+              "
+              class="alert alert-danger mt-2"
+            >
+              Debes seleccionar una fecha o una fecha valida.
+            </div>
           </div>
           <!-- HORA DE LA CITA-->
           <div class="col">
             <label class="form-label" for="field_horaCreacion">Hora</label>
             <input id="field_horaCreacion" type="time" class="form-control" formControlName="horaCreacion" />
+            <div
+              *ngIf="
+                editForm.get('horaCreacion')?.invalid && (editForm.get('horaCreacion')?.touched || editForm.get('horaCreacion')?.dirty)
+              "
+              class="alert alert-danger mt-2"
+            >
+              Debes seleccionar una hora.
+            </div>
           </div>
         </div>
         <div *ngIf="franjaOcupada" class="alert alert-warning">
@@ -137,8 +156,9 @@
             formControlName="estadoPaciente"
             id="field_estadoPaciente"
             data-cy="estadoPaciente"
+            required
           >
-            <option [ngValue]="null">{{ 'tfg2App.EstadoCita.null' | translate }}</option>
+            <option [ngValue]="null">-- Selecciona un estado para el paciente --</option>
             <option *ngFor="let estadoPaciente of estadoPacienteValues" [value]="estadoPaciente">
               {{ 'tfg2App.EstadoCita.' + estadoPaciente | translate }}
             </option>
@@ -147,14 +167,18 @@
 
         <div class="mb-3">
           <label class="form-label" for="field_observaciones" jhiTranslate="tfg2App.cita.observaciones">Observaciones</label>
-          <input
-            type="text"
+          <textarea
             class="form-control"
             name="observaciones"
             id="field_observaciones"
             data-cy="observaciones"
             formControlName="observaciones"
-          />
+            rows="4"
+            (input)="limitWords($event)"
+            (keydown)="onKeyDown($event)"
+          ></textarea>
+          <small class="text-muted"> Palabras: {{ palabrasObservaciones }}/150 </small>
+          <div *ngIf="palabrasObservaciones >= 150" class="alert alert-danger mt-2">Máximo 150 palabras.</div>
         </div>
         <!--
         <div class="mb-3">
@@ -217,6 +241,15 @@
           </div>
           <div *ngIf="pacienteDuplicado" class="alert alert-warning mt-2">
             Este paciente ya existe en la lista. Por favor, selecciona uno de la lista.
+          </div>
+          <div *ngIf="nuevoPacienteCreado" class="alert alert-success mt-2">Paciente creado correctamente.</div>
+          <div
+            *ngIf="
+              editForm.get('pacienteString')?.invalid && (editForm.get('pacienteString')?.touched || editForm.get('pacienteString')?.dirty)
+            "
+            class="alert alert-danger mt-2"
+          >
+            Debes seleccionar un paciente.
           </div>
         </div>
       </div>

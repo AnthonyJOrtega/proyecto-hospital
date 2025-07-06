@@ -124,25 +124,41 @@
         </div>-->
 
         <div class="mb-3">
-          <label for="field_direccions" jhiTranslate="tfg2App.trabajador.direccion">Direccion</label>
-          <select
-            class="form-control"
-            id="field_direccions"
-            data-cy="direccion"
-            multiple
-            name="direccions"
-            formControlName="direccions"
-            [compareWith]="compareDireccion"
-          >
-            @for (direccionOption of direccionsSharedCollection; track $index) {
-              <option [ngValue]="direccionOption">
-                {{ direccionOption.calle }} --- C.P: {{ direccionOption.codigoPostal }} --- nº:{{ direccionOption.numero }} --- ({{
-                  direccionOption.ciudad
-                }}
-                {{ direccionOption.pais }})
-              </option>
-            }
-          </select>
+          <label class="form-label" for="direccionInput" jhiTranslate="tfg2App.trabajador.direccion">Dirección</label>
+          <div class="input-group align-items-end">
+            <input
+              type="text"
+              id="direccionInput"
+              class="form-control"
+              list="direccionOptions"
+              [(ngModel)]="direccionInputText"
+              (change)="addDireccionFromInput()"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Escribe o selecciona una dirección"
+              autocomplete="off"
+            />
+            <datalist id="direccionOptions">
+              <option
+                *ngFor="let d of direccionsSharedCollection"
+                [value]="d.calle + ' --- C.P: ' + d.codigoPostal + ' --- nº:' + d.numero + ' --- (' + d.ciudad + ' ' + d.pais + ')'"
+              ></option>
+            </datalist>
+            <button type="button" class="btn btn-success btn-sm ms-2" (click)="abrirModalDireccion()">
+              <fa-icon icon="plus"></fa-icon>
+              <span jhiTranslate="tfg2App.direccion.home.createLabel">Crear nueva dirección</span>
+            </button>
+          </div>
+          <div class="mt-2" *ngIf="direccionSeleccionada">
+            <span class="badge rounded-pill bg-primary me-1">
+              {{ direccionSeleccionada.calle }} --- C.P: {{ direccionSeleccionada.codigoPostal }} --- nº:{{
+                direccionSeleccionada.numero
+              }}
+              --- ({{ direccionSeleccionada.ciudad }} {{ direccionSeleccionada.pais }})
+              <button type="button" class="btn btn-sm btn-link text-white ms-1 p-0" (click)="removeDireccion()" aria-label="Quitar">
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </span>
+          </div>
         </div>
       </div>
 

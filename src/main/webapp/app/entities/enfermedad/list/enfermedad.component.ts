@@ -93,6 +93,7 @@ export class EnfermedadComponent implements OnInit {
     this.fillComponentAttributesFromResponseHeader(response.headers);
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.enfermedads.set(dataFromBody);
+    this.enfermedadsFiltradas = dataFromBody;
   }
 
   protected fillComponentAttributesFromResponseBody(data: IEnfermedad[] | null): IEnfermedad[] {
@@ -135,6 +136,26 @@ export class EnfermedadComponent implements OnInit {
         relativeTo: this.activatedRoute,
         queryParams: queryParamsObj,
       });
+    });
+  }
+  filtroNombre: string = '';
+  enfermedadsFiltradas: IEnfermedad[] = [];
+
+  filtrarEnfermedads(): void {
+    const normalizar = (txt: string) =>
+      txt
+        ?.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') || '';
+
+    const palabrasNombre = this.filtroNombre
+      .split(' ')
+      .map(w => normalizar(w))
+      .filter(Boolean);
+
+    this.enfermedadsFiltradas = this.enfermedads().filter(enfermedad => {
+      const nombre = normalizar(enfermedad.nombre ?? '');
+      return palabrasNombre.length === 0 || palabrasNombre.every(palabra => nombre.includes(palabra));
     });
   }
 }

@@ -1,9 +1,9 @@
 <div class="hospital-calendar-container">
   <div class="hospital-header">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="hospital-title">
+      <h2 class="hospital-title jhitranslate">
         <i class="fas fa-calendar-alt me-2"></i>
-        Calendario de Citas Médicas
+        {{ 'global.menu.calendario.calendarioCitas' | translate }}
       </h2>
     </div>
     <div class="row mb-3">
@@ -11,7 +11,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Filtrar por paciente"
+          [placeholder]="'global.menu.calendario.filtrarPaciente' | translate"
           [(ngModel)]="filterPaciente"
           (input)="aplicarFiltros()"
         />
@@ -20,7 +20,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Filtrar por trabajador"
+          [placeholder]="'global.menu.calendario.filtrarTrabajador' | translate"
           [(ngModel)]="filterTrabajador"
           (input)="aplicarFiltros()"
         />
@@ -43,19 +43,19 @@
   <div class="calendar-legend mt-4">
     <div class="legend-item">
       <span class="legend-color finalizado"></span>
-      <span class="legend-label">Finalizado</span>
+      <span class="legend-label">{{ 'global.menu.calendario.finalizado' | translate }}</span>
     </div>
     <div class="legend-item">
       <span class="legend-color pendiente"></span>
-      <span class="legend-label">Pendiente</span>
+      <span class="legend-label">{{ 'global.menu.calendario.pendiente' | translate }}</span>
     </div>
     <div class="legend-item">
       <span class="legend-color cancelado"></span>
-      <span class="legend-label">Cancelado</span>
+      <span class="legend-label">{{ 'global.menu.calendario.cancelado' | translate }}</span>
     </div>
     <div class="legend-item">
       <span class="legend-color sin-estado"></span>
-      <span class="legend-label">Sin estado</span>
+      <span class="legend-label">{{ 'global.menu.calendario.sinEstado' | translate }}</span>
     </div>
   </div>
 </div>

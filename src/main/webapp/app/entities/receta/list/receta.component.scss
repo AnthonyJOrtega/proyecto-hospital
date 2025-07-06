@@ -170,3 +170,46 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .direccion-header-actions button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Filtros */
+  .row.mb-3 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .row.mb-3 .col {
+    width: 100%;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Tabla responsive */
+  .table-entities {
+    overflow-x: auto; /* Elimina scroll horizontal */
+  }
+
+  .table-entities table {
+    width: 100%;
+    font-size: 0.8rem; /* Reduce el texto aún más */
+    display: block; /* Permite ajuste más libre */
+    table-layout: auto; /* Deja que el ancho se adapte al contenido */
+    border-collapse: collapse;
+  }
+
+  .table-entities table thead th,
+  .table-entities table tbody td {
+    padding: 0.5rem 0.6rem;
+    white-space: nowrap; /* ✅ evita que se rompan palabras */
+    word-break: normal;
+    text-align: left;
+  }
+}
