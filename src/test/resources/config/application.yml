@@ -15,17 +15,17 @@
 
 spring:
   application:
-    name: tfg2
+    name: 
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
-    contexts: test
+    contexts: 
   jackson:
     serialization:
       write-durations-as-timestamps: false
   mail:
-    host: localhost
+    host: 
   main:
-    allow-bean-definition-overriding: true
+    allow-bean-definition-overriding: 
   messages:
     basename: i18n/messages
   security:
@@ -36,21 +36,21 @@ spring:
           authorities-claim-name: auth
   task:
     execution:
-      thread-name-prefix: tfg-2-task-
+      thread-name-prefix: 
       pool:
         core-size: 1
-        max-size: 50
-        queue-capacity: 10000
+        max-size: 
+        queue-capacity: 
     scheduling:
-      thread-name-prefix: tfg-2-scheduling-
+      thread-name-prefix: -scheduling-
       pool:
-        size: 20
+        size: 
   thymeleaf:
-    mode: HTML
+    mode: 
 
 server:
-  port: 10344
-  address: localhost
+  port: 
+  address: 
 
 # ===================================================================
 # JHipster specific properties
@@ -59,26 +59,26 @@ server:
 # ===================================================================
 jhipster:
   clientApp:
-    name: 'tfg2App'
+    name: ''
   mail:
-    from: tfg2@localhost.com
-    base-url: http://127.0.0.1:8080
+    from: 
+    base-url: 
   logging:
     # To test json console appender
     use-json-format: false
     logstash:
       enabled: false
-      host: localhost
-      port: 5000
-      ring-buffer-size: 512
+      host: 
+      port: 
+      ring-buffer-size: 
   security:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: ZTY5NzhmMmQxNmE4MTY0YWRmNjNjNTc2M2IzZWNmZTgwNGMzMDE5N2M5YWVhNWRiNGYwMDkyYjNjOWFiZDA1NzMwY2U2Yjc1MmUyNDdmNTJkNDUzNzEzYjhhOTA0Y2I0NDJiZWNlMTFkYmJmMmNjMTk4ZWUyNzcwNmNiNjk4ZjY=
+        base64-secret: 
         # Token is valid 24 hours
-        token-validity-in-seconds: 86400
-        token-validity-in-seconds-for-remember-me: 86400
+        token-validity-in-seconds: 
+        token-validity-in-seconds-for-remember-me: 
 
 # ===================================================================
 # Application specific properties
